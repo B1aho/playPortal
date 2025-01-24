@@ -1,12 +1,7 @@
 import './App.css';
-import { Button } from './components/ui/button';
 
 function App() {
-  return (
-    <div>
-      <Button variant={'destructive'}>Apply!</Button>
-    </div>
-  );
+  return <div></div>;
 }
 
-export default App
+export default App;
