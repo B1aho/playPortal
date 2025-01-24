@@ -16,5 +16,9 @@ export function AuthPage() {
     AuthType.login,
   );
   
-  return <></>;
+  return (
+  <>
+    
+  </>
+);
 }
