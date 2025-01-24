@@ -1,24 +1,35 @@
 import { useState } from 'react';
+import { AuthForm } from '@/components/AuthForm';
+import { Outlet } from 'react-router-dom';
 
-enum AuthType {
-  login = 'login',
-  signup = 'signup',
+enum AuthStatus {
+    login = 'login',
+    signup = 'signup',
+    none = 'none',
 }
 
-/**
- * Логика примерно следущая:
- * Человека всегда редиректит на страницу log-in
- * AuthPage решает, что показать - login или signup
- * Каждому передается callback, onChangeAuthType, который меняет состояние AuthPage показывая другую форму
- */
-export function AuthPage() {
-  const [authType, setAuthType] = useState<keyof typeof AuthType>(
-    AuthType.login,
-  );
-  
-  return (
-  <>
-    
-  </>
-);
+interface AuthPageProps {
+    authT: AuthType
+}
+export type AuthType = keyof typeof AuthStatus;
+
+export function AuthPage({ authT }: AuthPageProps) {
+    const [authType, setAuthType] = useState<AuthType>(authT);
+
+    const changeAuthType = (): void => {
+        authType === AuthStatus.login
+            ? setAuthType(AuthStatus.signup)
+            : setAuthType(AuthStatus.login);
+    };
+
+    const submitAuthData = () => {
+
+    }
+
+    return (
+        <>
+            <Outlet context={{ onSubmit: submitAuthData }} />
+            {/* <AuthForm onSubmt={submitAuthData} authStatus={authType} onChangeAuthType={changeAuthType} /> */}
+        </>
+    );
 }
