@@ -15,5 +15,6 @@ export function AuthPage() {
   const [authType, setAuthType] = useState<keyof typeof AuthType>(
     AuthType.login,
   );
+  
   return <></>;
 }
