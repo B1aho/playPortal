@@ -1,9 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from '../features/user/userSlice';
+import { localStorageMiddleware }from './middleware/localStorageMiddleware';
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     user: userReducer,
+  },
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(localStorageMiddleware);
   },
 })
 

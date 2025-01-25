@@ -4,21 +4,38 @@ import { RootState } from '@/app/store';
 interface UserState {
   isAuthenticated: boolean
   username: string;
+  errorName: string | null;
 }
 
 const initialState: UserState = {
   isAuthenticated: false,
   username: '',
+  errorName: null,
 }
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<string>) => {
+    logIn: (state, action: PayloadAction<{ username: string; password: string }>) => {console.log('LogIn in userSlice')},
+    loginSuccess: (state, action: PayloadAction<string>) => {
       state.isAuthenticated = true
       state.username = action.payload
     },
+    loginFail: (state, action: PayloadAction<string>) => {
+        state.isAuthenticated = true
+        state.username = action.payload
+      },
+
+    signup: (state, action: PayloadAction<{ username: string; password: string }>) => {},
+    signupSuccess: (state, action: PayloadAction<string>) => {
+        state.isAuthenticated = true
+        state.username = action.payload
+      },
+      signupFail: (state, action: PayloadAction<string>) => {
+        state.isAuthenticated = true
+        state.username = action.payload
+      },
     logout: state => {
       state.isAuthenticated = false
       state.username = ''
@@ -26,8 +43,11 @@ const userSlice = createSlice({
   },
 })
 
-export const { login, logout } = userSlice.actions
+export const { logIn, loginSuccess, loginFail, signupSuccess, signupFail, logout } = userSlice.actions
 export const selectIsAuthenticated = (state: RootState) => state.user.isAuthenticated
 export const selectUsername = (state: RootState) => state.user.username
+export const selectErrorName = (state: RootState) => state.user.errorName
+
+export type UserActions = ReturnType<typeof userSlice.actions[keyof typeof userSlice.actions]>;
 
 export default userSlice.reducer
