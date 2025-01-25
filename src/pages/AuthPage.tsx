@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import { AuthForm } from '@/components/AuthForm';
-import { Outlet } from 'react-router-dom';
+import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 enum AuthStatus {
     login = 'login',
@@ -8,13 +8,11 @@ enum AuthStatus {
     none = 'none',
 }
 
-interface AuthPageProps {
-    authT: AuthType
-}
 export type AuthType = keyof typeof AuthStatus;
 
-export function AuthPage({ authT }: AuthPageProps) {
-    const [authType, setAuthType] = useState<AuthType>(authT);
+export function AuthPage() {
+    const location = useLocation();
+    const [authType, setAuthType] = useState<AuthType>();
 
     const changeAuthType = (): void => {
         authType === AuthStatus.login
@@ -28,8 +26,7 @@ export function AuthPage({ authT }: AuthPageProps) {
 
     return (
         <>
-            <Outlet context={{ onSubmit: submitAuthData }} />
-            {/* <AuthForm onSubmt={submitAuthData} authStatus={authType} onChangeAuthType={changeAuthType} /> */}
+            <AuthForm onSubmt={submitAuthData} authStatus={authType} onChangeAuthType={changeAuthType} />
         </>
     );
 }
