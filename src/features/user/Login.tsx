@@ -1,4 +1,4 @@
-import { MouseEventHandler, useState } from "react";
+import { FormEventHandler, PointerEventHandler, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { selectErrorName, logIn, clearError } from "./userSlice";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,7 @@ export function LoginForm() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const handleSubmit: MouseEventHandler = (e: React.MouseEvent) => {
+    const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
         dispatch(logIn({
             username: login,
@@ -19,7 +19,7 @@ export function LoginForm() {
         }))
     };
 
-    const handleRedirect: MouseEventHandler = (e: React.MouseEvent) => {
+    const handleRedirect: PointerEventHandler = () => {
         dispatch(clearError());
         navigate('/signup');
     };

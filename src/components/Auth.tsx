@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { Button } from "@/components/ui/button";
-import { MouseEventHandler } from "react";
+import { FormEventHandler, PointerEventHandler } from "react";
 
 interface AuthProps {
     title: string;
@@ -11,10 +11,10 @@ interface AuthProps {
     onLoginChange: (value: string) => void;
     onPasswordChange: (value: string) => void;
     onConfirmPasswordChange?: (value: string) => void;
-    onSubmit: MouseEventHandler;
+    onSubmit: FormEventHandler;
     submitText: string;
     redirectText: string;
-    onRedirect: MouseEventHandler;
+    onRedirect: PointerEventHandler;
     error?: string | null;
 }
 
@@ -35,7 +35,7 @@ export function Auth(
     }: AuthProps) {
     return (
         <div className="max-w-md">
-            <form>
+            <form onSubmit={onSubmit}>
                 <Label htmlFor="login">{title}</Label>
                 <Input id="login" value={login} onChange={(e) => onLoginChange(e.target.value)} />
                 <Label htmlFor="password">Password: </Label>
@@ -48,9 +48,9 @@ export function Auth(
                             onChange={(e) => onConfirmPasswordChange(e.target.value)} />
                     </>
                 }
-                <Button onClick={onSubmit} type="submit">{submitText}</Button>
+                <Button type="submit">{submitText}</Button>
             </form>
-            <Button onClick={onRedirect} variant={"link"}>
+            <Button onPointerDown={onRedirect} variant={"link"}>
                 {redirectText}
             </Button>
             {error && <div className="text-red-500">{error}</div>}

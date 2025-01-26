@@ -1,6 +1,4 @@
-// Общую логику форм вынести + onClick поменять onPointerDown
-// в хранилилще два отдельных свойства для ошибок login и signup + при routing, ошибки очищаться должны
-import { MouseEventHandler, useState } from "react";
+import { FormEventHandler, PointerEventHandler, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { clearError, selectErrorName, signup } from "./userSlice";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +13,7 @@ export function SignupForm() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const handleSubmit: MouseEventHandler = (e: React.MouseEvent) => {
+    const handleSubmit: FormEventHandler = (e) => {
         // check password the same
         e.preventDefault();
         dispatch(signup({
@@ -24,7 +22,7 @@ export function SignupForm() {
         }))
     };
 
-    const handleRedirect: MouseEventHandler = (e: React.MouseEvent) => {
+    const handleRedirect: PointerEventHandler = () => {
         dispatch(clearError());
         navigate('/login');
         ;
