@@ -7,7 +7,7 @@ export const store = configureStore({
     user: userReducer,
   },
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(localStorageMiddleware);
+    return getDefaultMiddleware().prepend(localStorageMiddleware);
   },
 })
 

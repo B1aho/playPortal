@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { clearError, selectErrorName, selectIsAuthenticated, signup } from "./userSlice";
 import { useNavigate } from "react-router-dom";
 import { Auth } from "@/components/Auth";
+import { useRedirectIfAuth } from "@/hooks/useRedirectIfAuth";
 
 export function SignupForm() {
     const [login, setLogin] = useState('');
@@ -13,8 +14,7 @@ export function SignupForm() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    if (isAuthenticated)
-        navigate('/main');
+    useRedirectIfAuth(isAuthenticated);
 
     const handleSubmit: FormEventHandler = (e) => {
         // check password the same
