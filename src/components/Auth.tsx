@@ -1,3 +1,4 @@
+// Добавить также как с логином паттерен для пароля  и проверку того же пароли совпадают
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { Button } from "@/components/ui/button";

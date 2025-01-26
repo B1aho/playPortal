@@ -1,6 +1,6 @@
 import { FormEventHandler, PointerEventHandler, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { clearError, selectErrorName, signup } from "./userSlice";
+import { clearError, selectErrorName, selectIsAuthenticated, signup } from "./userSlice";
 import { useNavigate } from "react-router-dom";
 import { Auth } from "@/components/Auth";
 
@@ -8,10 +8,13 @@ export function SignupForm() {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-
+    const isAuthenticated = useAppSelector(selectIsAuthenticated);
     const error = useAppSelector(selectErrorName);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+
+    if (isAuthenticated)
+        navigate('/main');
 
     const handleSubmit: FormEventHandler = (e) => {
         // check password the same
