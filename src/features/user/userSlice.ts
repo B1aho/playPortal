@@ -41,10 +41,13 @@ const userSlice = createSlice({
       state.isAuthenticated = false
       state.username = ''
     },
+    clearError: state => {
+      state.errorName = null;
+    }
   },
 })
 
-export const { logIn, loginSuccess, loginFail, signup, signupSuccess, signupFail, logout } = userSlice.actions
+export const { logIn, loginSuccess, loginFail, signup, signupSuccess, signupFail, logout, clearError } = userSlice.actions
 export const selectIsAuthenticated = (state: RootState) => state.user.isAuthenticated
 export const selectUsername = (state: RootState) => state.user.username
 export const selectErrorName = (state: RootState) => state.user.errorName

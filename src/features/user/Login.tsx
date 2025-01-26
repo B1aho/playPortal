@@ -1,10 +1,8 @@
-import { Input } from "@/components/ui/input";
-import { Label } from "@radix-ui/react-label";
-import { Button } from "@/components/ui/button";
 import { MouseEventHandler, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { selectErrorName, logIn } from "./userSlice";
+import { selectErrorName, logIn, clearError } from "./userSlice";
 import { useNavigate } from "react-router-dom";
+import { Auth } from "@/components/Auth";
 
 export function LoginForm() {
     const [login, setLogin] = useState('');
@@ -21,19 +19,23 @@ export function LoginForm() {
         }))
     };
 
+    const handleRedirect: MouseEventHandler = (e: React.MouseEvent) => {
+        dispatch(clearError());
+        navigate('/signup');
+    };
+
     return (
-        <div className="max-w-md">
-            <form>
-                <Label htmlFor="login">Login: </Label>
-                <Input id="login" value={login} onChange={(e) => setLogin(e.target.value)} />
-                <Label htmlFor="password">Password: </Label>
-                <Input id="password" value={password} type="password" onChange={(e) => setPassword(e.target.value)} />
-                <Button onClick={handleSubmit} type="submit">LOG IN</Button>
-            </form>
-            <Button onClick={() => navigate('/signup')} variant={"link"}>
-                If you don't have account yet, tap and sign-up
-            </Button>
-            {error && <div className="text-red-500">{error}</div>}
-        </div>
+        <Auth
+            login={login}
+            onLoginChange={setLogin}
+            password={password}
+            onPasswordChange={setPassword}
+            onRedirect={handleRedirect}
+            onSubmit={handleSubmit}
+            redirectText="If you haven't account yet, tap and sign up!"
+            submitText="LOG IN"
+            title="Login: "
+            error={error}
+        />
     );
 }
