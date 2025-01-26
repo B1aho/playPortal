@@ -10,4 +10,10 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  // server: {
+  //   https: {
+  //     key: './localhost-key.pem',
+  //     cert: './localhost.pem',
+  //   },
+  // },
 });
