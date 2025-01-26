@@ -34,7 +34,6 @@ export function LoginForm() {
             onSubmit={handleSubmit}
             redirectText="If you haven't account yet, tap and sign up!"
             submitText="LOG IN"
-            title="Login: "
             error={error}
         />
     );

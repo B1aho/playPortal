@@ -3,12 +3,11 @@ import { UserActions } from "@/features/user/userSlice";
 
 export const localStorageMiddleware: Middleware = store => next => (action: UserActions) => {
     console.log(action);
-    const result = next(action)
+    const result = next(action);
   
-    // Проверка на login
+    // Проверка logIn
     if (action.type === 'user/logIn') {
-      console.log('LogIn in middleware')
-      const { username, password } = action.payload
+      const { username, password } = action.payload;
       const storedUser = JSON.parse(localStorage.getItem(username) || '{}')
   
       if (storedUser.username === username && storedUser.password === password) {
@@ -17,28 +16,25 @@ export const localStorageMiddleware: Middleware = store => next => (action: User
         store.dispatch({ type: 'user/loginFail', payload: 'Invalid username or password' })
       }
     }
-  
-    // Сохраняем состояние пользователя в localStorage
-    if (action.type === 'user/loginSuccess' || action.type === 'user/logout') {
-      // const state = store.getState()
-      // if (state.user.isAuthenticated && state.user.user) {
-      //   localStorage.setItem('user', JSON.stringify(state.user.user))
-      // } else {
-      //   localStorage.removeItem('user')
-      // }
-    }
 
-    // Проверка на login
+    // Регистрация пользователя
     if (action.type === 'user/signup') {
-      console.log('LogIn in middleware')
-      // const { username, password } = action.payload
-      // const storedUser = JSON.parse(localStorage.getItem(username) || '{}')
-  
-      // if (storedUser.username === username && storedUser.password === password) {
-      //   store.dispatch({ type: 'user/loginSuccess', payload: storedUser.username })
-      // } else {
-      //   store.dispatch({ type: 'user/loginFail', payload: 'Invalid username or password' })
-      // }
+      const { username } = action.payload;
+      // Проверить нет ли пользователя с таким именем
+      const storedUser = JSON.parse(localStorage.getItem(username) || '{}')
+      if (storedUser.username === username) {
+        store.dispatch({ type: 'user/signupFail', payload: 'Registration fail: Username is already taken!'})
+        return result;
+      }
+
+      try {
+        localStorage.setItem(username, JSON.stringify(action.payload))
+      } catch(err) {
+        store.dispatch({ type: 'user/signupFail', payload: 'Registration fail: check if storage is disabled or if it is full!'})
+        return result;
+      }
+
+      store.dispatch({ type: 'user/signupSuccess', payload: username})
     }
   
     return result

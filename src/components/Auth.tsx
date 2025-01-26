@@ -1,10 +1,9 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { Button } from "@/components/ui/button";
-import { FormEventHandler, PointerEventHandler } from "react";
+import { ChangeEvent, FormEventHandler, PointerEventHandler, useState } from "react";
 
 interface AuthProps {
-    title: string;
     login: string;
     password: string;
     confirmPassword?: string;
@@ -20,7 +19,6 @@ interface AuthProps {
 
 export function Auth(
     {
-        title,
         login,
         onLoginChange,
         password,
@@ -33,20 +31,38 @@ export function Auth(
         onRedirect,
         error,
     }: AuthProps) {
+    const [isLoginValid, setIsLoginValid] = useState(true);
+    const handleLoginChange = (e: ChangeEvent<HTMLInputElement>) => {
+        onLoginChange(e.target.value)
+        if (e.target.value.length > 2 && !e.target.checkValidity())
+            setIsLoginValid(false)
+        else
+            setIsLoginValid(true)
+    }
     return (
         <div className="max-w-md">
             <form onSubmit={onSubmit}>
-                <Label htmlFor="login">{title}</Label>
-                <Input id="login" value={login} onChange={(e) => onLoginChange(e.target.value)} />
-                <Label htmlFor="password">Password: </Label>
-                <Input id="password" value={password} type="password"
-                    onChange={(e) => onPasswordChange(e.target.value)} />
+                <div className="flex flex-col-reverse">
+                    <Input type="text" pattern="^\w{5,10}" required id="login" value={login} onChange={handleLoginChange} />
+                    <Label
+                        className={!isLoginValid ? "invalid-label" : undefined}
+                        data-help="Your username must be between 5 and 10 characters long, and can include Latin letters, numbers, and underscores"
+                        htmlFor="login"
+                    >
+                        Login:
+                    </Label>
+                </div>
+                <div className="flex flex-col-reverse">
+                    <Input required id="password" value={password} type="password"
+                        onChange={(e) => onPasswordChange(e.target.value)} />
+                    <Label htmlFor="password">Password: </Label>
+                </div>
                 {onConfirmPasswordChange &&
-                    <>
-                        <Label htmlFor="confirmPassword">Confirm password: </Label>
-                        <Input id="confirmPassword" value={confirmPassword} type="password"
+                    <div className="flex flex-col-reverse">
+                        <Input required id="confirmPassword" value={confirmPassword} type="password"
                             onChange={(e) => onConfirmPasswordChange(e.target.value)} />
-                    </>
+                        <Label htmlFor="confirmPassword">Confirm password: </Label>
+                    </div>
                 }
                 <Button type="submit">{submitText}</Button>
             </form>

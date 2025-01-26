@@ -21,6 +21,7 @@ const userSlice = createSlice({
     loginSuccess: (state, action: PayloadAction<string>) => {
       state.isAuthenticated = true;
       state.username = action.payload;
+      state.errorName = null
     },
     loginFail: (state, action: PayloadAction<string>) => {
         state.isAuthenticated = false;
@@ -32,10 +33,11 @@ const userSlice = createSlice({
     signupSuccess: (state, action: PayloadAction<string>) => {
         state.isAuthenticated = true
         state.username = action.payload
+        state.errorName = null
       },
       signupFail: (state, action: PayloadAction<string>) => {
-        state.isAuthenticated = true
-        state.username = action.payload
+        state.isAuthenticated = false
+        state.errorName = action.payload
       },
     logout: state => {
       state.isAuthenticated = false

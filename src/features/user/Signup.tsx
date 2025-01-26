@@ -39,7 +39,6 @@ export function SignupForm() {
             onSubmit={handleSubmit}
             redirectText="If you have an account, tap and log in!"
             submitText="SIGN UP"
-            title="Sign up: "
             error={error}
         />
     );
