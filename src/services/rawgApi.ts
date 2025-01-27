@@ -1,3 +1,4 @@
+import { GameCardInfo, GamesResponse, Results } from '@/rawgTypes';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const API_URL = 'https://api.rawg.io/api';
@@ -21,9 +22,27 @@ export const rawgApi = createApi({
         });
 
         return `games?${params.toString()}`;
-      }
+      },
+      transformResponse: (response: GamesResponse) => ({
+         results: response.results,
+         gameCardData: getGameCardData(response.results),
+      }),
     }),
   }),
 })
 
 export const { useGetGameDetaileByIdQuery, useGetGamesPageQuery } = rawgApi
+
+function getGameCardData(results: Results[]): GameCardInfo[] {
+  return results.map(result => {
+    return {
+      id: result.id,
+      slug: result.slug,
+      name: result.name,
+      background_image: result.background_image,
+      short_screenshots: result.short_screenshots,
+      released: result.released,
+      rating: result.rating,
+    }
+  });
+}
