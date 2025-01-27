@@ -1,7 +1,7 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const API_URL = 'https://api.rawg.io/api';
-const API_KEY = '182fe43f52474285bc2075377d1d2bdc';
+const API_KEY = import.meta.env.VITE_API_KEY;
 const PAGE_SIZE = '10';
 
 export const rawgApi = createApi({
