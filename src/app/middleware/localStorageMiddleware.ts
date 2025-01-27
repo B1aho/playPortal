@@ -2,7 +2,6 @@ import { Middleware } from "@reduxjs/toolkit";
 import { UserActions } from "@/features/user/userSlice";
 
 export const localStorageMiddleware: Middleware = store => next => (action: UserActions) => {
-  console.log(action);
   const result = next(action);
 
   // Проверка logIn

@@ -11,14 +11,15 @@ interface ContentProps {
 }
 
 export function ContentView({ data, isLoading, isSuccess, error }: ContentProps) {
+    let content = null;
     if (error) {
-        return <div>Error occured!</div>;
+        content = <div>Error occured! {JSON.stringify(error)}</div>;
     }
     if (isLoading) {
-        return <div>...Loading</div>;
+        content = <div>...Loading</div>;
     }
     if (isSuccess) {
-        return (
+        content = (
             <div className="grid grid-cols-3">
                 {data
                     ? data.map(gameInfo => {
@@ -29,4 +30,5 @@ export function ContentView({ data, isLoading, isSuccess, error }: ContentProps)
             </div>
         )
     }
+    return content;
 }
