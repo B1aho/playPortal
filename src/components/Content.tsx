@@ -1,3 +1,5 @@
+const MAX_PAGE_LIMIT = 100;
+
 import { ContentView } from "./ContentView";
 import { FilterBar } from "./FilterBar";
 import { useGetGamesPageQuery } from "@/services/rawgApi";

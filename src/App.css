@@ -22,3 +22,11 @@ label.invalid-label:after {
     font-size: small;
     animation: invalid-help 20s;
 }
+
+.grid-cards {
+    grid-template-columns: var(--grid-cards);
+}
+
+/* .game-card {
+    aspect-ratio: 1/2;
+} */

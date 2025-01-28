@@ -25,7 +25,7 @@ export function ContentView({ data, isLoading, isSuccess, error }: ContentProps)
             })
         )
     }
-    return <div className="grid grid-cols-3 gap-3">
+    return <div className="grid grid-cards gap-3">
         {content}
     </div>;
 }

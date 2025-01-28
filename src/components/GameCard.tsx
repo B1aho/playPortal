@@ -7,11 +7,11 @@ interface GameCardProps {
 
 export function GameCard({ data }: GameCardProps) {
     return (
-        <div className="game-card">
-            <div className="game-card-preview">
-                <img src={data.background_image} alt="game preview image" />
+        <div className="game-card w-full flex flex-col">
+            <div className="w-full h-full flex-1 overflow-hidden">
+                <img className="w-full h-full object-cover object-top" src={data.background_image} alt="game preview image" loading="lazy" />
             </div>
-            <div>
+            <div className="flex-1">
                 <div className="platform-icons">Пока none</div>
                 <div className="game-card-heading">
                     <h2>{data.name}</h2>
