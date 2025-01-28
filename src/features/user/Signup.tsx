@@ -6,6 +6,7 @@ import { Auth } from "@/components/Auth";
 import { useRedirectIfAuth } from "@/hooks/useRedirectIfAuth";
 
 export function SignupPage() {
+    // Добавить логику чтобы вышел сначала из первой учетки чтобы можно было зарегать снова другой акк
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
