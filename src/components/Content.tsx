@@ -15,7 +15,13 @@ export function Content({ search }: ContentProps) {
     const { data, error, isLoading, isSuccess } = useGetGamesQuery({ page, search });
     const [rawgResponse, setRawgResponse] = useState(data)
 
-    // Проматывает 10 первых, но с задачей сброса при новом поиске на main пока не знаю ка справиться
+    /**
+     * This effect help to to reset the page number and clear the previous search results whenever the search query 
+     * changes
+     * 
+     * Without this, the page would continue to increment and add new results to the old ones instead of starting 
+     * fresh with the new search query.
+     */
     useEffect(() => {
         setPage(1);
         setRawgResponse(undefined);

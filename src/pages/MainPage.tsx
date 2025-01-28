@@ -1,5 +1,5 @@
 import { Content } from "@/components/Content";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 
@@ -8,6 +8,9 @@ export function MainPage() {
     const queryParams = new URLSearchParams(location.search);
     const query = queryParams.get('query');
 
+    /**
+     * This effect trigger render: it helps when we saerch being already on this page
+     */
     useEffect(() => {
     }, [location.search]);
 
