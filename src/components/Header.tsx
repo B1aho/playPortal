@@ -1,12 +1,12 @@
 import { NavLink } from "react-router-dom";
-import { SearchBar } from "./SearchBar";
+import { SearchInput } from "./SearchInput";
 
 export function Header() {
     return (
         <header>
             <div className="flex">
                 <div>LOGO</div>
-                <SearchBar />
+                <SearchInput />
                 <div className="flex">
                     <NavLink to='/login'>LOG IN</NavLink>
                     <NavLink to='/signup'>SIGN UP</NavLink>

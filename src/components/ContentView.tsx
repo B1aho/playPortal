@@ -3,6 +3,7 @@ import { GameCard } from "./GameCard";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { SerializedError } from "@reduxjs/toolkit";
 import { ContentSkeleton } from "./ContentSkeleton";
+import { useState } from "react";
 
 interface ContentProps {
     data: GameCardInfo[] | undefined;
@@ -11,6 +12,8 @@ interface ContentProps {
     isSuccess: boolean,
 }
 
+// Скелетон показывается только в начале, поскольку мы каждый раз рендерим массив <GameCard> заново
+// а не добавляем к существующему!
 export function ContentView({ data, isLoading, isSuccess, error }: ContentProps) {
     let content = null;
     if (error) {

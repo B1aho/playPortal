@@ -1,4 +1,4 @@
-import './App.css';
+import './index.css';
 import { LoginPage } from './features/user/Login';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { SignupPage } from './features/user/Signup';
@@ -10,13 +10,13 @@ function App() {
   const shouldShowHeader = !['/404', '/error-boundary'].includes(location.pathname);
 
   return (
-    <div>
+    <div className='p-3'>
       {shouldShowHeader && <Header />}
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/main" element={<MainPage />} />
-        <Route path="/main/search/:query" element={<MainPage />} />
+        <Route path="/main/:query" element={<MainPage />} />
       </Routes>
     </div>
   );

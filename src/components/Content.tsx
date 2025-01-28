@@ -2,15 +2,24 @@ const MAX_PAGE_LIMIT = 100;
 
 import { ContentView } from "./ContentView";
 import { FilterBar } from "./FilterBar";
-import { useGetGamesPageQuery } from "@/services/rawgApi";
+import { useGetGamesQuery } from "@/services/rawgApi";
 import { useCallback, useEffect, useState } from "react";
 import { LoadMore } from "./LoadMore";
 
+interface ContentProps {
+    search: string | null;
+}
 
-export function Content() {
+export function Content({ search }: ContentProps) {
     const [page, setPage] = useState(1);
-    const { data, error, isLoading, isSuccess } = useGetGamesPageQuery({ page: page });
+    const { data, error, isLoading, isSuccess } = useGetGamesQuery({ page, search });
     const [rawgResponse, setRawgResponse] = useState(data)
+
+    // Проматывает 10 первых, но с задачей сброса при новом поиске на main пока не знаю ка справиться
+    useEffect(() => {
+        setPage(1);
+        setRawgResponse(undefined);
+    }, [search])
 
     const incrementPage = useCallback(() => {
         setPage(prevPage => prevPage + 1);
