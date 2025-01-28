@@ -35,7 +35,7 @@ export function Content() {
         <>
             <FilterBar />
             <ContentView error={error} isSuccess={isSuccess} isLoading={isLoading} data={rawgResponse?.gameCardData} />
-            {!isLoading && <LoadMore isLoading={isLoading} onIntersection={incrementPage} />}
+            <LoadMore isLoading={isLoading} onIntersection={incrementPage} className={isLoading ? 'hidden' : ''} />
         </>
     )
 }

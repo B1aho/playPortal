@@ -2,10 +2,11 @@ import { useEffect, useRef } from "react";
 
 interface LoadMoreProps {
     isLoading: boolean;
-    onIntersection: () => void
+    onIntersection: () => void;
+    className?: string;
 }
 
-export function LoadMore({ isLoading, onIntersection }: LoadMoreProps) {
+export function LoadMore({ isLoading, onIntersection, className }: LoadMoreProps) {
     const observerRef = useRef<HTMLDivElement | null>(null);
     const observer = useRef<IntersectionObserver | null>(null);
 
@@ -35,6 +36,6 @@ export function LoadMore({ isLoading, onIntersection }: LoadMoreProps) {
 
 
     return (
-        <div ref={observerRef} className="bg-blue-500">Load More</div>
+        <div ref={observerRef} className={'bg-blue-500 ' + className}>Load More</div>
     )
 }
