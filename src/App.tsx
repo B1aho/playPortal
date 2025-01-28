@@ -1,7 +1,7 @@
 import './App.css';
-import { LoginForm } from './features/user/Login';
+import { LoginPage } from './features/user/Login';
 import { Routes, Route } from 'react-router-dom';
-import { SignupForm } from './features/user/Signup';
+import { SignupPage } from './features/user/Signup';
 import { MainPage } from './pages/MainPage';
 
 function App() {
@@ -11,9 +11,10 @@ function App() {
     <div>
       {/* {shouldShowHeader && <Header/>} */}
       <Routes>
-        <Route path='login' element={<LoginForm />} />
-        <Route path='signup' element={<SignupForm />} />
-        <Route path="main" element={<MainPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/main" element={<MainPage />} />
+        <Route path="/main/search/:query" element={<MainPage />} />
       </Routes>
     </div>
   );

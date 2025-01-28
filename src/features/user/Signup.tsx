@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Auth } from "@/components/Auth";
 import { useRedirectIfAuth } from "@/hooks/useRedirectIfAuth";
 
-export function SignupForm() {
+export function SignupPage() {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Auth } from "@/components/Auth";
 import { useRedirectIfAuth } from "@/hooks/useRedirectIfAuth";
 
-export function LoginForm() {
+export function LoginPage() {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const error = useAppSelector(selectErrorName);
