@@ -34,8 +34,8 @@ export function Content() {
     return (
         <>
             <FilterBar />
-            <ContentView error={error} isSuccess={isSuccess} isLoading={isLoading} data={rawgResponse?.gameCardData} /* Ошибку тоже передать если есть, в самом компоненте разозбрать уже */ />
-            <LoadMore isLoading={isLoading} onIntersection={incrementPage} />
+            <ContentView error={error} isSuccess={isSuccess} isLoading={isLoading} data={rawgResponse?.gameCardData} />
+            {!isLoading && <LoadMore isLoading={isLoading} onIntersection={incrementPage} />}
         </>
     )
 }

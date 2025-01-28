@@ -2,6 +2,7 @@ import { GameCardInfo } from "@/rawgTypes";
 import { GameCard } from "./GameCard";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { SerializedError } from "@reduxjs/toolkit";
+import { ContentSkeleton } from "./ContentSkeleton";
 
 interface ContentProps {
     data: GameCardInfo[] | undefined;
@@ -15,20 +16,16 @@ export function ContentView({ data, isLoading, isSuccess, error }: ContentProps)
     if (error) {
         content = <div>Error occured! {JSON.stringify(error)}</div>;
     }
-    if (isLoading) {
-        content = <div>...Loading</div>;
-    }
-    if (isSuccess) {
+    if (isLoading || (isSuccess && !data)) {
+        content = <ContentSkeleton />;
+    } else if (data) {
         content = (
-            <div className="grid grid-cols-3">
-                {data
-                    ? data.map(gameInfo => {
-                        return <GameCard key={gameInfo.id} data={gameInfo} />
-                    })
-                    : <div>No games!</div>
-                }
-            </div>
+            data.map(gameInfo => {
+                return <GameCard key={gameInfo.id} data={gameInfo} />
+            })
         )
     }
-    return content;
+    return <div className="grid grid-cols-3 gap-3">
+        {content}
+    </div>;
 }
