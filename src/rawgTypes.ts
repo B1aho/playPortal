@@ -7,6 +7,21 @@ export interface GamesResponse {
     results: Results[];
 }
 
+export interface ScreenshotsRespons {
+    count: number;
+    next: Url | null;
+    previous: Url | null;
+    results: Screenshot[];
+}
+
+export interface Screenshot {
+    id: number;
+    image: string;
+    hidden: boolean;
+    width: number;
+    height: number;
+}
+
 export interface Results {
     id: number;
     slug: string;
