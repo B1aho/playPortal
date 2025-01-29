@@ -27,6 +27,7 @@ export const rawgApi = createApi({
       transformResponse: (response: GamesResponse) => ({
         results: response.results,
         gameCardData: getGameCardData(response.results),
+        count: response.count,
       }),
     }),
   }),

@@ -11,7 +11,7 @@ export function MainPage() {
     console.log(location)
 
     if (location.pathname === "/search") {
-        heading = "Search for:";
+        heading = `Search for: ${query}`;
     } else if (location.pathname === "/games") {
         heading = "All games:";
     } else {

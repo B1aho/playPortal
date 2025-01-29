@@ -51,7 +51,10 @@ export function Content({ search, heading }: ContentProps) {
 
     return (
         <>
-            <h1 className="text-2xl font-bold">{heading}</h1>
+            <div className="flex justify-between">
+                <h1 className="text-2xl font-bold">{heading}</h1>
+                {data && <h1 className="text-base font-medium">{`${data.count} games`}</h1>}
+            </div>
             <FilterBar />
             <ContentView error={error} isSuccess={isSuccess} isLoading={isLoading} data={rawgResponse?.gameCardData} />
             <LoadMore isLoading={isLoading} onIntersection={incrementPage} className={isLoading ? 'hidden' : ''} />
