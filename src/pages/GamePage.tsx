@@ -1,10 +1,9 @@
 import { useGetGameDetaileByIdQuery } from "@/services/rawgApi";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 export function GamePage() {
-    const location = useLocation();
-    const gameId = location.state;
-    const { data, error, isSuccess } = useGetGameDetaileByIdQuery(gameId);
+    const { slug } = useParams();
+    const { data, error, isSuccess } = useGetGameDetaileByIdQuery(slug);
 
     return (
         <>

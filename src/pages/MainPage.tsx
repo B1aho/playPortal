@@ -7,7 +7,16 @@ export function MainPage() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const query = queryParams.get('query');
+    let heading = 'Games';
+    console.log(location)
 
+    if (location.pathname === "/search") {
+        heading = "Search for:";
+    } else if (location.pathname === "/games") {
+        heading = "All games:";
+    } else {
+        heading = "Top games:";
+    }
     /**
      * This effect trigger render: it helps when we search being already on this page
      */
@@ -16,8 +25,7 @@ export function MainPage() {
 
     return (
         <div>
-            <h1 className="text-2xl font-bold">{query ? 'Search for: ' + query : 'Top Games:'}</h1>
-            <Content search={query} />
+            <Content search={query} heading={heading} />
         </div>
     );
 }

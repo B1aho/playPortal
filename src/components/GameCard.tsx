@@ -1,6 +1,5 @@
 import { GameCardInfo } from "@/rawgTypes"
 import { format } from "date-fns";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface GameCardProps {
@@ -10,7 +9,7 @@ interface GameCardProps {
 export function GameCard({ data }: GameCardProps) {
     const navigate = useNavigate();
     return (
-        <div onPointerDown={() => navigate(`/games/${data.slug}`, { state: data.id })} className="game-card w-full flex flex-col cursor-pointer">
+        <div onPointerDown={() => navigate(`/games/${data.slug}`)} className="game-card w-full flex flex-col cursor-pointer">
             <div className="w-full h-full flex-2 overflow-hidden">
                 <img className="w-full h-full object-cover object-top rounded-t-2xl" src={data.background_image} alt="game preview image" loading="lazy" />
             </div>

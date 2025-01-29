@@ -17,7 +17,7 @@ export function SearchInput() {
     const handleKeyUp = useCallback((e: KeyboardEvent) => {
         if (e.key === 'Enter') {
             const encodedQuery = encodeURIComponent(searchVal.trim());
-            navigate(`/main/search?query=${encodedQuery}`);
+            navigate(`/search?query=${encodedQuery}`);
         }
     }, [searchVal])
 

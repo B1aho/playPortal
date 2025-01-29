@@ -8,9 +8,10 @@ import { LoadMore } from "./LoadMore";
 
 interface ContentProps {
     search: string | null;
+    heading: string
 }
 
-export function Content({ search }: ContentProps) {
+export function Content({ search, heading }: ContentProps) {
     const [page, setPage] = useState(1);
     const { data, error, isLoading, isSuccess } = useGetGamesQuery({ page, search });
     const [rawgResponse, setRawgResponse] = useState(data)
@@ -50,6 +51,7 @@ export function Content({ search }: ContentProps) {
 
     return (
         <>
+            <h1 className="text-2xl font-bold">{heading}</h1>
             <FilterBar />
             <ContentView error={error} isSuccess={isSuccess} isLoading={isLoading} data={rawgResponse?.gameCardData} />
             <LoadMore isLoading={isLoading} onIntersection={incrementPage} className={isLoading ? 'hidden' : ''} />
