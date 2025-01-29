@@ -44,6 +44,7 @@ function getGameCardData(results: Results[]): GameCardInfo[] {
       short_screenshots: result.short_screenshots,
       released: result.released,
       rating: result.rating,
+      metacritic: result.metacritic,
     }
   });
 }
