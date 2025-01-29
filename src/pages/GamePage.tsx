@@ -7,7 +7,16 @@ export function GamePage() {
 
     return (
         <>
-            {!isSuccess ? <div>Loadind...</div> : <div>{data.name}</div>}
+            {!isSuccess
+                ? <div>Loadind...</div>
+                :
+                <>
+                    <div>{data.name}</div>
+                    <div className="absolute w-full top-0 left-0 -z-10 opacity-40">
+                        <img src={data.background_image} alt="game-image" className="w-full" />
+                    </div>
+                </>
+            }
         </>
     );
 }
