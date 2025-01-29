@@ -1,5 +1,6 @@
 import { Url } from "url";
 // change with prettier
+// Общий тип Response, который расширяем 
 export interface GamesResponse {
     count: number;
     next: Url | null;
@@ -7,7 +8,25 @@ export interface GamesResponse {
     results: Results[];
 }
 
-export interface ScreenshotsRespons {
+export interface MovieResponse {
+    count: number;
+    next: Url | null;
+    previous: Url | null;
+    results: Movie[];
+}
+
+export interface Movie {
+    id: number;
+    name: string;
+    preview: string;
+    data: MovieData;
+}
+
+export interface MovieData {
+    max: string;
+}
+
+export interface ScreenshotsResponse {
     count: number;
     next: Url | null;
     previous: Url | null;

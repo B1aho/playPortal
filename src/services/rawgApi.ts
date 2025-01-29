@@ -1,4 +1,4 @@
-import { GameCardInfo, GamesResponse, Results, Screenshot, ScreenshotsRespons } from '@/rawgTypes';
+import { GameCardInfo, GamesResponse, Movie, MovieResponse, Results, Screenshot, ScreenshotsResponse } from '@/rawgTypes';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const API_URL = 'https://api.rawg.io/api/';
@@ -39,14 +39,23 @@ export const rawgApi = createApi({
         return `games/${id}/screenshots?key=${API_KEY}`;
       },
 
-      transformResponse: (response: ScreenshotsRespons) => ({
+      transformResponse: (response: ScreenshotsResponse) => ({
         screenshots: getScreenshots(response.results),
+      }),
+    }),
+    getMoviesById: builder.query({
+      query: (id) => {
+        return `games/${id}/movies?key=${API_KEY}`;
+      },
+
+      transformResponse: (response: MovieResponse) => ({
+        movie: getFirstMovie(response.results),
       }),
     }),
   }),
 })
 
-export const { useGetGameDetaileByIdQuery, useGetGamesQuery, useGetMediaByIdQuery } = rawgApi
+export const { useGetGameDetaileByIdQuery, useGetGamesQuery, useGetMediaByIdQuery, useGetMoviesByIdQuery } = rawgApi
 
 function getGameCardData(results: Results[]): GameCardInfo[] {
   return results.map(result => {
@@ -71,3 +80,14 @@ function getScreenshots(screenshots: Screenshot[]) {
     };
   })
 };
+
+function getFirstMovie(movies: Movie[]) {
+  return movies.map(movie => {
+    if (movie.data.max)
+      return {
+        max: movie.data.max,
+        preview: movie.preview,
+        id: movie.id
+      }
+  })
+}
