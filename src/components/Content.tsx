@@ -8,12 +8,14 @@ import { LoadMore } from "./LoadMore";
 
 interface ContentProps {
     search: string | null;
-    heading: string
+    heading: string;
+    genre?: string;
 }
 
-export function Content({ search, heading }: ContentProps) {
+export function Content({ search, heading, genre }: ContentProps) {
+    console.log('GENRE IN CONTENT:  ' + genre);
     const [page, setPage] = useState(1);
-    const { data, error, isLoading, isSuccess } = useGetGamesQuery({ page, search });
+    const { data, error, isLoading, isSuccess } = useGetGamesQuery({ page, search, genre });
     const [rawgResponse, setRawgResponse] = useState(data)
 
     /**
@@ -26,7 +28,7 @@ export function Content({ search, heading }: ContentProps) {
     useEffect(() => {
         setPage(1);
         setRawgResponse(undefined);
-    }, [search])
+    }, [search, genre])
 
     const incrementPage = useCallback(() => {
         setPage(prevPage => prevPage + 1);

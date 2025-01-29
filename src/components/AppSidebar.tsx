@@ -12,15 +12,35 @@ import {
     SidebarTrigger,
 } from "./ui/sidebar";
 
-import { Swords } from "lucide-react";
+import { Castle, Pickaxe, Puzzle, Swords, Volleyball } from "lucide-react";
 
 export function AppSidebar() {
 
     const items = [
         {
             title: 'Action',
-            to: '/games',
+            to: '/games/genre/action',
             icon: Swords,
+        },
+        {
+            title: 'Sport',
+            to: '/games/genre/sports',
+            icon: Volleyball,
+        },
+        {
+            title: 'Puzzle',
+            to: '/games/genre/puzzle',
+            icon: Puzzle,
+        },
+        {
+            title: 'RPG',
+            to: '/games/genre/rpg',
+            icon: Castle,
+        },
+        {
+            title: 'Simulation',
+            to: '/games/genre/simulation',
+            icon: Pickaxe,
         }
 
     ]

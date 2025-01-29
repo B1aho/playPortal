@@ -13,7 +13,7 @@ export const rawgApi = createApi({
       query: (id) => `games/${id}?key=${API_KEY}`,
     }),
     getGames: builder.query({
-      query: ({ page, search }) => {
+      query: ({ page, search, genre }) => {
         const params = new URLSearchParams({
           key: API_KEY,
           page: page.toString(),
@@ -21,6 +21,11 @@ export const rawgApi = createApi({
           search: search || '',
         });
 
+        if (genre) {
+          params.append('genres', genre);
+          params.delete('search');
+        }
+        console.log(`games?${params.toString()}`);
         return `games?${params.toString()}`;
       },
 
