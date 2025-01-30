@@ -16,7 +16,7 @@ interface MediaProps {
 export function MediaCarousel({ slug }: MediaProps) {
     const { data: screenshotsData } = useGetMediaByIdQuery(slug);
     const { data: moviesData } = useGetMoviesByIdQuery(slug);
-    let content = Array.from({ length: 4 }).map((_) => <Skeleton className="w-full h-full" />)
+    let content = Array.from({ length: 4 }).map((_, idx) => <Skeleton key={idx} className="w-full h-full" />)
 
     if (screenshotsData) {
         content = screenshotsData.screenshots.map((item) => (

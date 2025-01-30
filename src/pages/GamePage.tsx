@@ -1,4 +1,5 @@
 import { CategoryLinks } from "@/components/CategoryLinks";
+import { HoverLink } from "@/components/HoverLink";
 import { MediaCarousel } from "@/components/MediaCarousel";
 import { Button } from "@/components/ui/button";
 import { PlatformElement } from "@/rawgTypes";
@@ -6,6 +7,13 @@ import { useGetGameDetaileByIdQuery } from "@/services/rawgApi";
 import { format } from "date-fns";
 import { Gem } from "lucide-react";
 import { useParams } from "react-router-dom";
+import WebSvg from "@/assets/game.svg";
+import RedditSvg from "@/assets/reddit.svg";
+import { ScrollDesc } from "@/components/ScrollDesc";
+
+// Компонент рендериена вынести отдельно
+// Большая кнопка добавить в избранно с анимацией и похожа кнопка - добавить в коллекцию
+// Еще запросить и отобразить ачивки
 
 export function GamePage() {
     const { slug } = useParams();
@@ -25,6 +33,10 @@ export function GamePage() {
                             <div className="flex justify-center align-middle relative ">
                                 <MediaCarousel slug={slug} />
                             </div>
+                            <div className="w-full flex items-center justify-center mt-3">
+                                <ScrollDesc desc={data.description_raw} />
+                            </div>
+
                         </div>
                         <div className="main-details flex-1">
                             <div className="flex justify-between">
@@ -35,7 +47,7 @@ export function GamePage() {
                                 <div className="flex align-middle justify-center rounded-md text-green-500 bg-white font-bold min-w-9 min-h-9 outline-2 outline-green-400">{data.metacritic}</div>
                                 <Button size='icon' className="bg-white"><Gem color="green" /></Button>
                             </div>
-                            <div className="grid grid-cols-2">
+                            <div className="grid grid-cols-2 gap-3">
                                 <div>
                                     <h2>Genres:</h2>
                                     <div className="flex flex-wrap">
@@ -44,7 +56,7 @@ export function GamePage() {
                                 </div>
                                 <div>
                                     <h2>Releas date:</h2>
-                                    <div className="flex align-middle justify-center">
+                                    <div className="flex">
                                         <div>{format(data.released, 'PP')}</div>
                                     </div>
                                 </div>
@@ -61,13 +73,25 @@ export function GamePage() {
                                     </div>
                                 </div>
                             </div>
-                            <div>
+                            <div className="mt-3">
                                 <h2>Tags:</h2>
                                 <div className="flex flex-wrap">
                                     <CategoryLinks categories={data.tags} redirect="tag" />
                                 </div>
                             </div>
-                            {/* Сюда же жанры и тех характеристики */}
+                            <div>
+                                <div className="mt-3 flex justify-between items-center">
+                                    <h2>Links:</h2>
+                                    <div className="flex gap-2 align-middle">
+                                        {data.website && <HoverLink desc="game's website!" content={WebSvg} domen={data.website} top={7} />}
+                                        {data.reddit_url && <HoverLink desc="game's channel on reddit" content={RedditSvg} domen={data.reddit_url} />}
+                                    </div>
+                                </div>
+                                <div className="mt-3 flex justify-between">
+                                    <h2>Age rating:</h2>
+                                    <div className="text-red-700 font-bold ">{data.esrb_rating.name}</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </>
