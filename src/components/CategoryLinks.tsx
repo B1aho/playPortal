@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 interface CategoryProps {
     categories: Common[];
-    redirect: "tag" | "genre";
+    redirect: "tag" | "genre" | "platform" | "developer";
 }
 
 export function CategoryLinks({ categories, redirect }: CategoryProps) {
@@ -14,7 +14,7 @@ export function CategoryLinks({ categories, redirect }: CategoryProps) {
                 return <span
                     key={cat.id}
                     className="font-normal opacity-70 ml-1 cursor-pointer transition ease-in-out duration-300 hover:underline hover:-translate-y-1 hover:scale-110 hover:opacity-100"
-                    onPointerDown={() => navigate(`/games/${redirect}/${cat.slug}`)}
+                    onPointerDown={() => navigate(`/games/${redirect}/${redirect === "platform" ? cat.id : cat.slug}`)}
                 >
                     {cat.name}
                 </span>

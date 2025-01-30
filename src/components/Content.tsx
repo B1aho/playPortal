@@ -11,12 +11,16 @@ interface ContentProps {
     heading: string;
     genre?: string;
     tag?: string;
+    platform?: string;
+    developer?: string;
 }
 
-export function Content({ search, heading, genre, tag }: ContentProps) {
+// Обработать отсутствие данных - если человек ввел в url не существуюший tag, genre, или поиск = 0. Короче все кейсы
+// где count === 0 или data.undefined - показывать картинку или анимацию с lottify
+export function Content({ search, heading, genre, tag, platform, developer }: ContentProps) {
     console.log('TAG IN CONTENT:  ' + tag);
     const [page, setPage] = useState(1);
-    const { data, error, isLoading, isSuccess } = useGetGamesQuery({ page, search, genre, tag });
+    const { data, error, isLoading, isSuccess } = useGetGamesQuery({ page, search, genre, tag, platform, developer });
     const [rawgResponse, setRawgResponse] = useState(data)
 
     /**

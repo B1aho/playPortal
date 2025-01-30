@@ -5,7 +5,7 @@ import { useLocation, useParams } from "react-router-dom";
 
 export function MainPage() {
     const location = useLocation();
-    let { genre, tag } = useParams();
+    let { genre, tag, platform, developer } = useParams();
     const queryParams = new URLSearchParams(location.search);
     const query = queryParams.get('query');
     let heading = 'Games';
@@ -29,7 +29,7 @@ export function MainPage() {
 
     return (
         <div>
-            <Content search={query} tag={tag} genre={genre} heading={heading} />
+            <Content search={query} platform={platform} developer={developer} tag={tag} genre={genre} heading={heading} />
         </div>
     );
 }

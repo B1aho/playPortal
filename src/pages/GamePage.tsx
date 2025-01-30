@@ -1,6 +1,7 @@
 import { CategoryLinks } from "@/components/CategoryLinks";
 import { MediaCarousel } from "@/components/MediaCarousel";
 import { Button } from "@/components/ui/button";
+import { PlatformElement } from "@/rawgTypes";
 import { useGetGameDetaileByIdQuery } from "@/services/rawgApi";
 import { format } from "date-fns";
 import { Gem } from "lucide-react";
@@ -34,16 +35,36 @@ export function GamePage() {
                                 <div className="flex align-middle justify-center rounded-md text-green-500 bg-white font-bold min-w-9 min-h-9 outline-2 outline-green-400">{data.metacritic}</div>
                                 <Button size='icon' className="bg-white"><Gem color="green" /></Button>
                             </div>
+                            <div className="grid grid-cols-2">
+                                <div>
+                                    <h2>Genres:</h2>
+                                    <div className="flex flex-wrap">
+                                        <CategoryLinks categories={data.genres} redirect="genre" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <h2>Releas date:</h2>
+                                    <div className="flex align-middle justify-center">
+                                        <div>{format(data.released, 'PP')}</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h2>Platforms:</h2>
+                                    <div className="flex flex-wrap">
+                                        <CategoryLinks categories={getPlatforms(data.platforms)} redirect="platform" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <h2>Developers:</h2>
+                                    <div className="flex flex-wrap">
+                                        <CategoryLinks categories={data.developers} redirect="developer" />
+                                    </div>
+                                </div>
+                            </div>
                             <div>
                                 <h2>Tags:</h2>
                                 <div className="flex flex-wrap">
                                     <CategoryLinks categories={data.tags} redirect="tag" />
-                                </div>
-                            </div>
-                            <div>
-                                <h2>Genres:</h2>
-                                <div className="flex flex-wrap">
-                                    <CategoryLinks categories={data.genres} redirect="genre" />
                                 </div>
                             </div>
                             {/* Сюда же жанры и тех характеристики */}
@@ -53,4 +74,16 @@ export function GamePage() {
             }
         </>
     );
+}
+
+function getPlatforms(platforms: PlatformElement[]) {
+    return platforms.map(item => {
+        return {
+            id: item.platform.id,
+            name: item.platform.name,
+            slug: item.platform.slug,
+            games_count: item.platform.games_count,
+            image_background: item.platform.image_background,
+        }
+    })
 }

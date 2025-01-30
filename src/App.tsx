@@ -18,6 +18,8 @@ function App() {
           <Route path="games" element={<MainPage />} />
           <Route path="games/genre/:genre" element={<MainPage />} />
           <Route path="games/tag/:tag" element={<MainPage />} />
+          <Route path="games/platform/:platform" element={<MainPage />} />
+          <Route path="games/developer/:developer" element={<MainPage />} />
           <Route path="games/:slug" element={<GamePage />} />
         </Route>
       </Routes>

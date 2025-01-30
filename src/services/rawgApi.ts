@@ -14,7 +14,7 @@ export const rawgApi = createApi({
       transformResponse: (response: GameDetailResponse) => response,
     }),
     getGames: builder.query({
-      query: ({ page, search, genre, tag }) => {
+      query: ({ page, search, genre, tag, platform, developer }) => {
         const params = new URLSearchParams({
           key: API_KEY,
           page: page.toString(),
@@ -29,6 +29,16 @@ export const rawgApi = createApi({
 
         if (tag) {
           params.append('tags', tag);
+          params.delete('search');
+        }
+
+        if (platform) {
+          params.append('platforms', platform);
+          params.delete('search');
+        }
+
+        if (developer) {
+          params.append('developers', developer);
           params.delete('search');
         }
         return `games?${params.toString()}`;

@@ -34,7 +34,7 @@ export function AppSidebar() {
         },
         {
             title: 'RPG',
-            to: '/games/genre/rpg',
+            to: '/games/genre/role-playing-games-rpg',
             icon: Castle,
         },
         {
@@ -51,7 +51,7 @@ export function AppSidebar() {
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
-                    <SidebarGroupLabel>Genres:</SidebarGroupLabel>
+                    <SidebarGroupLabel>Popular genres:</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {items.map((item) => (
