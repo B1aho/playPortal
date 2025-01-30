@@ -75,7 +75,7 @@ export interface GameCardInfo {
     metacritic: number;
 }
 
-export type GameMinimalCardInfo = Omit<GameCardInfo, 'short_screenshots' | 'metacritic' | 'id'>
+//export type GameMinimalCardInfo = Omit<GameCardInfo, 'short_screenshots' | 'metacritic' | 'id'>
 
 export interface AddedByStatus {
     yet: number;

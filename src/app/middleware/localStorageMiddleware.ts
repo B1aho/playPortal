@@ -1,10 +1,10 @@
 import { Middleware } from "@reduxjs/toolkit";
 import { UserActions } from "@/features/user/userSlice";
 import { getStoredFavs, getStoredUser, saveUserToLocalStorage } from "./utility";
-import { loadFavorites, clearLibrary, addFavorite } from '@/features/library/librarySlice';
+import { loadFavorites, clearLibrary, addFavorite, LibActions } from '@/features/library/librarySlice';
 
 // Везде использовать action creators!!!
-export const localStorageMiddleware: Middleware = store => next => (action) => {
+export const localStorageMiddleware: Middleware = store => next => (action: UserActions | LibActions) => {
   // Проверка logIn
   if (action.type === 'user/logIn') {
     const { username, password } = action.payload;
@@ -42,16 +42,28 @@ export const localStorageMiddleware: Middleware = store => next => (action) => {
     return;
   }
 
-  if (action.type === 'library/addFavorite') {
-    const gameInfo = action.payload;
-    console.log(store.getState())
-    localStorage.setItem(store.getState().user.username + '%favs', JSON.stringify(gameInfo))
-  }
+
 
 
   if (action.type === 'user/logout') {
     store.dispatch(clearLibrary())
   }
 
-  return next(action);
+  next(action);
+
+  // %favs - сделать global vite env 
+  // После next - значит librarySlice уже добавил fav
+  if (action.type === 'library/addFavorite') {
+    const favs = store.getState().library.favs;
+    const username = store.getState().user.username
+
+    localStorage.setItem(username + '%favs', JSON.stringify([...favs]))
+  }
+
+  if (action.type === 'library/removeFromFavs') {
+    const favs = store.getState().library.favs;
+    const username = store.getState().user.username
+
+    localStorage.setItem(username + '%favs', JSON.stringify([...favs]))
+  }
 }
