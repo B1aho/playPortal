@@ -1,4 +1,4 @@
-import { GameCardInfo, GamesResponse, Movie, MovieResponse, Results, Screenshot, ScreenshotsResponse } from '@/rawgTypes';
+import { GameCardInfo, GameDetailResponse, GameResults, GamesResponse, Movie, MovieResponse, Screenshot, ScreenshotsResponse } from '@/rawgTypes';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const API_URL = 'https://api.rawg.io/api/';
@@ -11,9 +11,10 @@ export const rawgApi = createApi({
   endpoints: (builder) => ({
     getGameDetaileById: builder.query({
       query: (id) => `games/${id}?key=${API_KEY}`,
+      transformResponse: (response: GameDetailResponse) => response,
     }),
     getGames: builder.query({
-      query: ({ page, search, genre }) => {
+      query: ({ page, search, genre, tag }) => {
         const params = new URLSearchParams({
           key: API_KEY,
           page: page.toString(),
@@ -23,6 +24,11 @@ export const rawgApi = createApi({
 
         if (genre) {
           params.append('genres', genre);
+          params.delete('search');
+        }
+
+        if (tag) {
+          params.append('tags', tag);
           params.delete('search');
         }
         return `games?${params.toString()}`;
@@ -57,7 +63,7 @@ export const rawgApi = createApi({
 
 export const { useGetGameDetaileByIdQuery, useGetGamesQuery, useGetMediaByIdQuery, useGetMoviesByIdQuery } = rawgApi
 
-function getGameCardData(results: Results[]): GameCardInfo[] {
+function getGameCardData(results: GameResults[]): GameCardInfo[] {
   return results.map(result => {
     return {
       id: result.id,

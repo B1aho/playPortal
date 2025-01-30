@@ -117,6 +117,3 @@ label.invalid-label:after {
 .red-svg {
   filter: brightness(0) saturate(100%) invert(57%) sepia(36%) saturate(4097%) hue-rotate(325deg) brightness(97%) contrast(107%);
 }
-/* .game-card {
-    aspect-ratio: 1/2;
-} */

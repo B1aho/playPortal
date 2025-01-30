@@ -1,4 +1,5 @@
 import { MediaCarousel } from "@/components/MediaCarousel";
+import { Tags } from "@/components/Tags";
 import { Button } from "@/components/ui/button";
 import { useGetGameDetaileByIdQuery } from "@/services/rawgApi";
 import { format } from "date-fns";
@@ -7,7 +8,7 @@ import { useParams } from "react-router-dom";
 
 export function GamePage() {
     const { slug } = useParams();
-    const { data, error, isSuccess } = useGetGameDetaileByIdQuery(slug);
+    const { data, isError, isSuccess } = useGetGameDetaileByIdQuery(slug);
     return (
         <>
             {!isSuccess
@@ -35,12 +36,9 @@ export function GamePage() {
                             </div>
                             <div>
                                 <h2>Tags:</h2>
-                                {/*tag - сделать кликабельными с редиректом на main query
-                                Типизировать data!!!
-                                */}
-                                {data.tags.map((tag) => {
-                                    return <span className="underline font-normal opacity-60 ml-1">{tag.name}</span>
-                                })}
+                                <div className="flex flex-wrap">
+                                    <Tags tags={data.tags} />
+                                </div>
                             </div>
                             {/* Сюда же жанры и тех характеристики */}
                         </div>

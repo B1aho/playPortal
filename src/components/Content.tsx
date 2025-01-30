@@ -10,12 +10,13 @@ interface ContentProps {
     search: string | null;
     heading: string;
     genre?: string;
+    tag?: string;
 }
 
-export function Content({ search, heading, genre }: ContentProps) {
-    console.log('GENRE IN CONTENT:  ' + genre);
+export function Content({ search, heading, genre, tag }: ContentProps) {
+    console.log('TAG IN CONTENT:  ' + tag);
     const [page, setPage] = useState(1);
-    const { data, error, isLoading, isSuccess } = useGetGamesQuery({ page, search, genre });
+    const { data, error, isLoading, isSuccess } = useGetGamesQuery({ page, search, genre, tag });
     const [rawgResponse, setRawgResponse] = useState(data)
 
     /**
@@ -28,7 +29,7 @@ export function Content({ search, heading, genre }: ContentProps) {
     useEffect(() => {
         setPage(1);
         setRawgResponse(undefined);
-    }, [search, genre])
+    }, [search, genre, tag])
 
     const incrementPage = useCallback(() => {
         setPage(prevPage => prevPage + 1);
