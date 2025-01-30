@@ -25,11 +25,24 @@ export function GamePage() {
                             </div>
                         </div>
                         <div className="main-details flex-1">
-                            <div className="flex">
+                            <div className="flex justify-between">
                                 <div>{format(data.released, 'PP')}</div>
                                 <div>PLATFORMS</div>
                             </div>
-                            <Button size='icon'><Gem color="green" /></Button>
+                            <div className="flex justify-between align-middle">
+                                <div className="flex align-middle justify-center rounded-md text-green-500 bg-white font-bold min-w-9 min-h-9 outline-2 outline-green-400">{data.metacritic}</div>
+                                <Button size='icon' className="bg-white"><Gem color="green" /></Button>
+                            </div>
+                            <div>
+                                <h2>Tags:</h2>
+                                {/*tag - сделать кликабельными с редиректом на main query
+                                Типизировать data!!!
+                                */}
+                                {data.tags.map((tag) => {
+                                    return <span className="underline font-normal opacity-60 ml-1">{tag.name}</span>
+                                })}
+                            </div>
+                            {/* Сюда же жанры и тех характеристики */}
                         </div>
                     </div>
                 </>
