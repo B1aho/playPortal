@@ -10,6 +10,9 @@ import { useParams } from "react-router-dom";
 import WebSvg from "@/assets/game.svg";
 import RedditSvg from "@/assets/reddit.svg";
 import { ScrollDesc } from "@/components/ScrollDesc";
+import Ratings from "@/components/ui/rating";
+import { Crown } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 // Компонент рендериена вынести отдельно
 // Большая кнопка добавить в избранно с анимацией и похожа кнопка - добавить в коллекцию
@@ -33,10 +36,18 @@ export function GamePage() {
                             <div className="flex justify-center align-middle relative ">
                                 <MediaCarousel slug={slug} />
                             </div>
+                            <div>
+                                <div className="flex justify-between items-center">
+                                    <h2 className="text-2xl font-bold">RATING:</h2>
+                                    <div className="flex items-center">
+                                        <Ratings size={45} value={data.rating} variant="green" />
+                                        <h2 className="text-3xl font-bold text-green-600">/{data.rating}</h2>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="w-full flex items-center justify-center mt-3">
                                 <ScrollDesc desc={data.description_raw} />
                             </div>
-
                         </div>
                         <div className="main-details flex-1">
                             <div className="flex justify-between">
