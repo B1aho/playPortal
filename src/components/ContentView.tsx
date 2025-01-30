@@ -3,7 +3,6 @@ import { GameCard } from "./GameCard";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { SerializedError } from "@reduxjs/toolkit";
 import { ContentSkeleton } from "./ContentSkeleton";
-import { useState } from "react";
 
 interface ContentProps {
     data: GameCardInfo[] | undefined;

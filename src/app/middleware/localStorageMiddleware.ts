@@ -1,9 +1,9 @@
 import { Middleware } from "@reduxjs/toolkit";
 import { UserActions } from "@/features/user/userSlice";
-
+import { getStoredUser, saveUserToLocalStorage } from "./utility";
+// Узнать насколько окк так сделать миддлвару, чтобы не было пустых триггерных в authSlice
+// При логине галочка, мол выходить автоматически из учетки при зыкрытии или перезагрузки странички  - реализовать
 export const localStorageMiddleware: Middleware = store => next => (action: UserActions) => {
-  const result = next(action);
-
   // Проверка logIn
   if (action.type === 'user/logIn') {
     const { username, password } = action.payload;
@@ -11,8 +11,10 @@ export const localStorageMiddleware: Middleware = store => next => (action: User
 
     if (storedUser.username === username && storedUser.password === password) {
       store.dispatch({ type: 'user/loginSuccess', payload: storedUser.username });
+      return;
     } else {
       store.dispatch({ type: 'user/loginFail', payload: 'Invalid username or password' });
+      return;
     }
   }
 
@@ -20,22 +22,22 @@ export const localStorageMiddleware: Middleware = store => next => (action: User
   if (action.type === 'user/signup') {
     const { username } = action.payload;
     // Проверить нет ли пользователя с таким именем
-    const storedUser = JSON.parse(localStorage.getItem(username) || '{}');
+    const storedUser = getStoredUser(username);
     if (storedUser.username === username) {
       store.dispatch({ type: 'user/signupFail', payload: 'Registration fail: Username is already taken!' });
-      return result;
+      return;
     }
 
     try {
-      localStorage.setItem(username, JSON.stringify(action.payload));
+      saveUserToLocalStorage(username, action.payload);
     } catch (err) {
       store.dispatch({ type: 'user/signupFail', payload: 'Registration fail: check if storage is disabled or if it is full!' });
-      return result;
+      return;
     }
 
     store.dispatch({ type: 'user/signupSuccess', payload: username });
+    return;
   }
 
-  return result;
+  return next(action);
 }
-  

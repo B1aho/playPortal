@@ -17,28 +17,28 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    logIn: (state, action: PayloadAction<{ username: string; password: string }>) => {console.log('LogIn in userSlice')},
+    logIn: (state, action: PayloadAction<{ username: string; password: string }>) => { },
     loginSuccess: (state, action: PayloadAction<string>) => {
       state.isAuthenticated = true;
       state.username = action.payload;
       state.errorName = null
     },
     loginFail: (state, action: PayloadAction<string>) => {
-        state.isAuthenticated = false;
-        state.username = '';
-        state.errorName = action.payload;
-      },
+      state.isAuthenticated = false;
+      state.username = '';
+      state.errorName = action.payload;
+    },
 
-    signup: (state, action: PayloadAction<{ username: string; password: string }>) => {},
+    signup: (state, action: PayloadAction<{ username: string; password: string }>) => { },
     signupSuccess: (state, action: PayloadAction<string>) => {
-        state.isAuthenticated = true
-        state.username = action.payload
-        state.errorName = null
-      },
-      signupFail: (state, action: PayloadAction<string>) => {
-        state.isAuthenticated = false
-        state.errorName = action.payload
-      },
+      state.isAuthenticated = true
+      state.username = action.payload
+      state.errorName = null
+    },
+    signupFail: (state, action: PayloadAction<string>) => {
+      state.isAuthenticated = false
+      state.errorName = action.payload
+    },
     logout: state => {
       state.isAuthenticated = false
       state.username = ''

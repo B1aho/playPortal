@@ -11,8 +11,6 @@ import WebSvg from "@/assets/game.svg";
 import RedditSvg from "@/assets/reddit.svg";
 import { ScrollDesc } from "@/components/ScrollDesc";
 import Ratings from "@/components/ui/rating";
-import { Crown } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
 
 // Компонент рендериена вынести отдельно
 // Большая кнопка добавить в избранно с анимацией и похожа кнопка - добавить в коллекцию
