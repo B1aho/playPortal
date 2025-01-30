@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '@/app/store';
 
+// Сохранят и доставть коллекции точно также как и favs. хранить username + %collectionName 
 type Collection = {
   name: string;
   gamesId: string[];

@@ -13,6 +13,12 @@ export const rawgApi = createApi({
       query: (id) => `games/${id}?key=${API_KEY}`,
       transformResponse: (response: GameDetailResponse) => response,
     }),
+    getGameShortDetaileById: builder.query({
+      query: (id) => `games/${id}?key=${API_KEY}`,
+      transformResponse: (response: GameDetailResponse) => ({
+        gameCardData: getShortDetail(response),
+      }),
+    }),
     getGames: builder.query({
       query: ({ page, search, genre, tag, platform, developer }) => {
         const params = new URLSearchParams({
@@ -71,7 +77,7 @@ export const rawgApi = createApi({
   }),
 })
 
-export const { useGetGameDetaileByIdQuery, useGetGamesQuery, useGetMediaByIdQuery, useGetMoviesByIdQuery } = rawgApi
+export const { useGetGameDetaileByIdQuery, useGetGamesQuery, useGetMediaByIdQuery, useGetMoviesByIdQuery, useGetGameShortDetaileByIdQuery } = rawgApi
 
 function getGameCardData(results: GameResults[]): GameCardInfo[] {
   return results.map(result => {
@@ -106,4 +112,16 @@ function getFirstMovie(movies: Movie[]) {
         id: movie.id
       }
   })
+}
+
+function getShortDetail(detail: GameDetailResponse): GameCardInfo {
+  return {
+    id: detail.id,
+    name: detail.name,
+    background_image: detail.background_image,
+    metacritic: detail.metacritic,
+    rating: detail.rating,
+    released: detail.released,
+    slug: detail.slug,
+  }
 }

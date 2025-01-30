@@ -70,9 +70,9 @@ export interface GameCardInfo {
     name: string;
     released: Date;
     background_image: string;
-    short_screenshots: ShortScreenshot[];
+    short_screenshots?: ShortScreenshot[];
     rating: number;
-    metacritic: number;
+    metacritic: number | null;
 }
 
 //export type GameMinimalCardInfo = Omit<GameCardInfo, 'short_screenshots' | 'metacritic' | 'id'>
