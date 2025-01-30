@@ -24,6 +24,15 @@ const librarySlice = createSlice({
     addFavorite: (state, action: PayloadAction<GameMinimalCardInfo>) => {
       state.favs.push(action.payload);
     },
+    removeFromFavs: (state, action: PayloadAction<string>) => {
+      state.favs = state.favs.filter(game => game.slug !== action.payload)
+    },
+    loadFavorites: (state, action) => {
+      state.favs = action.payload;
+    },
+    clearFavorites: (state) => {
+      state.favs = [];
+    },
   },
 })
 

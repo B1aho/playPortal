@@ -1,7 +1,6 @@
 import { Middleware } from "@reduxjs/toolkit";
 import { UserActions } from "@/features/user/userSlice";
 import { getStoredUser, saveUserToLocalStorage } from "./utility";
-// Узнать насколько окк так сделать миддлвару, чтобы не было пустых триггерных в authSlice
 // При логине галочка, мол выходить автоматически из учетки при зыкрытии или перезагрузки странички  - реализовать
 export const localStorageMiddleware: Middleware = store => next => (action: UserActions) => {
   // Проверка logIn
