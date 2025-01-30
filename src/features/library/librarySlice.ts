@@ -27,20 +27,19 @@ const librarySlice = createSlice({
     removeFromFavs: (state, action: PayloadAction<string>) => {
       state.favs = state.favs.filter(game => game.slug !== action.payload)
     },
-    loadFavorites: (state, action) => {
+    loadFavorites: (state, action: PayloadAction<GameMinimalCardInfo[]>) => {
       state.favs = action.payload;
     },
-    clearFavorites: (state) => {
+    clearLibrary: (state) => {
       state.favs = [];
+      state.customCollections = [];
     },
   },
 })
 
-export const { addFavorite } = librarySlice.actions
-export const selectIsAuthenticated = (state: RootState) => state.user.isAuthenticated
-export const selectUsername = (state: RootState) => state.user.username
-export const selectErrorName = (state: RootState) => state.user.errorName
+export const { addFavorite, removeFromFavs, loadFavorites, clearLibrary } = librarySlice.actions
+export const selectFavs = (state: RootState) => state.library.favs
 
-export type UserActions = ReturnType<typeof librarySlice.actions[keyof typeof librarySlice.actions]>;
+export type LibActions = ReturnType<typeof librarySlice.actions[keyof typeof librarySlice.actions]>;
 
 export default librarySlice.reducer

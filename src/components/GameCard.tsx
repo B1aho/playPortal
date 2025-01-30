@@ -1,6 +1,12 @@
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { selectIsAuthenticated } from "@/features/user/userSlice";
+import { addFavorite } from "@/features/library/librarySlice";
 import { GameCardInfo } from "@/rawgTypes"
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import { Heart } from "lucide-react";
+import { Button } from "./ui/button";
+import { omitGameInfo } from "@/app/middleware/utility";
 
 interface GameCardProps {
     data: GameCardInfo;
@@ -8,6 +14,9 @@ interface GameCardProps {
 
 export function GameCard({ data }: GameCardProps) {
     const navigate = useNavigate();
+    const isAuthenticated = useAppSelector(selectIsAuthenticated);
+    const dispatch = useAppDispatch();
+
     return (
         <div onPointerDown={() => navigate(`/games/${data.slug}`)} className="game-card w-full flex flex-col cursor-pointer">
             <div className="w-full h-full flex-2 overflow-hidden">
@@ -24,7 +33,7 @@ export function GameCard({ data }: GameCardProps) {
                 </div>
                 <div className="flex justify-between">
                     <div className="game-card-btns flex">
-                        <div>+</div>
+                        <Button onPointerDown={() => dispatch(addFavorite(omitGameInfo(data)))} disabled={isAuthenticated ? undefined : true} ><Heart /></Button>
                         <div>hide game</div>
                     </div>
                 </div>
