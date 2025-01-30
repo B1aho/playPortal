@@ -1,21 +1,22 @@
 import { Common } from "@/rawgTypes"
 import { useNavigate } from "react-router-dom";
 
-interface TagsProps {
-    tags: Common[];
+interface CategoryProps {
+    categories: Common[];
+    redirect: "tag" | "genre";
 }
 
-export function Tags({ tags }: TagsProps) {
+export function CategoryLinks({ categories, redirect }: CategoryProps) {
     const navigate = useNavigate();
     return (
         <>
-            {tags.map((tag) => {
+            {categories.map((cat) => {
                 return <span
-                    key={tag.id}
+                    key={cat.id}
                     className="font-normal opacity-70 ml-1 cursor-pointer transition ease-in-out duration-300 hover:underline hover:-translate-y-1 hover:scale-110 hover:opacity-100"
-                    onPointerDown={() => navigate(`/games/tag/${tag.slug}`)}
+                    onPointerDown={() => navigate(`/games/${redirect}/${cat.slug}`)}
                 >
-                    {tag.name}
+                    {cat.name}
                 </span>
             })}
         </>

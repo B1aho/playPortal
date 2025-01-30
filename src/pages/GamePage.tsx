@@ -1,5 +1,5 @@
+import { CategoryLinks } from "@/components/CategoryLinks";
 import { MediaCarousel } from "@/components/MediaCarousel";
-import { Tags } from "@/components/Tags";
 import { Button } from "@/components/ui/button";
 import { useGetGameDetaileByIdQuery } from "@/services/rawgApi";
 import { format } from "date-fns";
@@ -37,7 +37,13 @@ export function GamePage() {
                             <div>
                                 <h2>Tags:</h2>
                                 <div className="flex flex-wrap">
-                                    <Tags tags={data.tags} />
+                                    <CategoryLinks categories={data.tags} redirect="tag" />
+                                </div>
+                            </div>
+                            <div>
+                                <h2>Genres:</h2>
+                                <div className="flex flex-wrap">
+                                    <CategoryLinks categories={data.genres} redirect="genre" />
                                 </div>
                             </div>
                             {/* Сюда же жанры и тех характеристики */}
