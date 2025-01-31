@@ -6,9 +6,9 @@ import { ContentSkeleton } from "./ContentSkeleton";
 
 interface ContentProps {
     data: GameCardInfo[] | undefined;
-    isLoading: boolean,
-    error: FetchBaseQueryError | SerializedError | undefined,
-    isSuccess: boolean,
+    isLoading?: boolean,
+    error?: FetchBaseQueryError | SerializedError | undefined,
+    isSuccess?: boolean,
 }
 
 // Скелетон показывается только в начале, поскольку мы каждый раз рендерим массив <GameCard> заново
@@ -18,6 +18,7 @@ export function ContentView({ data, isLoading, isSuccess, error }: ContentProps)
     if (error) {
         content = <div>Error occured! {JSON.stringify(error)}</div>;
     }
+    // Уйти от skeleton, оставить loader
     if (isLoading || (isSuccess && !data)) {
         content = <ContentSkeleton />;
     } else if (data) {

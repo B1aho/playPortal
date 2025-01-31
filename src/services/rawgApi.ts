@@ -77,7 +77,13 @@ export const rawgApi = createApi({
   }),
 })
 
-export const { useGetGameDetaileByIdQuery, useGetGamesQuery, useGetMediaByIdQuery, useGetMoviesByIdQuery, useGetGameShortDetaileByIdQuery } = rawgApi
+export const {
+  useGetGameDetaileByIdQuery,
+  useGetGamesQuery,
+  useGetMediaByIdQuery,
+  useGetMoviesByIdQuery,
+  useLazyGetGameShortDetaileByIdQuery,
+} = rawgApi
 
 function getGameCardData(results: GameResults[]): GameCardInfo[] {
   return results.map(result => {
