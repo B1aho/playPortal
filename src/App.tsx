@@ -5,6 +5,7 @@ import { SignupPage } from './features/user/Signup';
 import { MainPage } from './pages/MainPage';
 import { GamePage } from './pages/GamePage';
 import Layout from './pages/Layout';
+import { LibraryPage } from './pages/LibraryPage';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="games/platform/:platform" element={<MainPage />} />
           <Route path="games/developer/:developer" element={<MainPage />} />
           <Route path="games/:slug" element={<GamePage />} />
+          <Route path="lib" element={<LibraryPage />} />
         </Route>
       </Routes>
     </div>
