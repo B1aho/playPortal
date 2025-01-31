@@ -108,11 +108,13 @@ export function LibraryPage() {
 
     return (
         <>
-            {isLoading
+            {(isLoading)
                 ? <div>Loading...</div>
-                : <ContentView data={games} />
+                : <>
+                    <ContentView data={games} />
+                    <LoadMore isLoading={isLoading} onIntersection={() => favsId.length === 0 ? null : setNext(prev => prev + 1)} className={isLoading ? 'hidden' : ''} />
+                </>
             }
-            <LoadMore isLoading={isLoading} onIntersection={() => setNext(prev => prev + 1)} className={isLoading ? 'hidden' : ''} />
         </>
     )
 }

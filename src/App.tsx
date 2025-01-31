@@ -24,6 +24,7 @@ function App() {
           <Route path="games/developer/:developer" element={<MainPage />} />
           <Route path="games/:slug" element={<GamePage />} />
           <Route path="lib" element={<LibraryPage />} />
+          <Route path="404" element={<NotFoundPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
