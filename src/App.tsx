@@ -6,6 +6,7 @@ import { MainPage } from './pages/MainPage';
 import { GamePage } from './pages/GamePage';
 import Layout from './pages/Layout';
 import { LibraryPage } from './pages/LibraryPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="games/developer/:developer" element={<MainPage />} />
           <Route path="games/:slug" element={<GamePage />} />
           <Route path="lib" element={<LibraryPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </div>
