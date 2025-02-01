@@ -98,7 +98,7 @@ export function GamePage() {
                                 </div>
                                 <div className="mt-3 flex justify-between">
                                     <h2>Age rating:</h2>
-                                    <div className="text-red-700 font-bold ">{data.esrb_rating.name}</div>
+                                    <div className="text-red-700 font-bold ">{data.esrb_rating && data.esrb_rating.name}</div>
                                 </div>
                             </div>
                         </div>

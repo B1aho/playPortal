@@ -3,7 +3,7 @@ import { SearchInput } from "./SearchInput";
 
 export function Header() {
     return (
-        <header className="sticky  top-0 z-10">
+        <header className="sticky top-0 z-10">
             <div className="flex">
                 <div>LOGO</div>
                 <SearchInput />
