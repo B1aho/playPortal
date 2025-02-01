@@ -6,6 +6,7 @@ import { MainPage } from './pages/MainPage';
 import Layout from './pages/Layout';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { lazy, Suspense } from 'react';
+import { SettingPage } from './pages/SettingPage';
 
 const GamePage = lazy(() => import('./pages/GamePage'));
 const LibraryPage = lazy(() => import('./pages/LibraryPage'));
@@ -22,6 +23,7 @@ function App() {
             <Route path="main" element={<MainPage />} />
             <Route path="lib" element={<LibraryPage />} />
             <Route path="search" element={<MainPage />} />
+            <Route path="settings" element={<SettingPage />} />
             <Route path="games" element={<MainPage />} />
             <Route path="games/genre/:genre" element={<MainPage />} />
             <Route path="games/tag/:tag" element={<MainPage />} />

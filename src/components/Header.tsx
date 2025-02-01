@@ -3,6 +3,7 @@ import { SearchInput } from "./SearchInput";
 import { useAppSelector } from "@/app/hooks";
 import { selectIsAuthenticated } from "@/features/user/userSlice";
 import { Logout } from "./LogoutBtn";
+import { HoverSignupBtn } from "./HoverSignupBtn";
 
 export function Header() {
     const isAuthenticated = useAppSelector(selectIsAuthenticated);
@@ -13,7 +14,7 @@ export function Header() {
                 <SearchInput />
                 <div className="flex">
                     {isAuthenticated ? <Logout /> : <NavLink to='/login'>LOG IN</NavLink>}
-                    <NavLink to='/signup'>SIGN UP</NavLink>
+                    <HoverSignupBtn isAuthenticated={isAuthenticated} />
                 </div>
             </div>
         </header>

@@ -1,8 +1,8 @@
-// Добавить также как с логином паттерен для пароля  и проверку того же пароли совпадают
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { Button } from "@/components/ui/button";
-import { ChangeEvent, FormEventHandler, PointerEventHandler, useState } from "react";
+import { FormEventHandler, PointerEventHandler, useState } from "react";
+import { LoginInput } from "./LoginInput";
 
 interface AuthProps {
     login: string;
@@ -33,26 +33,11 @@ export function Auth(
         error,
     }: AuthProps) {
     const [isLoginValid, setIsLoginValid] = useState(true);
-    const handleLoginChange = (e: ChangeEvent<HTMLInputElement>) => {
-        onLoginChange(e.target.value)
-        if (e.target.value.length > 2 && !e.target.checkValidity())
-            setIsLoginValid(false)
-        else
-            setIsLoginValid(true)
-    }
+
     return (
         <div className="max-w-md">
             <form onSubmit={onSubmit}>
-                <div className="flex flex-col-reverse">
-                    <Input type="text" pattern="^\w{5,10}" required id="login" value={login} onChange={handleLoginChange} />
-                    <Label
-                        className={!isLoginValid ? "invalid-label" : undefined}
-                        data-help="Your username must be between 5 and 10 characters long, and can include Latin letters, numbers, and underscores"
-                        htmlFor="login"
-                    >
-                        Login:
-                    </Label>
-                </div>
+                <LoginInput isLoginValid={isLoginValid} onLoginChange={onLoginChange} value={login} updateIsLoginValid={setIsLoginValid} />
                 <div className="flex flex-col-reverse">
                     <Input required id="password" value={password} type="password"
                         onChange={(e) => onPasswordChange(e.target.value)} />

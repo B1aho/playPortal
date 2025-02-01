@@ -75,7 +75,6 @@ export const localStorageMiddleware: Middleware = store => next => (action: User
     return;
   }
 
-
   if (action.type === 'user/logout') {
     clearCurrUsername();
     store.dispatch(clearLibrary());

@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { clearError, selectErrorName, selectIsAuthenticated, setError, signup } from "./userSlice";
 import { useNavigate } from "react-router-dom";
 import { Auth } from "@/components/Auth";
+import { useRedirectIfAuth } from "@/hooks/useRedirectIfAuth";
 
 export function SignupPage() {
     // Добавить логику чтобы вышел сначала из первой учетки чтобы можно было зарегать снова другой акк
@@ -14,6 +15,8 @@ export function SignupPage() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
+    useRedirectIfAuth(isAuthenticated);
+
     const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
         if (password !== confirmPassword) {
@@ -24,6 +27,8 @@ export function SignupPage() {
             username: login,
             password: password,
         }))
+        if (isAuthenticated)
+            navigate('/main');
     };
 
     const handleRedirect: PointerEventHandler = () => {
@@ -32,25 +37,19 @@ export function SignupPage() {
     }
     return (
         <>
-            {isAuthenticated
-                ? <div className="text-center text-lg font-bold">
-                    To create a new account, you first need to log out of your current one!
-                </div>
-                :
-                <Auth
-                    login={login}
-                    onLoginChange={setLogin}
-                    password={password}
-                    onPasswordChange={setPassword}
-                    confirmPassword={confirmPassword}
-                    onConfirmPasswordChange={setConfirmPassword}
-                    onRedirect={handleRedirect}
-                    onSubmit={handleSubmit}
-                    redirectText="If you have an account, tap and log in!"
-                    submitText="SIGN UP"
-                    error={error}
-                />
-            }
+            <Auth
+                login={login}
+                onLoginChange={setLogin}
+                password={password}
+                onPasswordChange={setPassword}
+                confirmPassword={confirmPassword}
+                onConfirmPasswordChange={setConfirmPassword}
+                onRedirect={handleRedirect}
+                onSubmit={handleSubmit}
+                redirectText="If you have an account, tap and log in!"
+                submitText="SIGN UP"
+                error={error}
+            />
         </>
     );
 }
