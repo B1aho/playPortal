@@ -6,6 +6,8 @@ interface UserState {
   isAuthenticated: boolean
   username: string;
   errorName: string | null;
+  isConfirmOldPassword: boolean;
+  isPasswordWasChanged: boolean;
 }
 
 const initialState: UserState = getPreloadState();
@@ -56,14 +58,26 @@ const userSlice = createSlice({
     },
     setError: (state, action: PayloadAction<string>) => {
       state.errorName = action.payload;
+    },
+    afterPasswordChanged: (state, _: PayloadAction) => {
+      state.isConfirmOldPassword = false;
+    },
+    checkOldPassword: (state, action: PayloadAction<string>) => { },
+    setOldPasswordCheckRes: (state, action: PayloadAction<boolean>) => {
+      state.isConfirmOldPassword = action.payload;
+    },
+    setIsPasswordWasChanged: (state, action: PayloadAction<boolean>) => {
+      state.isConfirmOldPassword = action.payload;
     }
-  },
+  }
 })
 
-export const { logIn, loginSuccess, loginFail, signup, signupSuccess, signupFail, logout, clearError, changeUsername, changePassword, setError } = userSlice.actions
+export const { logIn, loginSuccess, loginFail, signup, signupSuccess, signupFail, logout, clearError, changeUsername, changePassword, setError, afterPasswordChanged, checkOldPassword, setOldPasswordCheckRes, setIsPasswordWasChanged } = userSlice.actions
 export const selectIsAuthenticated = (state: RootState) => state.user.isAuthenticated
 export const selectUsername = (state: RootState) => state.user.username
 export const selectErrorName = (state: RootState) => state.user.errorName
+export const selectConfirmPassword = (state: RootState) => state.user.isConfirmOldPassword
+export const selectIsPasswordWasChanged = (state: RootState) => state.user.isPasswordWasChanged
 
 export type UserActions = ReturnType<typeof userSlice.actions[keyof typeof userSlice.actions]>;
 

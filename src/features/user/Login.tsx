@@ -28,6 +28,10 @@ export function LoginPage() {
         navigate('/signup');
     };
 
+    if (login === "" && password === "") {
+        dispatch(clearError());
+    }
+
     return (
         <Auth
             login={login}

@@ -1,7 +1,6 @@
 import { FormEvent, MutableRefObject, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { changeUsername, selectErrorName } from "@/features/user/userSlice";
-import { useNavigate } from "react-router-dom";
+import { changeUsername, clearError, selectErrorName } from "@/features/user/userSlice";
 import { LoginInput } from "./LoginInput";
 import { Button } from "./ui/button";
 import { SquareCheckBig } from "lucide-react";
@@ -15,6 +14,10 @@ export function ChangeUsername() {
         e.preventDefault();
         if (formRef.current && formRef.current.checkValidity())
             dispatch(changeUsername(login))
+    }
+
+    if (login === "") {
+        dispatch(clearError());
     }
     return (
         <>

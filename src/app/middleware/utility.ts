@@ -2,6 +2,8 @@ interface PreloadState {
     isAuthenticated: boolean
     username: string;
     errorName: string | null;
+    isConfirmOldPassword: boolean;
+    isPasswordWasChanged: boolean,
 }
 
 const CURRENT_USER_KEY = 'currUsername';
@@ -14,11 +16,14 @@ export const clearCurrUsername = () => {
     localStorage.removeItem(CURRENT_USER_KEY);
 }
 
+// Не нужен весь объект - ТОЛЬКО username так получаем в initiastate в userSlice
 export const getPreloadState = (): PreloadState => {
     const initState = {
         isAuthenticated: false,
         username: "",
         errorName: null,
+        isConfirmOldPassword: false,
+        isPasswordWasChanged: false,
     }
     const currUsername = localStorage.getItem(CURRENT_USER_KEY);
     if (!currUsername) {
@@ -33,6 +38,8 @@ export const getPreloadState = (): PreloadState => {
         errorName: null,
         isAuthenticated: true,
         username: username,
+        isConfirmOldPassword: false,
+        isPasswordWasChanged: false,
     }
 }
 
@@ -55,6 +62,19 @@ export const getStoredUser = (username: string) => {
 export const getStoredFavs = (username: string) => {
     const favorites: string[] = JSON.parse(localStorage.getItem(username + '%favs') || '[]');
     return favorites;
+}
+
+export const checkLocalStoragePassword = (tryPassword: string) => {
+    const currUsername = localStorage.getItem(CURRENT_USER_KEY);
+    if (!currUsername) {
+        throw new Error('No current username in storage')
+    }
+    const storedData = localStorage.getItem(currUsername);
+    if (!storedData) {
+        throw new Error('No data for current user')
+    }
+    const { password }: { password: string } = JSON.parse(storedData);
+    return password === tryPassword;
 }
 
 export const saveUserToLocalStorage = (username: string, data: { username: string; password: string; }) => {

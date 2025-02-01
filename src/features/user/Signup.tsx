@@ -35,6 +35,11 @@ export function SignupPage() {
         dispatch(clearError());
         navigate('/login');
     }
+
+    if (login === "" && password === "" && confirmPassword === "") {
+        dispatch(clearError());
+    }
+
     return (
         <>
             <Auth

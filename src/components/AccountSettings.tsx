@@ -8,6 +8,7 @@ import {
     TabsTrigger,
 } from "@/components/ui/tabs";
 import { ChangeUsername } from "./ChangeUsername";
+import { ChangePassword } from "./ChangePassword";
 export function AccountSettings() {
     const username = useAppSelector(selectUsername);
     return (
@@ -31,6 +32,7 @@ export function AccountSettings() {
                             <ChangeUsername />
                         </TabsContent>
                         <TabsContent value="password">
+                            <ChangePassword />
                         </TabsContent>
                     </Tabs>
                 </div>

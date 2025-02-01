@@ -1,6 +1,6 @@
 import { Middleware } from "@reduxjs/toolkit";
-import { clearError, UserActions } from "@/features/user/userSlice";
-import { changePasswordInLocalStorage, changeUsernameInLocalStorage, clearCurrUsername, getStoredFavs, getStoredUser, saveCurrUsername, saveUserToLocalStorage } from "./utility";
+import { afterPasswordChanged, clearError, setError, setOldPasswordCheckRes, UserActions } from "@/features/user/userSlice";
+import { changePasswordInLocalStorage, changeUsernameInLocalStorage, checkLocalStoragePassword, clearCurrUsername, getStoredFavs, getStoredUser, saveCurrUsername, saveUserToLocalStorage } from "./utility";
 import { loadFavorites, clearLibrary, LibActions } from '@/features/library/librarySlice';
 
 export const localStorageMiddleware: Middleware = store => next => (action: UserActions | LibActions) => {
@@ -71,6 +71,27 @@ export const localStorageMiddleware: Middleware = store => next => (action: User
       store.dispatch({ type: 'user/changePasswordFail', payload: 'Password change fail: check if storage is disabled or if it is full!' });
       return;
     }
+    store.dispatch(clearError());
+    store.dispatch(afterPasswordChanged());
+    return;
+  }
+
+  // Проверку вызвать из утилити что подтвердил старый пароль.
+  if (action.type === 'user/checkOldPassword') {
+    const tryPassword = action.payload;
+    let result = null;
+    try {
+      result = checkLocalStoragePassword(tryPassword)
+    } catch (err) {
+      store.dispatch(setError('Something goes wrong with localStorage'));
+      return;
+    }
+
+    if (!result) {
+      store.dispatch(setError('Wrong password!'));
+      return
+    }
+    store.dispatch(setOldPasswordCheckRes(result));
     store.dispatch(clearError());
     return;
   }
