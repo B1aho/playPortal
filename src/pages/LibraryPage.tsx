@@ -47,7 +47,7 @@ function reducer(state: State, action: Action): State {
     }
 }
 
-export function LibraryPage() {
+function LibraryPage() {
     const favsId = useAppSelector(selectFavs);
     const [query] = useLazyGetGameShortDetaileByIdQuery();
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -118,3 +118,5 @@ export function LibraryPage() {
         </>
     )
 }
+
+export default LibraryPage;

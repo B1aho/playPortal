@@ -16,7 +16,7 @@ import Ratings from "@/components/ui/rating";
 // Большая кнопка добавить в избранно с анимацией и похожа кнопка - добавить в коллекцию
 // Еще запросить и отобразить ачивки
 
-export function GamePage() {
+function GamePage() {
     const { slug } = useParams();
     const { data, isError, isSuccess } = useGetGameDetaileByIdQuery(slug);
     return (
@@ -120,3 +120,5 @@ function getPlatforms(platforms: PlatformElement[]) {
         }
     })
 }
+
+export default GamePage;  
