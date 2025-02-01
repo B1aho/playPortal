@@ -1,22 +1,20 @@
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 
 interface LoginInputProps {
     value: string;
-    isLoginValid: boolean;
     onLoginChange: (value: string) => void;
-    updateIsLoginValid: (value: boolean) => void;
 }
 
-export function LoginInput({ onLoginChange, value, isLoginValid, updateIsLoginValid }: LoginInputProps) {
-
+export function LoginInput({ onLoginChange, value }: LoginInputProps) {
+    const [isLoginValid, setIsLoginValid] = useState(true);
     const handleLoginChange = (e: ChangeEvent<HTMLInputElement>) => {
         onLoginChange(e.target.value)
         if (e.target.value.length > 2 && !e.target.checkValidity())
-            updateIsLoginValid(false)
+            setIsLoginValid(false)
         else
-            updateIsLoginValid(true)
+            setIsLoginValid(true)
     }
 
     return (

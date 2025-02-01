@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { FormEventHandler, PointerEventHandler, useState } from "react";
+import { FormEventHandler, PointerEventHandler } from "react";
 import { LoginInput } from "./LoginInput";
 import { PasswordInput } from "./PasswordInput";
 
@@ -31,12 +31,11 @@ export function Auth(
         onRedirect,
         error,
     }: AuthProps) {
-    const [isLoginValid, setIsLoginValid] = useState(true);
     const needConfirmPassword = (confirmPassword || confirmPassword === "") && onConfirmPasswordChange;
     return (
         <div className="max-w-md">
             <form onSubmit={onSubmit}>
-                <LoginInput isLoginValid={isLoginValid} onLoginChange={onLoginChange} value={login} updateIsLoginValid={setIsLoginValid} />
+                <LoginInput onLoginChange={onLoginChange} value={login} />
                 <PasswordInput onPasswordChange={onPasswordChange} value={password} />
                 {needConfirmPassword &&
                     <PasswordInput labelText="Confirm password: " onPasswordChange={onConfirmPasswordChange} value={confirmPassword} />
