@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '@/app/store';
+import { getPreloadFavs } from '@/app/middleware/utility';
 
 // Сохранят и доставть коллекции точно также как и favs. хранить username + %collectionName 
 type Collection = {
@@ -13,7 +14,7 @@ type LibraryState = {
 };
 
 const initialState: LibraryState = {
-  favs: [],
+  favs: getPreloadFavs(),
   customCollections: [],
 }
 

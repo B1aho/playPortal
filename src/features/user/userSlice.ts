@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '@/app/store';
-import { act } from 'react';
+import { getPreloadState } from '@/app/middleware/utility';
 
 interface UserState {
   isAuthenticated: boolean
@@ -8,11 +8,7 @@ interface UserState {
   errorName: string | null;
 }
 
-const initialState: UserState = {
-  isAuthenticated: false,
-  username: '',
-  errorName: null,
-}
+const initialState: UserState = getPreloadState();
 
 const userSlice = createSlice({
   name: 'user',
@@ -57,11 +53,14 @@ const userSlice = createSlice({
     },
     clearError: (state, _: PayloadAction) => {
       state.errorName = null;
+    },
+    setError: (state, action: PayloadAction<string>) => {
+      state.errorName = action.payload;
     }
   },
 })
 
-export const { logIn, loginSuccess, loginFail, signup, signupSuccess, signupFail, logout, clearError, changeUsername, changePassword } = userSlice.actions
+export const { logIn, loginSuccess, loginFail, signup, signupSuccess, signupFail, logout, clearError, changeUsername, changePassword, setError } = userSlice.actions
 export const selectIsAuthenticated = (state: RootState) => state.user.isAuthenticated
 export const selectUsername = (state: RootState) => state.user.username
 export const selectErrorName = (state: RootState) => state.user.errorName

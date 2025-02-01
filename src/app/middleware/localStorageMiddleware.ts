@@ -1,6 +1,6 @@
 import { Middleware } from "@reduxjs/toolkit";
 import { clearError, UserActions } from "@/features/user/userSlice";
-import { changePasswordInLocalStorage, changeUsernameInLocalStorage, getStoredFavs, getStoredUser, saveUserToLocalStorage } from "./utility";
+import { changePasswordInLocalStorage, changeUsernameInLocalStorage, clearCurrUsername, getStoredFavs, getStoredUser, saveCurrUsername, saveUserToLocalStorage } from "./utility";
 import { loadFavorites, clearLibrary, LibActions } from '@/features/library/librarySlice';
 
 export const localStorageMiddleware: Middleware = store => next => (action: UserActions | LibActions) => {
@@ -12,6 +12,7 @@ export const localStorageMiddleware: Middleware = store => next => (action: User
     if (storedUser.username === username && storedUser.password === password) {
       store.dispatch({ type: 'user/loginSuccess', payload: storedUser.username });
       store.dispatch(loadFavorites(getStoredFavs(username)));
+      saveCurrUsername(username);
       return;
     } else {
       store.dispatch({ type: 'user/loginFail', payload: 'Invalid username or password' });
@@ -35,7 +36,7 @@ export const localStorageMiddleware: Middleware = store => next => (action: User
       store.dispatch({ type: 'user/signupFail', payload: 'Registration fail: check if storage is disabled or if it is full!' });
       return;
     }
-
+    saveCurrUsername(username);
     store.dispatch({ type: 'user/signupSuccess', payload: username });
     store.dispatch(loadFavorites(getStoredFavs(username)));
     return;
@@ -76,7 +77,8 @@ export const localStorageMiddleware: Middleware = store => next => (action: User
 
 
   if (action.type === 'user/logout') {
-    store.dispatch(clearLibrary())
+    clearCurrUsername();
+    store.dispatch(clearLibrary());
   }
 
   next(action);
