@@ -22,6 +22,11 @@ export function AddFavBtn({ slug }: { slug: string }) {
     const dispatchRemoving = () => {
         dispatch(removeFromFavs(slug))
     }
+
+    let hoverContent = isGameInFavs ? 'Remove game from favorites' : 'Add game to favorites';
+    if (!isAuthenticated) {
+        hoverContent = 'Log in and you will be able to add the game to your library';
+    }
     return (
         <HoverCard>
             <HoverCardTrigger>
@@ -32,7 +37,7 @@ export function AddFavBtn({ slug }: { slug: string }) {
                 </Button>
             </HoverCardTrigger>
             <HoverCardContent>
-                <span>{isGameInFavs ? 'Remove game from favorites' : 'Add game to favorites'}</span>
+                <span>{hoverContent}</span>
             </HoverCardContent>
         </HoverCard>
     )

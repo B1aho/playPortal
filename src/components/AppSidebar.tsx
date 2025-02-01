@@ -12,11 +12,19 @@ import {
     SidebarTrigger,
 } from "./ui/sidebar";
 
-import { Castle, Pickaxe, Puzzle, Swords, Volleyball } from "lucide-react";
-
+import {
+    Castle,
+    Pickaxe,
+    Puzzle,
+    Swords,
+    Volleyball,
+    BookUser,
+    Settings,
+    Icon
+} from "lucide-react";
+import { crosshair2Dot } from '@lucide/lab';
 export function AppSidebar() {
-
-    const items = [
+    const genres = [
         {
             title: 'Action',
             to: '/games/genre/action',
@@ -41,9 +49,27 @@ export function AppSidebar() {
             title: 'Simulation',
             to: '/games/genre/simulation',
             icon: Pickaxe,
+        },
+        {
+            title: 'Shooter',
+            to: '/games/genre/shooter',
+            icon: null,
+            iconNode: crosshair2Dot,
         }
+    ];
 
-    ]
+    const dashboard = [
+        {
+            title: 'Library',
+            to: '/lib',
+            icon: BookUser,
+        },
+        {
+            title: 'Settings',
+            to: '/settings',
+            icon: Settings,
+        },
+    ];
     return (
         <Sidebar collapsible="icon">
             <SidebarHeader>
@@ -54,7 +80,26 @@ export function AppSidebar() {
                     <SidebarGroupLabel>Popular genres:</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            {items.map((item) => (
+                            {genres.map((item) => (
+                                <SidebarMenuItem key={item.title}>
+                                    <SidebarMenuButton asChild>
+                                        <Link to={item.to}>
+                                            {
+                                                !item.icon ? <Icon iconNode={crosshair2Dot} /> : <item.icon />
+                                            }
+                                            <span>{item.title}</span>
+                                        </Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            ))}
+                        </SidebarMenu>
+                    </SidebarGroupContent>
+                </SidebarGroup>
+                <SidebarGroup>
+                    <SidebarGroupLabel>Dashboard:</SidebarGroupLabel>
+                    <SidebarGroupContent>
+                        <SidebarMenu>
+                            {dashboard.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild>
                                         <Link to={item.to}>
