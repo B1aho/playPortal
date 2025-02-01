@@ -10,7 +10,7 @@ function Layout() {
     return (
         <SidebarProvider>
             {shouldShowHeaderSidebar && <AppSidebar />}
-            <div className="w-full">
+            <div className="w-full overflow-visible">
                 {shouldShowHeaderSidebar && <Header />}
                 <Outlet />
             </div>

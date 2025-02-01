@@ -16,6 +16,7 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
           <Route path="main" element={<MainPage />} />
+          <Route path="lib" element={<LibraryPage />} />
           <Route path="search" element={<MainPage />} />
           <Route path="games" element={<MainPage />} />
           <Route path="games/genre/:genre" element={<MainPage />} />
@@ -23,7 +24,6 @@ function App() {
           <Route path="games/platform/:platform" element={<MainPage />} />
           <Route path="games/developer/:developer" element={<MainPage />} />
           <Route path="games/:slug" element={<GamePage />} />
-          <Route path="lib" element={<LibraryPage />} />
           <Route path="404" element={<NotFoundPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
