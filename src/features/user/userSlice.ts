@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '@/app/store';
+import { act } from 'react';
 
 interface UserState {
   isAuthenticated: boolean
@@ -21,7 +22,7 @@ const userSlice = createSlice({
     loginSuccess: (state, action: PayloadAction<string>) => {
       state.isAuthenticated = true;
       state.username = action.payload;
-      state.errorName = null
+      state.errorName = null;
     },
     loginFail: (state, action: PayloadAction<string>) => {
       state.isAuthenticated = false;
@@ -31,25 +32,36 @@ const userSlice = createSlice({
 
     signup: (state, action: PayloadAction<{ username: string; password: string }>) => { },
     signupSuccess: (state, action: PayloadAction<string>) => {
-      state.isAuthenticated = true
-      state.username = action.payload
-      state.errorName = null
+      state.isAuthenticated = true;
+      state.username = action.payload;
+      state.errorName = null;
     },
     signupFail: (state, action: PayloadAction<string>) => {
-      state.isAuthenticated = false
-      state.errorName = action.payload
+      state.isAuthenticated = false;
+      state.errorName = action.payload;
     },
-    logout: state => {
-      state.isAuthenticated = false
-      state.username = ''
+    logout: (state, _: PayloadAction) => {
+      state.isAuthenticated = false;
+      state.username = '';
     },
-    clearError: state => {
+    changeUsername: (state, action: PayloadAction<string>) => { },
+    changePassword: (state, action: PayloadAction<string>) => { },
+    changeUsernameSuccess: (state, action: PayloadAction<string>) => {
+      state.username = action.payload;
+    },
+    changeUsernameFail: (state, action: PayloadAction<string>) => {
+      state.errorName = action.payload;
+    },
+    changePasswordFail: (state, action: PayloadAction<string>) => {
+      state.errorName = action.payload;
+    },
+    clearError: (state, _: PayloadAction) => {
       state.errorName = null;
     }
   },
 })
 
-export const { logIn, loginSuccess, loginFail, signup, signupSuccess, signupFail, logout, clearError } = userSlice.actions
+export const { logIn, loginSuccess, loginFail, signup, signupSuccess, signupFail, logout, clearError, changeUsername, changePassword } = userSlice.actions
 export const selectIsAuthenticated = (state: RootState) => state.user.isAuthenticated
 export const selectUsername = (state: RootState) => state.user.username
 export const selectErrorName = (state: RootState) => state.user.errorName

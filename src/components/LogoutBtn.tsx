@@ -1,6 +1,7 @@
 import { useAppDispatch } from "@/app/hooks"
 import { logout } from "@/features/user/userSlice";
 
+// Попап сделать. Точно хотите выйти? + кнопка в библиотеке - удалить все с попапом
 export function Logout() {
     const dispatch = useAppDispatch();
     return (

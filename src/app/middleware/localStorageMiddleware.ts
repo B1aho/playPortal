@@ -1,9 +1,8 @@
 import { Middleware } from "@reduxjs/toolkit";
-import { UserActions } from "@/features/user/userSlice";
-import { getStoredFavs, getStoredUser, saveUserToLocalStorage } from "./utility";
-import { loadFavorites, clearLibrary, addFavorite, LibActions } from '@/features/library/librarySlice';
+import { clearError, UserActions } from "@/features/user/userSlice";
+import { changePasswordInLocalStorage, changeUsernameInLocalStorage, getStoredFavs, getStoredUser, saveUserToLocalStorage } from "./utility";
+import { loadFavorites, clearLibrary, LibActions } from '@/features/library/librarySlice';
 
-// Везде использовать action creators!!!
 export const localStorageMiddleware: Middleware = store => next => (action: UserActions | LibActions) => {
   // Проверка logIn
   if (action.type === 'user/logIn') {
@@ -42,7 +41,38 @@ export const localStorageMiddleware: Middleware = store => next => (action: User
     return;
   }
 
+  if (action.type === 'user/changeUsername') {
+    const newUsername = action.payload;
+    const storedSameUsername = getStoredUser(newUsername);
+    if (storedSameUsername.username === newUsername) {
+      store.dispatch({ type: 'user/changeUsernameFail', payload: 'Username change fail: This username is already taken!' });
+      return;
+    }
 
+    try {
+      const oldUsername = store.getState().user.username;
+      changeUsernameInLocalStorage(oldUsername, newUsername);
+    } catch (err) {
+      store.dispatch({ type: 'user/changeUsernameFail', payload: 'Username change fail: current data might be broken!' });
+      return;
+    }
+    store.dispatch({ type: 'user/changeUsernameSuccess', payload: newUsername });
+    store.dispatch(clearError());
+    return;
+  }
+
+  if (action.type === 'user/changePassword') {
+    const newPassword = action.payload;
+    try {
+      const username = store.getState().user.username;
+      changePasswordInLocalStorage(username, newPassword);
+    } catch (err) {
+      store.dispatch({ type: 'user/changePasswordFail', payload: 'Password change fail: check if storage is disabled or if it is full!' });
+      return;
+    }
+    store.dispatch(clearError());
+    return;
+  }
 
 
   if (action.type === 'user/logout') {
