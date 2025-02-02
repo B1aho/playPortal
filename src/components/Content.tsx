@@ -8,7 +8,10 @@ import { useGetPopularMoviesQuery, useSearchMoviesQuery } from "@/services/trakt
 import { Movie } from "@/services/traktApiTypes";
 
 interface ContentProps {
-    search?: string | null;
+    search?: {
+        query: string;
+        option: string;
+    };
     heading?: string;
     genre?: string;
     tag?: string;
@@ -59,7 +62,6 @@ export function Content({ search, heading, genre, tag }: ContentProps) {
         <>
             <div className="flex justify-between">
                 <h1 className="text-2xl font-bold">{heading}</h1>
-                {/*data && <h1 className="text-base font-medium">{`${data.count} games`}</h1>*/}
             </div>
             <FilterBar />
             <ContentView error={error} isSuccess={isSuccess} isLoading={isLoading} data={traktResponse} />
