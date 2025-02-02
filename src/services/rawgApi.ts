@@ -1,4 +1,4 @@
-import { GameCardInfo, GameDetailResponse, GameResults, GamesResponse, Movie, MovieResponse, Screenshot, ScreenshotsResponse } from '@/rawgTypes';
+import { GameCardInfo, GameDetailResponse, GameResults, GamesResponse, Movie, MovieResponse, Screenshot, ScreenshotsResponse } from '@/services/rawgTypes';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 // Обработать ошибки если их сервер лёг!

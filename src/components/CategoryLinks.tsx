@@ -1,4 +1,4 @@
-import { Common } from "@/rawgTypes"
+import { Common } from "@/services/rawgTypes"
 import { useNavigate } from "react-router-dom";
 
 interface CategoryProps {

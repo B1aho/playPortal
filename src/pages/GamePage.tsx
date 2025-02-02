@@ -2,7 +2,7 @@ import { CategoryLinks } from "@/components/CategoryLinks";
 import { HoverLink } from "@/components/HoverLink";
 import { MediaCarousel } from "@/components/MediaCarousel";
 import { Button } from "@/components/ui/button";
-import { PlatformElement } from "@/rawgTypes";
+import { PlatformElement } from "@/services/rawgTypes";
 import { useGetGameDetaileByIdQuery } from "@/services/rawgApi";
 import { format } from "date-fns";
 import { Gem } from "lucide-react";

@@ -1,4 +1,4 @@
-import { GameCardInfo } from "@/rawgTypes"
+import { GameCardInfo } from "@/services/rawgTypes"
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { AddFavBtn } from "./AddFavBtn";

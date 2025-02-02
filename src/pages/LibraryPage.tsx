@@ -2,7 +2,7 @@ import { useAppSelector } from "@/app/hooks";
 import { ContentView } from "@/components/ContentView";
 import { LoadMore } from "@/components/LoadMore";
 import { selectFavs } from "@/features/library/librarySlice";
-import { GameCardInfo } from "@/rawgTypes";
+import { GameCardInfo } from "@/services/rawgTypes";
 import { useLazyGetGameShortDetaileByIdQuery } from "@/services/rawgApi";
 import { useEffect, useReducer, useState } from "react";
 

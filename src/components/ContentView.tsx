@@ -1,4 +1,4 @@
-import { GameCardInfo } from "@/rawgTypes";
+import { GameCardInfo } from "@/services/rawgTypes";
 import { GameCard } from "./GameCard";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { SerializedError } from "@reduxjs/toolkit";
