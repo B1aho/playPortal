@@ -67,7 +67,7 @@ const userSlice = createSlice({
       state.isConfirmOldPassword = action.payload;
     },
     setIsPasswordWasChanged: (state, action: PayloadAction<boolean>) => {
-      state.isConfirmOldPassword = action.payload;
+      state.isPasswordWasChanged = action.payload;
     }
   }
 })

@@ -1,5 +1,5 @@
 import { Middleware } from "@reduxjs/toolkit";
-import { afterPasswordChanged, clearError, setError, setOldPasswordCheckRes, UserActions } from "@/features/user/userSlice";
+import { afterPasswordChanged, clearError, setError, setIsPasswordWasChanged, setOldPasswordCheckRes, UserActions } from "@/features/user/userSlice";
 import { changePasswordInLocalStorage, changeUsernameInLocalStorage, checkLocalStoragePassword, clearCurrUsername, getStoredFavs, getStoredUser, saveCurrUsername, saveUserToLocalStorage } from "./utility";
 import { loadFavorites, clearLibrary, LibActions } from '@/features/library/librarySlice';
 
@@ -71,8 +71,9 @@ export const localStorageMiddleware: Middleware = store => next => (action: User
       store.dispatch({ type: 'user/changePasswordFail', payload: 'Password change fail: check if storage is disabled or if it is full!' });
       return;
     }
-    store.dispatch(clearError());
+    store.dispatch(setIsPasswordWasChanged(true));
     store.dispatch(afterPasswordChanged());
+    store.dispatch(clearError());
     return;
   }
 

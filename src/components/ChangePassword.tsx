@@ -25,36 +25,52 @@ export function ChangePassword() {
             dispatch(setError('Passwords do not match'));
             return;
         }
-        if (formRef.current && formRef.current.checkValidity())
+        if (formRef.current && formRef.current.checkValidity()) {
+            console.log('Dispatch Change password to the new one')
             dispatch(changePassword(password))
+        }
     }
 
     const handleOldPasswordCheck = (e: FormEvent) => {
         e.preventDefault();
+        console.log('Dispatch Start checking if old password rigth')
         dispatch(checkOldPassword(oldPassword))
     }
 
-    if (oldPassword === "") {
-        dispatch(clearError());
-    }
+    useEffect(() => {
+        if (oldPassword === "") {
+            dispatch(clearError());
+        }
+    }, [oldPassword, dispatch]);
 
-    if (isPasswordWasChanged) {
-        setPassword("");
-        setConfirmPassword("");
-        toast({
-            title: "Success!",
-            description: "Your password has been successfully changed",
-        })
-        dispatch(setIsPasswordWasChanged(false))
-    }
+    useEffect(() => {
+        if (password === "" && confirmPassword === "")
+            dispatch(clearError())
+    }, [password, confirmPassword, dispatch])
+
+    useEffect(() => {
+        if (isPasswordWasChanged) {
+            console.log('Password was changed! Toast start! And then dispatch that password was changed false');
+            setPassword("");
+            setConfirmPassword("");
+            toast({
+                title: "Success!",
+                description: "Your password has been successfully changed",
+            });
+            dispatch(setIsPasswordWasChanged(false));
+        }
+    }, [isPasswordWasChanged, dispatch, toast]);
+
 
     useEffect(() => {
         setOldPassword("");
+        console.log('Set old pass input to ""')
     }, [isConfirmOldPassword])
 
     useEffect(() => {
         return () => {
             dispatch(setOldPasswordCheckRes(false));
+            console.log('Set old passwCheckRes false')
         }
     }, [])
 

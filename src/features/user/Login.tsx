@@ -1,4 +1,4 @@
-import { FormEventHandler, PointerEventHandler, useState } from "react";
+import { FormEventHandler, PointerEventHandler, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { selectErrorName, logIn, clearError, selectIsAuthenticated } from "./userSlice";
 import { useNavigate } from "react-router-dom";
@@ -28,9 +28,11 @@ export function LoginPage() {
         navigate('/signup');
     };
 
-    if (login === "" && password === "") {
-        dispatch(clearError());
-    }
+    useEffect(() => {
+        if (login === "" && password === "") {
+            dispatch(clearError());
+        }
+    }, [login, password, dispatch])
 
     return (
         <Auth

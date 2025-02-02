@@ -17,6 +17,7 @@ export function Password({ value, onChange, className }: PasswordProps) {
     return (
         <div className="relative">
             <Input
+                value={value}
                 id="password"
                 type={showPassword ? "text" : "password"}
                 className={cn("hide-password-toggle pr-10", className)}
