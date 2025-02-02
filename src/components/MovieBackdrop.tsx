@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useGetTmdbMovieImagesQuery } from '@/services/tmdbApi';
+import Lottie from "lottie-react";
+import imageLoader from "@/lottie/image.json";
 
 interface MovieBackdropProps {
     tmdbMovieId: number;
@@ -22,8 +24,8 @@ export const MovieBackdrop = ({ tmdbMovieId }: MovieBackdropProps) => {
     return (
         <>
             {!isImageLoaded && (
-                <div className="loader">
-                    <p>Loading Image...</p>
+                <div className='w-full flex justify-center items-center'>
+                    <Lottie className='w-32 h-auto object-cover rounded-t-2xl' animationData={imageLoader} loop={true} />
                 </div>
             )}
 
