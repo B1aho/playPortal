@@ -1,25 +1,24 @@
-const MAX_PAGE_LIMIT = 100;
+//const MAX_PAGE_LIMIT = 100;
 
 import { ContentView } from "./ContentView";
 import { FilterBar } from "./FilterBar";
 import { useCallback, useEffect, useState } from "react";
 import { LoadMore } from "./LoadMore";
-import { useGetPopularMoviesQuery } from "@/services/traktApi";
+import { useGetPopularMoviesQuery, useSearchMoviesQuery } from "@/services/traktApi";
+import { Movie } from "@/services/traktApiTypes";
 
 interface ContentProps {
     search?: string | null;
     heading?: string;
     genre?: string;
     tag?: string;
-    platform?: string;
-    developer?: string;
 }
 
 // Обработать отсутствие данных - если человек ввел в url не существуюший tag, genre, или поиск = 0. Короче все кейсы
 // где count === 0 или data.undefined - показывать картинку или анимацию с lottify
-export function Content({ search, heading, genre, tag, platform, developer }: ContentProps) {
+export function Content({ search, heading, genre, tag }: ContentProps) {
     const [page, setPage] = useState(1);
-    const { data, error, isLoading, isSuccess } = useGetPopularMoviesQuery(page);
+    const { data, error, isLoading, isSuccess } = search ? useSearchMoviesQuery({ search, page }) : useGetPopularMoviesQuery(page);
     const [traktResponse, setTraktResponse] = useState(data)
 
     /**
@@ -28,6 +27,8 @@ export function Content({ search, heading, genre, tag, platform, developer }: Co
      * 
      * Without this, the page would continue to increment and add new results to the old ones instead of starting 
      * fresh with the new search query.
+     * 
+     * В КАСТОМНЫЙ ХУК
      */
     useEffect(() => {
         setPage(1);
@@ -41,7 +42,7 @@ export function Content({ search, heading, genre, tag, platform, developer }: Co
     // Обновляем rawgResponse, когда data меняется, добавляя игры со следующей страницы
     useEffect(() => {
         if (data) {
-            setTraktResponse((prevResponse) => {
+            setTraktResponse((prevResponse: Movie[]) => {
                 if (!prevResponse) {
                     return data;
                 }

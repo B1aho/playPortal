@@ -1,4 +1,4 @@
-import { GameCard } from "./GameCard";
+import { MovieCard } from "./MovieCard";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { SerializedError } from "@reduxjs/toolkit";
 import { ContentSkeleton } from "./ContentSkeleton";
@@ -24,7 +24,7 @@ export function ContentView({ data, isLoading, isSuccess, error }: ContentProps)
     } else if (data) {
         content = (
             data.map(item => {
-                return <GameCard key={item.ids.trakt} data={item} />
+                return <MovieCard key={item.ids.trakt} data={item} />
             })
         )
     }

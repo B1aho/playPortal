@@ -32,11 +32,15 @@ export function MediaCarousel({ tmdb, trailer }: MediaProps) {
     if (tmdbData) {
         const length = tmdbData.length < 10 ? tmdbData.length : 10;
         Array.from({ length: length }).map((_, idx) => {
-            const backdropUrl = `https://image.tmdb.org/t/p/w780${tmdbData.backdrops[idx].file_path}`;
+            const backdropUrl = tmdbData?.backdrops?.[idx]?.file_path
+                ? `https://image.tmdb.org/t/p/original${tmdbData?.backdrops[idx].file_path}`
+                : null;
             content.push(
-                <CarouselItem className="rounded-xl" key={idx + 1}>
-                    <img className="w-full rounded-xl shadow-black shadow-inner" src={backdropUrl} alt="Movie Backdrop" />
-                </CarouselItem>
+                backdropUrl ?
+                    <CarouselItem className="rounded-xl" key={idx + 1}>
+                        <img className="w-full rounded-xl shadow-black shadow-inner" src={backdropUrl} alt="Movie Backdrop" />
+                    </CarouselItem>
+                    : null /* Вставлять постер в итоге от trakt как fallback если пустая карусель*/
             )
         })
     }

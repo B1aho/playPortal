@@ -5,14 +5,12 @@ import { useLocation, useParams } from "react-router-dom";
 
 export function MainPage() {
     const location = useLocation();
-    let { genre, tag, platform, developer } = useParams();
+    let { genre, tag } = useParams();
     const queryParams = new URLSearchParams(location.search);
     const query = queryParams.get('query');
     let heading = 'Games';
 
     genre = genre ? genre : '';
-    console.log(tag)
-
     // Сделать heading более универсальным, еще же и по тегу может показывать
     if (location.pathname === "/search") {
         heading = `Search for: ${query}`;
@@ -29,7 +27,7 @@ export function MainPage() {
 
     return (
         <div>
-            <Content search={query} platform={platform} developer={developer} tag={tag} genre={genre} heading={heading} />
+            <Content search={query} heading={heading} />
         </div>
     );
 }

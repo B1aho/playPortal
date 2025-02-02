@@ -5,11 +5,11 @@ import { MovieBackdrop } from "./MovieBackdrop";
 import { Button } from "./ui/button";
 import { MonitorX } from "lucide-react";
 
-interface GameCardProps {
+interface MovieCardProps {
     data: Movie;
 }
 
-export function GameCard({ data }: GameCardProps) {
+export function MovieCard({ data }: MovieCardProps) {
     const navigate = useNavigate();
 
     return (

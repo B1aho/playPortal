@@ -2,7 +2,14 @@ export interface Movie {
     title: string;
     year: number;
     ids: IDS;
-    images: Images;
+    images?: Images;
+}
+
+export interface SearchResponse {
+    type: string;
+    score: number;
+    movie?: Movie;
+    show?: Movie;
 }
 
 export interface MovieDetail {

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { MovieDetail } from './traktApiTypes';
+import { Movie, MovieDetail, SearchResponse } from './traktApiTypes';
 
 // Обработать ошибки если их сервер лёг!
 const API_URL = 'https://api.trakt.tv/';
@@ -36,10 +36,30 @@ export const traktApi = createApi({
         params: { extended: 'full' },
       })
     }),
+    searchMovies: builder.query({
+      query: ({ search, page }) => {
+        const params = new URLSearchParams({
+          page: page.toString(),
+        });
+        return `search/movie?query=${search}&${params.toString()}`
+      },
+      transformResponse: (response: SearchResponse[]): Movie[] => {
+        return getMoviesArray(response);
+      },
+    }),
   }),
 })
 
 export const {
   useGetPopularMoviesQuery,
   useGetMovieInfoQuery,
+  useSearchMoviesQuery,
 } = traktApi
+
+
+function getMoviesArray(resp: SearchResponse[]): Movie[] {
+  return resp.map(item => {
+    const movie: Movie = item.movie ? item.movie : item.show;
+    return movie;
+  });
+}
