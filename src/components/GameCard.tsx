@@ -1,10 +1,12 @@
-import { GameCardInfo } from "@/services/rawgTypes"
-import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { AddFavBtn } from "./AddFavBtn";
+import { Movie } from "@/services/traktApiTypes";
+import { MovieBackdrop } from "./MovieBackdrop";
+import { Button } from "./ui/button";
+import { MonitorX } from "lucide-react";
 
 interface GameCardProps {
-    data: GameCardInfo;
+    data: Movie;
 }
 
 export function GameCard({ data }: GameCardProps) {
@@ -13,35 +15,25 @@ export function GameCard({ data }: GameCardProps) {
     return (
         <div className="game-card w-full flex flex-col">
             <div className="w-full h-full flex-2 overflow-hidden">
-                <img className="w-full h-full object-cover object-top rounded-t-2xl" src={data.background_image} alt="game preview image" loading="lazy" />
+                <MovieBackdrop tmdbMovieId={data.ids.tmdb} />
             </div>
             <div className="flex-1 relative">
                 <div className="flex justify-between">
-                    <div onPointerDown={() => navigate(`/games/${data.slug}`)} className="game-card-heading cursor-pointer">
-                        <h2>{data.name}</h2>
-                    </div>
-                    <div className="rounded-lg text-green-500">
-                        {data.metacritic}
+                    <div onPointerDown={() => navigate(`/games/${data.ids.slug}`)} className="cursor-pointer">
+                        <h2 className="text-lg font-bold">{data.title}</h2>
                     </div>
                 </div>
                 <div className="flex justify-between">
                     <div className="game-card-btns flex">
-                        <AddFavBtn slug={data.slug} />
-                        <div>hide game</div>
+                        <AddFavBtn slug={data.ids.slug} />
+                        <Button><MonitorX /></Button>
                     </div>
                 </div>
                 <ul className="">
                     <li className="flex justify-between">
-                        <span>Rating:</span>
-                        <span>{data.rating}</span>
+                        <span>Release year:</span>
+                        <span>{data.year}</span>
                     </li>
-                    <hr />
-                    <li className="flex justify-between">
-                        <span>Release date:</span>
-                        <span>{format(data.released, 'PP')}</span>
-                    </li>
-                    <hr />
-                    <div className="platform-icons">Пока none</div>
                 </ul>
             </div>
         </div>

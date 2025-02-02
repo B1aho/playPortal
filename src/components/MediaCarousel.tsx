@@ -6,7 +6,7 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel"
 import { Skeleton } from "./ui/skeleton";
-import { useGetMediaByIdQuery, useGetMoviesByIdQuery } from "@/services/rawgApi";
+import { useGetMediaByIdQuery, useGetMoviesByIdQuery } from "@/services/traktApi";
 import { TrailerWithPreview } from "./TrailerWithPreview";
 
 interface MediaProps {

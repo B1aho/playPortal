@@ -1,11 +1,11 @@
-import { GameCardInfo } from "@/services/rawgTypes";
 import { GameCard } from "./GameCard";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { SerializedError } from "@reduxjs/toolkit";
 import { ContentSkeleton } from "./ContentSkeleton";
+import { Movie } from "@/services/traktApiTypes";
 
 interface ContentProps {
-    data: GameCardInfo[] | undefined;
+    data: Movie[] | undefined;
     isLoading?: boolean,
     error?: FetchBaseQueryError | SerializedError | undefined,
     isSuccess?: boolean,
@@ -23,8 +23,8 @@ export function ContentView({ data, isLoading, isSuccess, error }: ContentProps)
         content = <ContentSkeleton />;
     } else if (data) {
         content = (
-            data.map(gameInfo => {
-                return <GameCard key={gameInfo.id} data={gameInfo} />
+            data.map(item => {
+                return <GameCard key={item.ids.trakt} data={item} />
             })
         )
     }
