@@ -85,18 +85,25 @@ export const saveUserToLocalStorage = (username: string, data: { username: strin
     }
 };
 
+// Учесть и поменять username для favs и currusername 
 export const changeUsernameInLocalStorage = (username: string, newUsername: string) => {
     const storedString = localStorage.getItem(username)
-
+    localStorage.setItem(CURRENT_USER_KEY, newUsername);
     if (storedString) {
         const newKey = newUsername;
-        const newValue = JSON.parse(storedString); // сохраняем старое значение
-
+        const userData: { username: string; password: string; } = JSON.parse(storedString);
+        userData.username = newKey;
         localStorage.removeItem(username);
-        localStorage.setItem(newKey, JSON.stringify(newValue));
+        localStorage.setItem(newKey, JSON.stringify(userData));
     } else {
         throw new Error('Current username data was not found!')
     }
+    const favs = getStoredFavs(username);
+    if (favs) {
+        localStorage.removeItem(username + '%favs');
+        localStorage.setItem(newUsername + '%favs', JSON.stringify([...favs]))
+    }
+
 };
 
 export const changePasswordInLocalStorage = (username: string, newPassword: string) => {
