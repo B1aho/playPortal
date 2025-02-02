@@ -19,7 +19,7 @@ export function GameCard({ data }: GameCardProps) {
             </div>
             <div className="flex-1 relative">
                 <div className="flex justify-between">
-                    <div onPointerDown={() => navigate(`/games/${data.ids.slug}`)} className="cursor-pointer">
+                    <div onPointerDown={() => navigate(`/movies/${data.ids.slug}`)} className="cursor-pointer">
                         <h2 className="text-lg font-bold">{data.title}</h2>
                     </div>
                 </div>

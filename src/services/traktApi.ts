@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { MovieDetail } from './traktApiTypes';
 
 // Обработать ошибки если их сервер лёг!
 const API_URL = 'https://api.trakt.tv/';
@@ -15,7 +16,6 @@ export const traktApi = createApi({
       headers.set('trakt-api-key', CLIENT_ID); // Подставь свой client_id
       headers.set('trakt-api-version', '2');
 
-      // // OAuth токен, добавляем заголовок авторизации
       // const token = (getState() as RootState).auth.accessToken;
       // if (token) {
       //   headers.set('Authorization', `Bearer ${token}`);
@@ -24,10 +24,16 @@ export const traktApi = createApi({
     }
   }),
   endpoints: (builder) => ({
-    getPopularMovies: builder.query<any, void>({
-      query: () => ({
-        //params: { extended: 'images' },
+    getPopularMovies: builder.query({
+      query: (page: number) => ({
         url: 'movies/popular',
+        params: { page: page },
+      })
+    }),
+    getMovieInfo: builder.query<MovieDetail, string | undefined>({
+      query: (id) => ({
+        url: `movies/${id}`,
+        params: { extended: 'full' },
       })
     }),
   }),
@@ -35,4 +41,5 @@ export const traktApi = createApi({
 
 export const {
   useGetPopularMoviesQuery,
+  useGetMovieInfoQuery,
 } = traktApi

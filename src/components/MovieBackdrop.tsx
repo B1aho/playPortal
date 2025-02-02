@@ -3,11 +3,14 @@ import { useGetTmdbMovieImagesQuery } from '@/services/tmdbApi';
 import Lottie from "lottie-react";
 import imageLoader from "@/lottie/image.json";
 
+type ImageQaulity = "w92" | "w154" | "w185" | "w342" | "w500" | "w780" | "original";
+
 interface MovieBackdropProps {
     tmdbMovieId: number;
+    quality?: ImageQaulity;
 }
 
-export const MovieBackdrop = ({ tmdbMovieId }: MovieBackdropProps) => {
+export const MovieBackdrop = ({ tmdbMovieId, quality = "w780" }: MovieBackdropProps) => {
     const { data: tmdbData, error } = useGetTmdbMovieImagesQuery(tmdbMovieId);
     const [isImageLoaded, setImageLoaded] = useState(false);
 
@@ -18,7 +21,7 @@ export const MovieBackdrop = ({ tmdbMovieId }: MovieBackdropProps) => {
     if (error) return <p>Error occured!</p>;
 
     const backdropUrl = tmdbData?.backdrops?.[0]?.file_path
-        ? `https://image.tmdb.org/t/p/w780${tmdbData?.backdrops[0].file_path}`
+        ? `https://image.tmdb.org/t/p/${quality}${tmdbData?.backdrops[0].file_path}`
         : null;
 
     return (
@@ -32,7 +35,7 @@ export const MovieBackdrop = ({ tmdbMovieId }: MovieBackdropProps) => {
             {backdropUrl && (
                 <img
                     src={backdropUrl}
-                    alt="Movie Poster"
+                    alt="Movie Backdrop"
                     onLoad={handleImageLoad} // Срабатывает, когда картинка полностью загружена
                     className='w-full h-auto rounded-t-2xl'
                     style={{

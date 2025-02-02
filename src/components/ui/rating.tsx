@@ -35,7 +35,7 @@ interface RatingsProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const Ratings = ({ ...props }: RatingsProps) => {
   const {
-    totalStars = 5,
+    totalStars = 10,
     size = 20,
     fill = true,
     Icon = <Star />,

@@ -19,7 +19,7 @@ interface ContentProps {
 // где count === 0 или data.undefined - показывать картинку или анимацию с lottify
 export function Content({ search, heading, genre, tag, platform, developer }: ContentProps) {
     const [page, setPage] = useState(1);
-    const { data, error, isLoading, isSuccess } = useGetPopularMoviesQuery();
+    const { data, error, isLoading, isSuccess } = useGetPopularMoviesQuery(page);
     const [traktResponse, setTraktResponse] = useState(data)
 
     /**
@@ -46,11 +46,10 @@ export function Content({ search, heading, genre, tag, platform, developer }: Co
                     return data;
                 }
 
-                return {
+                return [
+                    ...prevResponse,
                     ...data,
-                    gameCardData: [...prevResponse.gameCardData, ...data.gameCardData],
-                    results: [...prevResponse.results, ...data.results],
-                };
+                ];
             });
         }
     }, [data]);

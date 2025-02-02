@@ -8,7 +8,7 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { lazy, Suspense } from 'react';
 import { SettingPage } from './pages/SettingPage';
 
-const GamePage = lazy(() => import('./pages/GamePage'));
+const MoviePage = lazy(() => import('./pages/MoviePage'));
 const LibraryPage = lazy(() => import('./pages/LibraryPage'));
 
 
@@ -29,7 +29,7 @@ function App() {
             <Route path="games/tag/:tag" element={<MainPage />} />
             <Route path="games/platform/:platform" element={<MainPage />} />
             <Route path="games/developer/:developer" element={<MainPage />} />
-            <Route path="games/:slug" element={<GamePage />} />
+            <Route path="movies/:slug" element={<MoviePage />} />
             <Route path="404" element={<NotFoundPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>

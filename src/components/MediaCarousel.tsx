@@ -5,41 +5,55 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel"
-import { Skeleton } from "./ui/skeleton";
-import { useGetMediaByIdQuery, useGetMoviesByIdQuery } from "@/services/traktApi";
 import { TrailerWithPreview } from "./TrailerWithPreview";
+import { useGetTmdbMovieImagesQuery } from "@/services/tmdbApi";
+import Lottie from "lottie-react";
+import imageLoader from "@/lottie/image.json";
+
 
 interface MediaProps {
-    slug: string | undefined;
+    tmdb: number | undefined;
+    trailer?: string;
 }
 
-export function MediaCarousel({ slug }: MediaProps) {
-    const { data: screenshotsData } = useGetMediaByIdQuery(slug);
-    const { data: moviesData } = useGetMoviesByIdQuery(slug);
-    let content = Array.from({ length: 4 }).map((_, idx) => <Skeleton key={idx} className="w-full h-full" />)
+export function MediaCarousel({ tmdb, trailer }: MediaProps) {
+    const { data: tmdbData } = useGetTmdbMovieImagesQuery(tmdb);
 
-    if (screenshotsData) {
-        content = screenshotsData.screenshots.map((item) => (
-            <CarouselItem className="rounded-xl" key={item.id}>
-                <img className="w-full rounded-xl  shadow-black shadow-inner" src={item.image} alt="game-screenshot" />
-            </CarouselItem>
-        ))
-    }
+    const content = [];
 
-    if (moviesData?.movie[0]) {
-        content.unshift(
-            <CarouselItem className="rounded-xl" key={moviesData.movie[0].id}>
-                <TrailerWithPreview src={moviesData.movie[0].max} preview={moviesData.movie[0].preview} />
+    if (trailer) {
+        content.push(
+            <CarouselItem className="rounded-xl" key={0}>
+                <TrailerWithPreview src={trailer} />
             </CarouselItem>
         )
     }
+
+    if (tmdbData) {
+        const length = tmdbData.length < 10 ? tmdbData.length : 10;
+        Array.from({ length: length }).map((_, idx) => {
+            const backdropUrl = `https://image.tmdb.org/t/p/w780${tmdbData.backdrops[idx].file_path}`;
+            content.push(
+                <CarouselItem className="rounded-xl" key={idx + 1}>
+                    <img className="w-full rounded-xl shadow-black shadow-inner" src={backdropUrl} alt="Movie Backdrop" />
+                </CarouselItem>
+            )
+        })
+    }
+
     return (
-        <Carousel opts={{ loop: true, dragFree: false }} className="w-full max-w-[80%] rounded-xl ">
+        <Carousel opts={{ loop: true, dragFree: false }} className="relative w-full max-w-[80%] rounded-xl ">
             <CarouselContent className="rounded-xl">
-                {content}
+                {!tmdbData ? (
+                    <div className='w-full flex justify-center items-center'>
+                        <Lottie className='w-32 h-auto object-cover rounded-t-2xl' animationData={imageLoader} loop={true} />
+                    </div>
+                )
+                    : content
+                }
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious className="-left-9 " />
+            <CarouselNext className="-right-9" />
         </Carousel>
     )
 }
