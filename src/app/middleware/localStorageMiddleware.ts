@@ -1,6 +1,6 @@
 import { Middleware } from "@reduxjs/toolkit";
-import { afterPasswordChanged, clearError, setError, setIsPasswordWasChanged, setOldPasswordCheckRes, UserActions } from "@/features/user/userSlice";
-import { changePasswordInLocalStorage, changeUsernameInLocalStorage, checkLocalStoragePassword, clearCurrUsername, getStoredFavs, getStoredUser, saveCurrUsername, saveUserToLocalStorage } from "./utility";
+import { afterPasswordChanged, clearError, logout, setError, setIsPasswordWasChanged, setOldPasswordCheckRes, UserActions } from "@/features/user/userSlice";
+import { changePasswordInLocalStorage, changeUsernameInLocalStorage, checkLocalStoragePassword, clearCurrUsername, deleteAccountFromLocalStorage, getStoredFavs, getStoredUser, saveCurrUsername, saveUserToLocalStorage } from "./utility";
 import { loadFavorites, clearLibrary, LibActions } from '@/features/library/librarySlice';
 
 export const localStorageMiddleware: Middleware = store => next => (action: UserActions | LibActions) => {
@@ -94,6 +94,12 @@ export const localStorageMiddleware: Middleware = store => next => (action: User
     }
     store.dispatch(setOldPasswordCheckRes(result));
     store.dispatch(clearError());
+    return;
+  }
+
+  if (action.type === 'user/deleteAccount') {
+    deleteAccountFromLocalStorage();
+    store.dispatch(logout());
     return;
   }
 

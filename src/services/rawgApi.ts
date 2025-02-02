@@ -1,6 +1,7 @@
 import { GameCardInfo, GameDetailResponse, GameResults, GamesResponse, Movie, MovieResponse, Screenshot, ScreenshotsResponse } from '@/rawgTypes';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+// Обработать ошибки если их сервер лёг!
 const API_URL = 'https://api.rawg.io/api/';
 const API_KEY = import.meta.env.VITE_API_KEY;
 const PAGE_SIZE = '10';

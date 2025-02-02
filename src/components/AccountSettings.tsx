@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/tabs";
 import { ChangeUsername } from "./ChangeUsername";
 import { ChangePassword } from "./ChangePassword";
+import { DeleteAccount } from "./DeleteAccount";
 export function AccountSettings() {
     const username = useAppSelector(selectUsername);
     return (
@@ -20,12 +21,15 @@ export function AccountSettings() {
                 </div>
                 <div>
                     <Tabs defaultValue="username" className="w-full">
-                        <TabsList className="grid w-full grid-cols-2">
+                        <TabsList className="grid w-full grid-cols-3">
                             <TabsTrigger value="username">
                                 Change my username
                             </TabsTrigger>
                             <TabsTrigger value="password">
                                 Change my password
+                            </TabsTrigger>
+                            <TabsTrigger value="delete">
+                                Delete account
                             </TabsTrigger>
                         </TabsList>
                         <TabsContent value="username">
@@ -33,6 +37,9 @@ export function AccountSettings() {
                         </TabsContent>
                         <TabsContent value="password">
                             <ChangePassword />
+                        </TabsContent>
+                        <TabsContent value="delete">
+                            <DeleteAccount />
                         </TabsContent>
                     </Tabs>
                 </div>

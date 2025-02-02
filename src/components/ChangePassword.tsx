@@ -7,7 +7,6 @@ import { PasswordInput } from "./PasswordInput";
 import { useToast } from "@/hooks/use-toast";
 
 // Разделить на два компонента 
-// Че то он 20 раз перерендеривается и состояние  isPasswordWasChanged и isConfirmOldPassword - неправильно меняются
 export function ChangePassword() {
     const [oldPassword, setOldPassword] = useState('');
     const isConfirmOldPassword = useAppSelector(selectConfirmPassword);

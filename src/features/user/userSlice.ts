@@ -68,11 +68,12 @@ const userSlice = createSlice({
     },
     setIsPasswordWasChanged: (state, action: PayloadAction<boolean>) => {
       state.isPasswordWasChanged = action.payload;
-    }
+    },
+    deleteAccount: (state, _: PayloadAction) => { }
   }
 })
 
-export const { logIn, loginSuccess, loginFail, signup, signupSuccess, signupFail, logout, clearError, changeUsername, changePassword, setError, afterPasswordChanged, checkOldPassword, setOldPasswordCheckRes, setIsPasswordWasChanged } = userSlice.actions
+export const { logIn, loginSuccess, loginFail, signup, signupSuccess, signupFail, logout, clearError, changeUsername, changePassword, setError, afterPasswordChanged, checkOldPassword, setOldPasswordCheckRes, setIsPasswordWasChanged, deleteAccount } = userSlice.actions
 export const selectIsAuthenticated = (state: RootState) => state.user.isAuthenticated
 export const selectUsername = (state: RootState) => state.user.username
 export const selectErrorName = (state: RootState) => state.user.errorName

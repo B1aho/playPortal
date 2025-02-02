@@ -116,5 +116,14 @@ export const changePasswordInLocalStorage = (username: string, newPassword: stri
     } else {
         throw new Error('Storage issue')
     }
-
 };
+
+export const deleteAccountFromLocalStorage = () => {
+    const currUsername = localStorage.getItem(CURRENT_USER_KEY);
+    if (currUsername) {
+        localStorage.removeItem(currUsername);
+        localStorage.removeItem(currUsername + '%favs');
+        localStorage.removeItem(CURRENT_USER_KEY);
+    }
+
+}
