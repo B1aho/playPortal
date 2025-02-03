@@ -13,49 +13,77 @@ import {
 } from "./ui/sidebar";
 
 import {
-    Castle,
-    Pickaxe,
-    Puzzle,
-    Swords,
-    Volleyball,
     BookUser,
+    ChevronDown,
     Settings,
-    Icon
 } from "lucide-react";
-import { crosshair2Dot } from '@lucide/lab';
+import { useContext } from "react";
+import { SearchTypeContext } from "@/app/searchTypeContext";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
+
 export function AppSidebar() {
+    const context = useContext(SearchTypeContext);
+    if (!context) {
+        throw new Error("useSearchType must be used within a SearchTypeProvider");
+    }
+    const { searchType } = context;
+    console.log("SEARCH TYPE:" + searchType);
     const genres = [
         {
             title: 'Action',
-            to: '/games/genre/action',
-            icon: Swords,
+            to: '/movies/genre/action',
+            icon: '💥',
         },
         {
-            title: 'Sport',
-            to: '/games/genre/sports',
-            icon: Volleyball,
+            title: 'Adventure',
+            to: '/movies/genre/adventure',
+            icon: '🏴‍☠️',
         },
         {
-            title: 'Puzzle',
-            to: '/games/genre/puzzle',
-            icon: Puzzle,
+            title: 'Comedy',
+            to: '/movies/genre/comedy',
+            icon: '😂',
         },
         {
-            title: 'RPG',
-            to: '/games/genre/role-playing-games-rpg',
-            icon: Castle,
+            title: 'Crime',
+            to: '/movies/genre/crime',
+            icon: '',
         },
         {
-            title: 'Simulation',
-            to: '/games/genre/simulation',
-            icon: Pickaxe,
+            title: 'Thriller',
+            to: '/movies/genre/thriller',
+            icon: '⚽',
         },
         {
-            title: 'Shooter',
-            to: '/games/genre/shooter',
-            icon: null,
-            iconNode: crosshair2Dot,
-        }
+            title: 'Documentary',
+            to: '/movies/genre/documentary',
+            icon: '',
+        },
+        {
+            title: 'Drama',
+            to: '/movies/genre/drama',
+            icon: '',
+        },
+        {
+            title: 'Horror',
+            to: '/movies/genre/horror',
+            icon: '',
+        },
+        {
+            title: 'Indie',
+            to: '/movies/genre/indie',
+            icon: '',
+        },
+        {
+            title: 'Sports',
+            to: '/movies/genre/sports',
+            icon: '⚽',
+        },
+        {
+            title: 'Science Fiction',
+            to: '/movies/genre/science-fiction',
+            icon: '',
+        },
     ];
 
     const dashboard = [
@@ -76,25 +104,32 @@ export function AppSidebar() {
                 <SidebarTrigger />
             </SidebarHeader>
             <SidebarContent>
-                <SidebarGroup>
-                    <SidebarGroupLabel>Popular genres:</SidebarGroupLabel>
-                    <SidebarGroupContent>
-                        <SidebarMenu>
-                            {genres.map((item) => (
-                                <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild>
-                                        <Link to={item.to}>
-                                            {
-                                                !item.icon ? <Icon iconNode={crosshair2Dot} /> : <item.icon />
-                                            }
-                                            <span>{item.title}</span>
-                                        </Link>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                            ))}
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
+                <Collapsible defaultOpen className="group/collapsible">
+                    <SidebarGroup>
+                        <SidebarGroupLabel asChild>
+                            <CollapsibleTrigger>
+                                Popular genres:
+                                <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                            </CollapsibleTrigger>
+                        </SidebarGroupLabel>
+                        <CollapsibleContent>
+                            <SidebarGroupContent>
+                                <SidebarMenu>
+                                    {genres.map((item) => (
+                                        <SidebarMenuItem key={item.title}>
+                                            <SidebarMenuButton asChild>
+                                                <Link to={item.to}>
+                                                    <span>{item.icon}</span>
+                                                    <span>{item.title}</span>
+                                                </Link>
+                                            </SidebarMenuButton>
+                                        </SidebarMenuItem>
+                                    ))}
+                                </SidebarMenu>
+                            </SidebarGroupContent>
+                        </CollapsibleContent>
+                    </SidebarGroup>
+                </Collapsible>
                 <SidebarGroup>
                     <SidebarGroupLabel>Dashboard:</SidebarGroupLabel>
                     <SidebarGroupContent>

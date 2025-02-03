@@ -1,3 +1,4 @@
+import { SearchTypeProvider } from "@/app/searchTypeContext";
 import { AppSidebar } from "@/components/AppSidebar";
 import { Header } from "@/components/Header";
 import { SidebarProvider } from "@/components/ui/sidebar";
@@ -10,12 +11,14 @@ function Layout() {
 
     return (
         <SidebarProvider>
-            {shouldShowHeaderSidebar && <AppSidebar />}
-            <div className="w-full overflow-visible">
-                {shouldShowHeaderSidebar && <Header />}
-                <Outlet />
-                <Toaster />
-            </div>
+            <SearchTypeProvider>
+                {shouldShowHeaderSidebar && <AppSidebar />}
+                <div className="w-full overflow-visible">
+                    {shouldShowHeaderSidebar && <Header />}
+                    <Outlet />
+                    <Toaster />
+                </div>
+            </SearchTypeProvider>
         </SidebarProvider>
     );
 }

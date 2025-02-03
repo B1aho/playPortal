@@ -1,3 +1,4 @@
+import { SearchType } from "@/app/searchTypeContext";
 import {
     Select,
     SelectContent,
@@ -7,16 +8,15 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { Dispatch, SetStateAction } from "react";
 
 interface SelectSearchProps {
     value: string;
-    onChange: Dispatch<SetStateAction<string>>;
+    setSearchType: (v: SearchType) => void;
 }
 
-export function SelectSearch({ value, onChange }: SelectSearchProps) {
+export function SelectSearch({ value, setSearchType }: SelectSearchProps) {
     return (
-        <Select value={value} onValueChange={onChange}>
+        <Select value={value} onValueChange={(val: SearchType) => setSearchType(val)}>
             <SelectTrigger className="w-[150px] cursor-pointer absolute right-2 rounded-md hover:bg-slate-400 top-[2px] border-none focus:ring-0 focus:ring-offset-0">
                 <SelectValue placeholder="Movies" />
             </SelectTrigger>

@@ -24,7 +24,7 @@ function App() {
             <Route path="lib" element={<LibraryPage />} />
             <Route path="search" element={<MainPage />} />
             <Route path="settings" element={<SettingPage />} />
-            <Route path="games/genre/:genre" element={<MainPage />} />
+            <Route path="movies/genre/:genre" element={<MainPage />} />
             <Route path="games/tag/:tag" element={<MainPage />} />
             <Route path="games/platform/:platform" element={<MainPage />} />
             <Route path="games/developer/:developer" element={<MainPage />} />

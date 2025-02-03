@@ -1,7 +1,8 @@
+import { SearchType } from "@/app/searchTypeContext";
 import { Dispatch, SetStateAction, useEffect } from "react";
 
 interface DebounceProps {
-    setDebouncQuery: Dispatch<SetStateAction<{ query: string; option: string; }>>;
+    setDebouncQuery: Dispatch<SetStateAction<{ query: string; option: SearchType; }>>;
     searchValue: string;
 }
 

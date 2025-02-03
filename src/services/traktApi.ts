@@ -20,16 +20,6 @@ export const traktApi = createApi({
   }),
   endpoints: (builder) => ({
     getPopularMovies: builder.query({
-      // query: ({ query, option, page }) => {
-      //   const params = new URLSearchParams({
-      //     query: query,
-      //     page: page.toString(),
-      //   });
-      //   if (!query)
-      //     params.set('query', " ");
-      //   console.log(`search/${option}?${params.toString()}&fields=title,overview`)
-      //   return `search/${option}?${params.toString()}&fields=title,overview`
-      // },
       query: ({ page }: { page: number }) => ({
         url: 'movies/popular',
         params: { page: page.toString() },
