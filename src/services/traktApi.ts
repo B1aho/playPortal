@@ -87,6 +87,23 @@ export const traktApi = createApi({
         return getMoviesArray(response);
       },
     }),
+    getMedia: builder.query({
+      query: ({ page, query, genre, searchType }) => {
+        const params = new URLSearchParams({
+          page: page.toString(),
+          query: query || '',
+        });
+
+        if (genre) {
+          params.append('genres', genre);
+        }
+
+        return `search/${searchType}?${params.toString()}`;
+      },
+      transformResponse: (response: SearchResponse[]): (Movie | null)[] => {
+        return getMoviesArray(response);
+      },
+    }),
   }),
 })
 
@@ -98,6 +115,7 @@ export const {
   useLazyGetMovieInfoShortQuery,
   useLazyGetShowInfoShortQuery,
   useSearchMoviesAutocompleteQuery,
+  useGetMediaQuery,
 } = traktApi
 
 

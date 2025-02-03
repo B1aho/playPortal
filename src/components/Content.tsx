@@ -10,8 +10,9 @@ interface ContentProps {
     queryFn: QueryHook;
     queryArg: {
         query?: string,
-        option?: string,
+        searchType?: string,
         page?: number | string;
+        genre?: string;
     }
     heading: string;
 }
@@ -38,7 +39,7 @@ export function Content({ queryFn, queryArg, heading }: ContentProps) {
     useEffect(() => {
         setPage(1);
         setTraktResponse(undefined);
-    }, [queryArg.query, queryArg.option])
+    }, [queryArg.query, queryArg.searchType, queryArg.genre])
 
     const incrementPage = useCallback(() => {
         setPage(prevPage => prevPage + 1);

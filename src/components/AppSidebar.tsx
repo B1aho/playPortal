@@ -17,17 +17,9 @@ import {
     ChevronDown,
     Settings,
 } from "lucide-react";
-import { useContext } from "react";
-import { SearchTypeContext } from "@/app/searchTypeContext";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 
 export function AppSidebar() {
-    const context = useContext(SearchTypeContext);
-    if (!context) {
-        throw new Error("useSearchType must be used within a SearchTypeProvider");
-    }
-    const { searchType } = context;
-    console.log("SEARCH TYPE:" + searchType);
     const genres = [
         {
             title: 'Action',

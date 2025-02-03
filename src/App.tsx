@@ -26,8 +26,6 @@ function App() {
             <Route path="settings" element={<SettingPage />} />
             <Route path="movies/genre/:genre" element={<MainPage />} />
             <Route path="games/tag/:tag" element={<MainPage />} />
-            <Route path="games/platform/:platform" element={<MainPage />} />
-            <Route path="games/developer/:developer" element={<MainPage />} />
             <Route path="movie/:slug" element={<MoviePage />} />
             <Route path="tv/:slug" element={<MoviePage />} />
             <Route path="404" element={<NotFoundPage />} />

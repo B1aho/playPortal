@@ -1,24 +1,42 @@
 import { Content } from "@/components/Content";
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { useGetPopularMoviesQuery, useSearchMoviesQuery } from "@/services/traktApi";
+import { useContext, useEffect } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import { useGetMediaQuery, useGetPopularMoviesQuery, useSearchMoviesQuery } from "@/services/traktApi";
+import { SearchTypeContext } from "@/app/searchTypeContext";
 
 export function MainPage() {
     // Более четко здесь определяем какой тип запроса: поиск или что-то другое и передаем в content уже все готовое
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const searchOption = location.state;
     const query = queryParams.get('query');
+    const { genre } = useParams();
+
+    const context = useContext(SearchTypeContext);
+    if (!context) {
+        throw new Error("useSearchType must be used within a SearchTypeProvider");
+    }
+    const { searchType } = context;
+    console.log("SEARCH TYPE IN MAIN:" + searchType);
 
     let queryFn = null;
     let queryArg = null;
     let heading = 'Movies';
-    if (query && query !== '') {
+
+    // Если есть жанр или страна или еще что-то, 
+    if (genre) {
+        queryFn = useGetMediaQuery;
+        heading = 'With genre';
+        queryArg = {
+            query: query,
+            searchType: searchType,
+            genre: genre,
+        }
+    } else if (query && query !== '') {
         queryFn = useSearchMoviesQuery;
         heading = `Search for ${query}`;
         queryArg = {
             query: query,
-            option: searchOption,
+            searchType: searchType,
         }
     } else {
         queryFn = useGetPopularMoviesQuery;

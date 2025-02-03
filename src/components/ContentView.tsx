@@ -22,6 +22,7 @@ export function ContentView({ data, isLoading, isSuccess, error }: ContentProps)
     if (isLoading || (isSuccess && !data)) {
         content = <ContentSkeleton />;
     } else if (data) {
+        console.log(data)
         content = (
             data.map(item => {
                 return <MovieCard key={item?.ids.trakt} data={item} />

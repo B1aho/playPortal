@@ -27,7 +27,9 @@ export function SearchInput() {
 
     const redirect = useCallback(() => {
         const encodedQuery = encodeURIComponent(searchVal.trim());
-        navigate(`/search?query=${encodedQuery}`, { state: searchType });
+        // Относительный путь если есть жанр, там где сейчас находимся - в других кейсах асболютныый путь
+        navigate(`?query=${encodedQuery}`, { state: searchType });
+        // navigate(`/search?query=${encodedQuery}`, { state: searchType });
     }, [searchType, searchVal, navigate])
 
     const { data, isLoading } = useSearchMoviesAutocompleteQuery({ ...debounceQuery, option: searchType }, { skip: !debounceQuery.query });
