@@ -2,13 +2,13 @@ import { useAppSelector } from "@/app/hooks";
 import { ContentView } from "@/components/ContentView";
 import { LoadMore } from "@/components/LoadMore";
 import { selectFavs } from "@/features/library/librarySlice";
-import { GameCardInfo } from "@/services/rawgTypes";
-import { useLazyGetGameShortDetaileByIdQuery } from "@/services/traktApi";
+import { useLazyGetMovieInfoShortQuery, useLazyGetShowInfoShortQuery } from "@/services/traktApi";
+import { Movie } from "@/services/traktApiTypes";
 import { useEffect, useReducer, useState } from "react";
 
-
+// draggable добавить
 interface State {
-    games: GameCardInfo[];
+    movies: Movie[];
     loadedCount: number;
     isLoading: boolean;
     isInitial: boolean;
@@ -16,13 +16,13 @@ interface State {
 
 type Action =
     | { type: "setLoading"; isLoading: boolean }
-    | { type: "setGames"; newGames: GameCardInfo[] }
+    | { type: "setMovies"; newMovies: Movie[] }
     | { type: "setLoadedCount"; newCount: number }
     | { type: "setInitial"; isInitial: boolean }
-    | { type: "setRemoveGames"; newGames: GameCardInfo[] };
+    | { type: "setRemoveMovies"; newMovies: Movie[] };
 
 const initialState: State = {
-    games: [],
+    movies: [],
     loadedCount: 0,
     isLoading: false,
     isInitial: true,
@@ -32,16 +32,16 @@ function reducer(state: State, action: Action): State {
     switch (action.type) {
         case "setLoading":
             return { ...state, isLoading: action.isLoading };
-        case "setGames":
+        case "setMovies":
             return {
-                ...state, games: [...state.games, ...action.newGames]
+                ...state, movies: [...state.movies, ...action.newMovies]
             };
         case "setLoadedCount":
             return { ...state, loadedCount: action.newCount };
         case "setInitial":
             return { ...state, isInitial: action.isInitial };
-        case "setRemoveGames":
-            return { ...state, games: action.newGames };
+        case "setRemoveMovies":
+            return { ...state, movies: action.newMovies };
         default:
             return state;
     }
@@ -49,10 +49,12 @@ function reducer(state: State, action: Action): State {
 
 function LibraryPage() {
     const favsId = useAppSelector(selectFavs);
-    const [query] = useLazyGetGameShortDetaileByIdQuery();
+    const [queryMovie] = useLazyGetMovieInfoShortQuery();
+    const [queryShow] = useLazyGetShowInfoShortQuery();
+
     const [state, dispatch] = useReducer(reducer, initialState);
     const [next, setNext] = useState(0);
-    const { games, loadedCount, isLoading } = state;
+    const { movies, loadedCount, isLoading } = state;
 
     // Load first chunk, when component mount
     useEffect(() => {
@@ -66,28 +68,35 @@ function LibraryPage() {
             const chunk = favsId.slice(loadedCount, loadedCount + 20);
             try {
                 const result = await Promise.all(
-                    chunk.map(id => query(id, true).unwrap().catch(err => ({ err, id })))
+                    chunk.map(id => {
+                        const parsedId = parseId(id);
+                        if (!parsedId)
+                            return null;
+                        if (parsedId.type === 'movie')
+                            return queryMovie(parsedId.id.toString(), true).unwrap().catch(err => ({ err, id }))
+                        return queryShow(parsedId.id.toString(), true).unwrap().catch(err => ({ err, id }))
+                    })
                 )
                 if (!isActive) return; // Если компонент размонтировался, то не обновляем стейт
 
-                result.forEach(game => {
-                    if ('err' in game)
-                        console.error(`Error with ${game.id} loading: ${game.err}`, game.err);
+                result.forEach(movie => {
+                    if (movie && 'err' in movie)
+                        console.error(`Error with ${movie.id} loading: ${movie.err}`, movie.err);
                 })
 
-                const successGames: GameCardInfo[] = result
-                    .map(game => {
-                        if ('gameCardData' in game) {
-                            return game.gameCardData;
+                const successMovies: Movie[] = result
+                    .map(movie => {
+                        if (movie && 'ids' in movie) {
+                            return movie;
                         }
                     })
-                    .filter((game): game is GameCardInfo => game !== undefined)
-                if (successGames.length > 0) {
-                    dispatch({ type: 'setGames', newGames: successGames })
+                    .filter((movie): movie is Movie => !!movie)
+                if (successMovies.length > 0) {
+                    dispatch({ type: 'setMovies', newMovies: successMovies })
                     dispatch({ type: 'setLoadedCount', newCount: loadedCount + chunk.length })
                 }
             } catch (err) {
-                console.error('Fatal error in game library loading', err)
+                console.error('Fatal error in movie library loading', err)
             } finally {
                 dispatch({ type: 'setLoading', isLoading: false })
             }
@@ -102,21 +111,28 @@ function LibraryPage() {
 
 
     useEffect(() => {
-        const newGames = games.filter(game => favsId.includes(game.slug))
-        dispatch({ type: "setRemoveGames", newGames: newGames })
+        const newMovies = movies.filter(movie => favsId.includes(movie.ids.trakt + '-' + movie.type))
+        dispatch({ type: "setRemoveMovies", newMovies: newMovies })
     }, [favsId])
 
     return (
         <>
-            {(isLoading)
-                ? <div>Loading...</div>
-                : <>
-                    <ContentView data={games} />
-                    <LoadMore isLoading={isLoading} onIntersection={() => favsId.length === 0 ? null : setNext(prev => prev + 1)} className={isLoading ? 'hidden' : ''} />
-                </>
-            }
+            <ContentView data={movies} />
+            {isLoading && <div>Loading...</div>}
+            <LoadMore isLoading={isLoading} onIntersection={() => (favsId.length === 0 || loadedCount >= favsId.length) ? null : setNext(prev => prev + 1)} className={isLoading ? 'hidden' : ''} />
         </>
     )
 }
 
 export default LibraryPage;
+
+function parseId(input: string): { id: number; type: string } | null {
+    const match = input.match(/^(\d+)-([a-zA-Z]+)$/);
+
+    if (!match) return null;
+
+    return {
+        id: Number(match[1]),
+        type: match[2],
+    };
+}

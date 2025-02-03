@@ -2,6 +2,7 @@ import { Middleware } from "@reduxjs/toolkit";
 import { afterPasswordChanged, clearError, logout, setError, setIsPasswordWasChanged, setOldPasswordCheckRes, UserActions } from "@/features/user/userSlice";
 import { changePasswordInLocalStorage, changeUsernameInLocalStorage, checkLocalStoragePassword, clearCurrUsername, deleteAccountFromLocalStorage, getStoredFavs, getStoredUser, saveCurrUsername, saveUserToLocalStorage } from "./utility";
 import { loadFavorites, clearLibrary, LibActions } from '@/features/library/librarySlice';
+const FAVS = import.meta.env.VITE_FAVS_KEY;
 
 export const localStorageMiddleware: Middleware = store => next => (action: UserActions | LibActions) => {
   // Проверка logIn
@@ -116,13 +117,13 @@ export const localStorageMiddleware: Middleware = store => next => (action: User
     const favs = store.getState().library.favs;
     const username = store.getState().user.username
 
-    localStorage.setItem(username + '%favs', JSON.stringify([...favs]))
+    localStorage.setItem(username + FAVS, JSON.stringify([...favs]))
   }
 
   if (action.type === 'library/removeFromFavs') {
     const favs = store.getState().library.favs;
     const username = store.getState().user.username
 
-    localStorage.setItem(username + '%favs', JSON.stringify([...favs]))
+    localStorage.setItem(username + FAVS, JSON.stringify([...favs]))
   }
 }

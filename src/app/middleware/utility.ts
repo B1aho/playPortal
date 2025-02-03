@@ -1,3 +1,5 @@
+const FAVS = import.meta.env.VITE_FAVS_KEY;
+
 interface PreloadState {
     isAuthenticated: boolean
     username: string;
@@ -48,7 +50,7 @@ export const getPreloadFavs = (): string[] => {
     if (!currUsername) {
         return [];
     }
-    const favs = localStorage.getItem(currUsername + '%favs');
+    const favs = localStorage.getItem(currUsername + FAVS);
     if (favs)
         return JSON.parse(favs);
     else
@@ -60,7 +62,7 @@ export const getStoredUser = (username: string) => {
 };
 
 export const getStoredFavs = (username: string) => {
-    const favorites: string[] = JSON.parse(localStorage.getItem(username + '%favs') || '[]');
+    const favorites: string[] = JSON.parse(localStorage.getItem(username + FAVS) || '[]');
     return favorites;
 }
 
@@ -100,8 +102,8 @@ export const changeUsernameInLocalStorage = (username: string, newUsername: stri
     }
     const favs = getStoredFavs(username);
     if (favs) {
-        localStorage.removeItem(username + '%favs');
-        localStorage.setItem(newUsername + '%favs', JSON.stringify([...favs]))
+        localStorage.removeItem(username + FAVS);
+        localStorage.setItem(newUsername + FAVS, JSON.stringify([...favs]))
     }
 
 };
@@ -122,7 +124,7 @@ export const deleteAccountFromLocalStorage = () => {
     const currUsername = localStorage.getItem(CURRENT_USER_KEY);
     if (currUsername) {
         localStorage.removeItem(currUsername);
-        localStorage.removeItem(currUsername + '%favs');
+        localStorage.removeItem(currUsername + FAVS);
         localStorage.removeItem(CURRENT_USER_KEY);
     }
 

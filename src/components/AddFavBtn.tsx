@@ -8,19 +8,20 @@ import { Heart, Undo2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { selectIsAuthenticated } from "@/features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { addFavorite, isGameInFavorites, removeFromFavs } from "@/features/library/librarySlice";
+import { addFavorite, isMovieInFavorites, removeFromFavs } from "@/features/library/librarySlice";
 
-export function AddFavBtn({ slug }: { slug: string }) {
+export function AddFavBtn({ id, type }: { id: number, type?: string }) {
     const isAuthenticated = useAppSelector(selectIsAuthenticated);
-    const isGameInFavs = useAppSelector((state) => isGameInFavorites(state, slug));
+    const movieId = id + '-' + type;
+    const isGameInFavs = useAppSelector((state) => isMovieInFavorites(state, movieId));
     const dispatch = useAppDispatch();
 
     const dispatchAdding = () => {
-        dispatch(addFavorite(slug))
+        dispatch(addFavorite(movieId))
     }
 
     const dispatchRemoving = () => {
-        dispatch(removeFromFavs(slug))
+        dispatch(removeFromFavs(movieId))
     }
 
     let hoverContent = isGameInFavs ? 'Remove game from favorites' : 'Add game to favorites';

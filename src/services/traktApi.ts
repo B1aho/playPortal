@@ -11,9 +11,8 @@ export const traktApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
     prepareHeaders: (headers) => {
-      // Устанавливаем обязательные заголовки
       headers.set('Content-type', 'application/json');
-      headers.set('trakt-api-key', CLIENT_ID); // Подставь свой client_id
+      headers.set('trakt-api-key', CLIENT_ID);
       headers.set('trakt-api-version', '2');
 
       return headers;
@@ -41,6 +40,22 @@ export const traktApi = createApi({
         params: { extended: 'full' },
       })
     }),
+    getMovieInfoShort: builder.query<Movie, string | undefined>({
+      query: (id) => ({
+        url: `movies/${id}`,
+      }),
+      transformResponse: (movie: Movie): Movie => {
+        return addTypeToTheMovie(movie);
+      },
+    }),
+    getShowInfoShort: builder.query<Movie, string | undefined>({
+      query: (id) => ({
+        url: `shows/${id}`,
+      }),
+      transformResponse: (movie: Movie): Movie => {
+        return addTypeToTheShow(movie);
+      },
+    }),
     searchMovies: builder.query({
       query: ({ search, page }) => {
         const params = new URLSearchParams({
@@ -64,6 +79,8 @@ export const {
   useGetMovieInfoQuery,
   useSearchMoviesQuery,
   useGetShowInfoQuery,
+  useLazyGetMovieInfoShortQuery,
+  useLazyGetShowInfoShortQuery
 } = traktApi
 
 
@@ -86,4 +103,14 @@ function addTypeToTheMovies(movies: Movie[]): Movie[] {
     movie.type = 'movie'
     return movie;
   });
+}
+
+function addTypeToTheMovie(movie: Movie): Movie {
+  movie.type = 'movie'
+  return movie;
+}
+
+function addTypeToTheShow(movie: Movie): Movie {
+  movie.type = 'tv'
+  return movie;
 }

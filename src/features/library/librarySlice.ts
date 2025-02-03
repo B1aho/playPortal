@@ -5,7 +5,7 @@ import { getPreloadFavs } from '@/app/middleware/utility';
 // Сохранят и доставть коллекции точно также как и favs. хранить username + %collectionName 
 type Collection = {
   name: string;
-  gamesId: string[];
+  id: string[];
 };
 
 type LibraryState = {
@@ -40,8 +40,8 @@ const librarySlice = createSlice({
 
 export const { addFavorite, removeFromFavs, loadFavorites, clearLibrary } = librarySlice.actions
 export const selectFavs = (state: RootState) => state.library.favs
-export const isGameInFavorites = (state: RootState, gameId: string) => {
-  return state.library.favs.some(id => id === gameId);
+export const isMovieInFavorites = (state: RootState, movId: string) => {
+  return state.library.favs.some(id => id === movId);
 };
 export type LibActions = ReturnType<typeof librarySlice.actions[keyof typeof librarySlice.actions]>;
 

@@ -26,7 +26,7 @@ export function MovieCard({ data }: MovieCardProps) {
                 </div>
                 <div className="flex justify-between">
                     <div className="game-card-btns flex">
-                        <AddFavBtn slug={data.ids.slug} />
+                        <AddFavBtn type={data.type} id={data.ids.trakt} />
                         <Button><MonitorX /></Button>
                     </div>
                 </div>
