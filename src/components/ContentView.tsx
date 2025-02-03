@@ -5,7 +5,7 @@ import { ContentSkeleton } from "./ContentSkeleton";
 import { Movie } from "@/services/traktApiTypes";
 
 interface ContentProps {
-    data: Movie[] | undefined;
+    data: (Movie | null)[] | undefined;
     isLoading?: boolean,
     error?: FetchBaseQueryError | SerializedError | undefined,
     isSuccess?: boolean,
@@ -24,7 +24,7 @@ export function ContentView({ data, isLoading, isSuccess, error }: ContentProps)
     } else if (data) {
         content = (
             data.map(item => {
-                return <MovieCard key={item.ids.trakt} data={item} />
+                return <MovieCard key={item?.ids.trakt} data={item} />
             })
         )
     }

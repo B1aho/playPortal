@@ -16,10 +16,6 @@ export const traktApi = createApi({
       headers.set('trakt-api-key', CLIENT_ID); // Подставь свой client_id
       headers.set('trakt-api-version', '2');
 
-      // const token = (getState() as RootState).auth.accessToken;
-      // if (token) {
-      //   headers.set('Authorization', `Bearer ${token}`);
-      // }
       return headers;
     }
   }),
@@ -56,7 +52,7 @@ export const traktApi = createApi({
         console.log(`search/${search.option}?${params.toString()}&fields=title,overview`)
         return `search/${search.option}?${params.toString()}&fields=title,overview`
       },
-      transformResponse: (response: SearchResponse[]): Movie[] => {
+      transformResponse: (response: SearchResponse[]): (Movie | null)[] => {
         return getMoviesArray(response);
       },
     }),
@@ -71,9 +67,11 @@ export const {
 } = traktApi
 
 
-function getMoviesArray(resp: SearchResponse[]): Movie[] {
+function getMoviesArray(resp: SearchResponse[]): (Movie | null)[] {
   return resp.map(item => {
-    const movie: Movie = item.movie ? item.movie : item.show;
+    const movie: Movie | undefined = item.movie ? item.movie : item.show;
+    if (!movie)
+      return null;
     if (item.movie)
       movie.type = 'movie'
     else

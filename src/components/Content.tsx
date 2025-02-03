@@ -45,7 +45,7 @@ export function Content({ search, heading, genre, tag }: ContentProps) {
     // Обновляем rawgResponse, когда data меняется, добавляя игры со следующей страницы
     useEffect(() => {
         if (data) {
-            setTraktResponse((prevResponse: Movie[]) => {
+            setTraktResponse((prevResponse: (Movie | null)[] | undefined) => {
                 if (!prevResponse) {
                     return data;
                 }

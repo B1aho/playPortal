@@ -6,11 +6,13 @@ import { Button } from "./ui/button";
 import { MonitorX } from "lucide-react";
 
 interface MovieCardProps {
-    data: Movie;
+    data: (Movie | null);
 }
 
 export function MovieCard({ data }: MovieCardProps) {
     const navigate = useNavigate();
+    if (data === null)
+        return null;
     return (
         <div className="game-card w-full flex flex-col">
             <div className="w-full h-full flex-2 overflow-hidden">
