@@ -2,7 +2,8 @@ import { KeyboardEvent, useCallback, useState } from "react";
 import { Input } from "./ui/input";
 import { useNavigate } from "react-router-dom";
 import { SelectSearch } from "./SearchSelect";
-import { Eraser, Search } from "lucide-react";
+
+import { AutoComplete } from "./PopoverAutocomplete";
 
 export function SearchInput() {
     const [searchVal, setSearchVal] = useState("");
@@ -25,27 +26,8 @@ export function SearchInput() {
     }, [redirect])
 
     return (
-        <div className="relative flex h-10 w-full">
-            {searchVal === ""
-                ? <Search
-                    size={20}
-                    className="absolute cursor-pointer left-[6px] top-[14px]"
-                />
-                : <Eraser
-                    color="red"
-                    size={20}
-                    className="absolute cursor-pointer left-[6px] top-[14px]"
-                    onPointerUp={clearInput}
-                />
-            }
-            <Input
-                onKeyUp={handleKeyUp}
-                value={searchVal}
-                onChange={e => setSearchVal(e.target.value)}
-                className="focus:outline-sky-500 px-7 rounded-full py-6"
-                placeholder="Search here.."
-                maxLength={120}
-            />
+        <div className=" flex w-full">
+            <AutoComplete onKeyUp={handleKeyUp} selectedValue="calendar" onSelectedValueChange={(val) => console.log(val)} onSearchValueChange={setSearchVal} searchValue={searchVal} items={[{ value: 'calendar', label: 'Calendar' }]} />
             <SelectSearch value={selectVal} onChange={setSelectVal} />
         </div>
     )
