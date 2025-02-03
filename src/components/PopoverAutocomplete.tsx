@@ -1,7 +1,5 @@
-import { cn } from "@/lib/utils";
 import { Command as CommandPrimitive } from "cmdk";
-import { Check } from "lucide-react";
-import { useMemo, useState } from "react";
+import { KeyboardEventHandler, ReactNode, useCallback, useState } from "react";
 import {
     Command,
     CommandEmpty,
@@ -13,125 +11,94 @@ import { Input } from "./ui/input";
 import { Popover, PopoverContent } from "./ui/popover";
 import { Skeleton } from "./ui/skeleton";
 import { PopoverAnchor } from "@radix-ui/react-popover";
+import { Movie } from "@/services/traktApiTypes";
+import { MovieSearchCard } from "./MovieSearchCard";
 
 type Props<T extends string> = {
-    selectedValue: T;
+    selectedValue?: T;
+    onRedirect: () => void;
     onSelectedValueChange: (value: T) => void;
     searchValue: string;
     onSearchValueChange: (value: string) => void;
-    items: { value: T; label: string }[];
-    onKeyUp: (e: React.KeyboardEvent<Element>) => void;
+    items: (Movie | null)[] | undefined;
     isLoading?: boolean;
     emptyMessage?: string;
     placeholder?: string;
+    children?: ReactNode;
 };
 
 export function AutoComplete<T extends string>({
-    selectedValue,  // Через него открываем MoviePage
-    onSelectedValueChange,
     searchValue,
+    children,
+    onRedirect,
     onSearchValueChange,
     items,
-    onKeyUp,
     isLoading,
     emptyMessage = "No items.",
     placeholder = "Search...",
 }: Props<T>) {
     const [open, setOpen] = useState(false);
 
-    const labels = useMemo(
-        () =>
-            items.reduce((acc, item) => {
-                acc[item.value] = item.label;
-                return acc;
-            }, {} as Record<string, string>),
-        [items]
-    );
 
-    const reset = () => {
-        onSelectedValueChange("" as T);
-        onSearchValueChange("");
-    };
-
-    const onInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-        if (
-            !e.relatedTarget?.hasAttribute("cmdk-list") &&
-            labels[selectedValue] !== searchValue
-        ) {
-            reset();
+    const handleKeyUp: KeyboardEventHandler<HTMLInputElement> = useCallback((e) => {
+        if (e.key === 'Enter') {
+            onRedirect();
+            setOpen(false);
         }
-    };
-
-    const onSelectItem = (inputValue: string) => {
-        if (inputValue === selectedValue) {
-            reset();
-        } else {
-            onSelectedValueChange(inputValue as T);
-            onSearchValueChange(labels[inputValue] ?? "");
-        }
-        setOpen(false);
-    };
+    }, [onRedirect])
 
     return (
         <div className="flex items-center w-full">
-            <Popover open={open} onOpenChange={setOpen}>
-                <Command shouldFilter={false} className="">
+            <Popover open={open}
+                onOpenChange={setOpen}
+            >
+                <Command shouldFilter={false} className="relative">
                     <PopoverAnchor asChild>
                         <CommandPrimitive.Input
                             asChild
                             value={searchValue}
                             onValueChange={onSearchValueChange}
-                            onKeyUp={onKeyUp}
-                            onMouseDown={() => setOpen((open) => !!searchValue || !open)}
+                            onKeyUp={handleKeyUp}
                             onFocus={() => setOpen(true)}
-                            onBlur={onInputBlur}
-                            className="rounded-md shadow-inner bg-transparent py-3 text-sm outline-1 placeholder:text-muted-foreground"
+                            // onBlur={onInputBlur}
+                            className="rounded-md shadow-inner bg-transparent py-4 h-11 text-sm outline-1 placeholder:text-muted-foreground"
                         >
                             <Input placeholder={placeholder} />
                         </CommandPrimitive.Input>
                     </PopoverAnchor>
+                    {children}
                     {!open && <CommandList aria-hidden="true" className="hidden" />}
                     <PopoverContent
                         asChild
                         onOpenAutoFocus={(e) => e.preventDefault()}
                         onInteractOutside={(e) => {
-                            if (
-                                e.target instanceof Element &&
-                                e.target.hasAttribute("cmdk-input")
-                            ) {
+                            if (e.target instanceof Element && (e.target.hasAttribute("cmdk-input") || e.target.closest("[cmdk-item]"))) {
                                 e.preventDefault();
                             }
                         }}
                         className="w-[--radix-popover-trigger-width] p-0"
                     >
                         <CommandList>
-                            {isLoading && (
+                            {(isLoading) && (
                                 <CommandPrimitive.Loading>
                                     <div className="p-1">
                                         <Skeleton className="h-6 w-full" />
                                     </div>
                                 </CommandPrimitive.Loading>
                             )}
-                            {items.length > 0 && !isLoading ? (
+                            {(items && items.length > 0) && !isLoading ? (
                                 <CommandGroup>
-                                    {items.map((option) => (
-                                        <CommandItem
-                                            key={option.value}
-                                            value={option.value}
-                                            onMouseDown={(e) => e.preventDefault()}
-                                            onSelect={onSelectItem}
-                                        >
-                                            <Check
-                                                className={cn(
-                                                    "mr-2 h-4 w-4",
-                                                    selectedValue === option.value
-                                                        ? "opacity-100"
-                                                        : "opacity-0"
-                                                )}
-                                            />
-                                            {option.label}
-                                        </CommandItem>
-                                    ))}
+                                    {items.map((option) => {
+                                        if (!option)
+                                            return null
+                                        return (
+                                            <CommandItem
+                                                key={option.ids.trakt}
+                                            >
+                                                <MovieSearchCard data={option} onSelect={() => setOpen(false)} />
+                                            </CommandItem>
+                                        )
+                                    })}
                                 </CommandGroup>
                             ) : null}
                             {!isLoading ? (

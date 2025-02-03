@@ -20,9 +20,19 @@ export const traktApi = createApi({
   }),
   endpoints: (builder) => ({
     getPopularMovies: builder.query({
-      query: (page: number) => ({
+      // query: ({ query, option, page }) => {
+      //   const params = new URLSearchParams({
+      //     query: query,
+      //     page: page.toString(),
+      //   });
+      //   if (!query)
+      //     params.set('query', " ");
+      //   console.log(`search/${option}?${params.toString()}&fields=title,overview`)
+      //   return `search/${option}?${params.toString()}&fields=title,overview`
+      // },
+      query: ({ page }: { page: number }) => ({
         url: 'movies/popular',
-        params: { page: page },
+        params: { page: page.toString() },
       }),
       transformResponse: (movies: Movie[]): Movie[] => {
         return addTypeToTheMovies(movies);
@@ -71,6 +81,22 @@ export const traktApi = createApi({
         return getMoviesArray(response);
       },
     }),
+    searchMoviesAutocomplete: builder.query({
+      query: ({ query, option }) => {
+        const params = new URLSearchParams({
+          query: query,
+          page: '1',
+          limit: '5',
+        });
+        if (!query)
+          params.set('query', " ");
+        console.log(`search/${option}?${params.toString()}&fields=title`)
+        return `search/${option}?${params.toString()}&fields=title`
+      },
+      transformResponse: (response: SearchResponse[]): (Movie | null)[] => {
+        return getMoviesArray(response);
+      },
+    }),
   }),
 })
 
@@ -80,7 +106,8 @@ export const {
   useSearchMoviesQuery,
   useGetShowInfoQuery,
   useLazyGetMovieInfoShortQuery,
-  useLazyGetShowInfoShortQuery
+  useLazyGetShowInfoShortQuery,
+  useSearchMoviesAutocompleteQuery,
 } = traktApi
 
 

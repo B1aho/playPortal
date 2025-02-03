@@ -17,7 +17,7 @@ interface SelectSearchProps {
 export function SelectSearch({ value, onChange }: SelectSearchProps) {
     return (
         <Select value={value} onValueChange={onChange}>
-            <SelectTrigger className="w-[150px] cursor-pointer absolute right-1 rounded-full hover:bg-slate-400 top-1 border-none focus:ring-0 focus:ring-offset-0">
+            <SelectTrigger className="w-[150px] cursor-pointer absolute right-2 rounded-md hover:bg-slate-400 top-[2px] border-none focus:ring-0 focus:ring-offset-0">
                 <SelectValue placeholder="Movies" />
             </SelectTrigger>
             <SelectContent>

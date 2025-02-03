@@ -13,7 +13,7 @@ export function MainPage() {
     let queryFn = null;
     let queryArg = null;
     let heading = 'Movies';
-    if (query) {
+    if (query && query !== '') {
         queryFn = useSearchMoviesQuery;
         heading = `Search for ${query}`;
         queryArg = {

@@ -22,6 +22,7 @@ export function Content({ queryFn, queryArg, heading }: ContentProps) {
     const [page, setPage] = useState(1);
     const args = { ...queryArg }
     args.page = page;
+    console.log(args)
     const { data, error, isLoading, isSuccess } = queryFn(args);
     const [traktResponse, setTraktResponse] = useState(data)
 

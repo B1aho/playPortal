@@ -54,7 +54,7 @@ function MoviePage() {
                         <div className="main-details flex-1">
                             <div className="flex justify-between">
                                 <div>{data.year}</div>
-                                <div>{data.country.toUpperCase()}</div>
+                                <div>{data.country && data.country.toUpperCase()}</div>
                             </div>
                             <div className="flex justify-between align-middle">
                                 <Button size='icon' className="bg-white"><Gem color="green" /></Button>
@@ -81,7 +81,7 @@ function MoviePage() {
                                 <div className="mt-3 flex justify-between items-center">
                                     <h2>Country:</h2>
                                     <div className="flex align-middle">
-                                        {data.country.toUpperCase()}
+                                        {data.country && data.country.toUpperCase()}
                                     </div>
                                 </div>
                                 <div className="mt-3 flex justify-between">
