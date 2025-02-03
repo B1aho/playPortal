@@ -4,24 +4,25 @@ import { ContentView } from "./ContentView";
 import { FilterBar } from "./FilterBar";
 import { useCallback, useEffect, useState } from "react";
 import { LoadMore } from "./LoadMore";
-import { useGetPopularMoviesQuery, useSearchMoviesQuery } from "@/services/traktApi";
-import { Movie } from "@/services/traktApiTypes";
+import { Movie, QueryHook } from "@/services/traktApiTypes";
 
 interface ContentProps {
-    search?: {
-        query: string;
-        option: string;
-    };
-    heading?: string;
-    genre?: string;
-    tag?: string;
+    queryFn: QueryHook;
+    queryArg: {
+        query?: string,
+        option?: string,
+        page?: number | string;
+    }
+    heading: string;
 }
 
 // Обработать отсутствие данных - если человек ввел в url не существуюший tag, genre, или поиск = 0. Короче все кейсы
 // где count === 0 или data.undefined - показывать картинку или анимацию с lottify
-export function Content({ search, heading, genre, tag }: ContentProps) {
+export function Content({ queryFn, queryArg, heading }: ContentProps) {
     const [page, setPage] = useState(1);
-    const { data, error, isLoading, isSuccess } = search ? useSearchMoviesQuery({ search, page }) : useGetPopularMoviesQuery(page);
+    const args = { ...queryArg }
+    args.page = page;
+    const { data, error, isLoading, isSuccess } = queryFn(args);
     const [traktResponse, setTraktResponse] = useState(data)
 
     /**
@@ -36,7 +37,7 @@ export function Content({ search, heading, genre, tag }: ContentProps) {
     useEffect(() => {
         setPage(1);
         setTraktResponse(undefined);
-    }, [search, genre, tag])
+    }, [queryArg.query, queryArg.option])
 
     const incrementPage = useCallback(() => {
         setPage(prevPage => prevPage + 1);

@@ -57,15 +57,15 @@ export const traktApi = createApi({
       },
     }),
     searchMovies: builder.query({
-      query: ({ search, page }) => {
+      query: ({ query, option, page }) => {
         const params = new URLSearchParams({
-          query: search.query,
+          query: query,
           page: page.toString(),
         });
-        if (!search.query)
+        if (!query)
           params.set('query', " ");
-        console.log(`search/${search.option}?${params.toString()}&fields=title,overview`)
-        return `search/${search.option}?${params.toString()}&fields=title,overview`
+        console.log(`search/${option}?${params.toString()}&fields=title,overview`)
+        return `search/${option}?${params.toString()}&fields=title,overview`
       },
       transformResponse: (response: SearchResponse[]): (Movie | null)[] => {
         return getMoviesArray(response);

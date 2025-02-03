@@ -1,3 +1,5 @@
+import { useGetPopularMoviesQuery, useSearchMoviesQuery } from "./traktApi";
+
 export interface Movie {
     title: string;
     year: number;
@@ -51,3 +53,8 @@ export interface Images {
     banner: string[];
     thumb: string[];
 }
+
+type SearchMoviesQueryHook = typeof useSearchMoviesQuery;
+type GetPopularMoviesQueryHook = typeof useGetPopularMoviesQuery;
+
+export type QueryHook = SearchMoviesQueryHook | GetPopularMoviesQueryHook;

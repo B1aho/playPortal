@@ -1,26 +1,40 @@
 import { Content } from "@/components/Content";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
+import { useGetPopularMoviesQuery, useSearchMoviesQuery } from "@/services/traktApi";
 
 export function MainPage() {
+    // Более четко здесь определяем какой тип запроса: поиск или что-то другое и передаем в content уже все готовое
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    console.log(queryParams);
     const searchOption = location.state;
-    console.log(searchOption)
-    const query = queryParams.get('query') || "";
+    const query = queryParams.get('query');
+
+    let queryFn = null;
+    let queryArg = null;
     let heading = 'Movies';
+    if (query) {
+        queryFn = useSearchMoviesQuery;
+        heading = `Search for ${query}`;
+        queryArg = {
+            query: query,
+            option: searchOption,
+        }
+    } else {
+        queryFn = useGetPopularMoviesQuery;
+        heading = `Most popular movies`;
+        queryArg = {};
+    }
 
     /**
-     * This effect trigger render: it helps when we search or change genre being already on this page
+     * This effect trigger render: it helps when we search being already on this page
      */
     useEffect(() => {
     }, [location.search]);
 
     return (
         <div>
-            <Content search={query ? { query: query, option: searchOption } : undefined} heading={heading} />
+            <Content queryFn={queryFn} queryArg={queryArg} heading={heading} />
         </div>
     );
 }
