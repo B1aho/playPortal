@@ -29,7 +29,8 @@ function App() {
             <Route path="games/tag/:tag" element={<MainPage />} />
             <Route path="games/platform/:platform" element={<MainPage />} />
             <Route path="games/developer/:developer" element={<MainPage />} />
-            <Route path="movies/:slug" element={<MoviePage />} />
+            <Route path="movie/:slug" element={<MoviePage />} />
+            <Route path="tv/:slug" element={<MoviePage />} />
             <Route path="404" element={<NotFoundPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>

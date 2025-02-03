@@ -14,10 +14,11 @@ import imageLoader from "@/lottie/image.json";
 interface MediaProps {
     tmdb: number | undefined;
     trailer?: string;
+    type?: string
 }
 
-export function MediaCarousel({ tmdb, trailer }: MediaProps) {
-    const { data: tmdbData } = useGetTmdbMovieImagesQuery(tmdb);
+export function MediaCarousel({ tmdb, trailer, type = 'movie' }: MediaProps) {
+    const { data: tmdbData } = useGetTmdbMovieImagesQuery({ type, tmdbMovieId: tmdb });
 
     const content = [];
 

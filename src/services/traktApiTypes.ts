@@ -3,6 +3,7 @@ export interface Movie {
     year: number;
     ids: IDS;
     images?: Images;
+    type?: string;
 }
 
 export interface SearchResponse {

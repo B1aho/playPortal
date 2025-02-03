@@ -28,11 +28,20 @@ export const traktApi = createApi({
       query: (page: number) => ({
         url: 'movies/popular',
         params: { page: page },
-      })
+      }),
+      transformResponse: (movies: Movie[]): Movie[] => {
+        return addTypeToTheMovies(movies);
+      },
     }),
     getMovieInfo: builder.query<MovieDetail, string | undefined>({
       query: (id) => ({
         url: `movies/${id}`,
+        params: { extended: 'full' },
+      })
+    }),
+    getShowInfo: builder.query({
+      query: (id) => ({
+        url: `shows/${id}`,
         params: { extended: 'full' },
       })
     }),
@@ -58,12 +67,25 @@ export const {
   useGetPopularMoviesQuery,
   useGetMovieInfoQuery,
   useSearchMoviesQuery,
+  useGetShowInfoQuery,
 } = traktApi
 
 
 function getMoviesArray(resp: SearchResponse[]): Movie[] {
   return resp.map(item => {
     const movie: Movie = item.movie ? item.movie : item.show;
+    if (item.movie)
+      movie.type = 'movie'
+    else
+      movie.type = 'tv'
+    return movie;
+  });
+}
+
+function addTypeToTheMovies(movies: Movie[]): Movie[] {
+  return movies.map(item => {
+    const movie: Movie = item;
+    movie.type = 'movie'
     return movie;
   });
 }

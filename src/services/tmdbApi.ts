@@ -9,8 +9,8 @@ export const tmdbApi = createApi({
     }),
     endpoints: (builder) => ({
         getTmdbMovieImages: builder.query({
-            query: (movieId) => ({
-                url: `movie/${movieId}/images`,
+            query: ({ type, tmdbMovieId }) => ({
+                url: `${type}/${tmdbMovieId}/images`,
                 params: {
                     api_key: API_KEY,
                 },

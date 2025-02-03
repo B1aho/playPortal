@@ -3,10 +3,10 @@ import { MediaCarousel } from "@/components/MediaCarousel";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 import { Gem } from "lucide-react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { ScrollDesc } from "@/components/ScrollDesc";
 import Ratings from "@/components/ui/rating";
-import { useGetMovieInfoQuery } from "@/services/traktApi";
+import { useGetMovieInfoQuery, useGetShowInfoQuery } from "@/services/traktApi";
 import Lottie from "lottie-react";
 import hand from "@/lottie/hand.json";
 import { MovieBackdrop } from "@/components/MovieBackdrop";
@@ -17,7 +17,9 @@ import { MovieBackdrop } from "@/components/MovieBackdrop";
 
 function MoviePage() {
     const { slug } = useParams();
-    const { data, isSuccess } = useGetMovieInfoQuery(slug);
+    const { pathname } = useLocation();
+    const type = pathname.includes('tv') ? 'tv' : 'movie'
+    const { data, isSuccess } = type === 'tv' ? useGetShowInfoQuery(slug) : useGetMovieInfoQuery(slug);
     return (
         <>
             {!isSuccess
@@ -27,14 +29,14 @@ function MoviePage() {
                 :
                 <>
                     <div className="absolute w-full top-0 left-0 -z-10 opacity-40">
-                        <MovieBackdrop tmdbMovieId={data.ids.tmdb} quality="original" />
+                        <MovieBackdrop type={type} tmdbMovieId={data.ids.tmdb} quality="original" />
                     </div>
                     <div className="flex">
                         <div className="media-details flex-[2]">
                             <h1 className="text-3xl font-bold text-center">{data.title}</h1>
                             <h2 className="text-xl font-medium text-gray-800 text-center">{data.tagline}</h2>
                             <div className="flex justify-center align-middle relative ">
-                                <MediaCarousel trailer={data.trailer} tmdb={data.ids.tmdb} />
+                                <MediaCarousel type={type} trailer={data.trailer} tmdb={data.ids.tmdb} />
                             </div>
                             <div>
                                 <div className="flex justify-between items-center px-10">
@@ -60,7 +62,7 @@ function MoviePage() {
                             <div className="flex justify-between">
                                 <h2>Releas date:</h2>
                                 <div className="flex">
-                                    <div>{format(data.released, 'PP')}</div>
+                                    <div>{type === 'tv' ? format(data.first_aired, 'PP') : format(data.released, 'PP')}</div>
                                 </div>
                             </div>
                             <div className="flex justify-between">

@@ -7,11 +7,11 @@ type ImageQaulity = "w92" | "w154" | "w185" | "w342" | "w500" | "w780" | "origin
 interface MovieBackdropProps {
     tmdbMovieId: number;
     quality?: ImageQaulity;
+    type?: string;
 }
 
-export const MovieBackdrop = ({ tmdbMovieId, quality = "w780" }: MovieBackdropProps) => {
-    const { data: tmdbData, error, isLoading } = useGetTmdbMovieImagesQuery(tmdbMovieId);
-
+export const MovieBackdrop = ({ tmdbMovieId, quality = "w780", type = "movie" }: MovieBackdropProps) => {
+    const { data: tmdbData, error, isLoading } = useGetTmdbMovieImagesQuery({ type, tmdbMovieId });
     if (error) return (
         <div className='w-full h-36'>
             <p>Error occured!</p>
