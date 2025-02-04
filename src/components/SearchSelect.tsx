@@ -26,6 +26,8 @@ export function SelectSearch({ value, setSearchType }: SelectSearchProps) {
                     <SelectItem value="movie">Movies</SelectItem>
                     <SelectItem value="show">Shows</SelectItem>
                     <SelectItem value="movie,show">Movies and shows</SelectItem>
+                    <SelectItem disabled value="episode">Episodes</SelectItem>
+                    <SelectItem disabled value="people">People</SelectItem>
                 </SelectGroup>
             </SelectContent>
         </Select>

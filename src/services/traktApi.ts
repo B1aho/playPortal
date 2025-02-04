@@ -56,6 +56,20 @@ export const traktApi = createApi({
         return addTypeToTheShow(movie);
       },
     }),
+    getMovieRelated: builder.query<Movie[], string | undefined>({
+      query: (id) => ({
+        url: `movies/${id}/related?page=1&limit=5`,
+      }),
+      transformResponse: addTypeToTheMovies,
+    }),
+    getShowRelated: builder.query<Movie[], string | undefined>({
+      query: (id) => ({
+        url: `shows/${id}/related?page=1&limit=5`,
+        page: '1',
+        limit: '5',
+      }),
+      transformResponse: addTypeToTheShows,
+    }),
     searchMovies: builder.query({
       query: ({ query, searchType, page, tmdbRatingMin, tmdbRatingMax }) => {
         const params = new URLSearchParams({
@@ -119,6 +133,8 @@ export const {
   useLazyGetShowInfoShortQuery,
   useSearchMoviesAutocompleteQuery,
   useGetMediaQuery,
+  useGetMovieRelatedQuery,
+  useGetShowRelatedQuery,
 } = traktApi
 
 
@@ -139,6 +155,14 @@ function addTypeToTheMovies(movies: Movie[]): Movie[] {
   return movies.map(item => {
     const movie: Movie = item;
     movie.type = 'movie'
+    return movie;
+  });
+}
+
+function addTypeToTheShows(movies: Movie[]): Movie[] {
+  return movies.map(item => {
+    const movie: Movie = item;
+    movie.type = 'tv'
     return movie;
   });
 }

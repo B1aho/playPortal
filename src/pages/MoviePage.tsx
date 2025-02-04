@@ -6,10 +6,11 @@ import { Gem } from "lucide-react";
 import { useLocation, useParams } from "react-router-dom";
 import { ScrollDesc } from "@/components/ScrollDesc";
 import Ratings from "@/components/ui/rating";
-import { useGetMovieInfoQuery, useGetShowInfoQuery } from "@/services/traktApi";
+import { useGetMovieInfoQuery, useGetMovieRelatedQuery, useGetShowInfoQuery, useGetShowRelatedQuery } from "@/services/traktApi";
 import Lottie from "lottie-react";
 import hand from "@/lottie/hand.json";
 import { MovieBackdrop } from "@/components/MovieBackdrop";
+import { RelatedCards } from "@/components/RelatedCards";
 
 // Компонент рендериена вынести отдельно
 // Большая кнопка добавить в избранно с анимацией и похожа кнопка - добавить в коллекцию
@@ -20,6 +21,7 @@ function MoviePage() {
     const { pathname } = useLocation();
     const type = pathname.includes('tv') ? 'tv' : 'movie'
     const { data, isSuccess } = type === 'tv' ? useGetShowInfoQuery(slug) : useGetMovieInfoQuery(slug);
+    const { data: relatedData, isSuccess: isRelatedSuccess } = type === 'tv' ? useGetShowRelatedQuery(slug) : useGetMovieRelatedQuery(slug);
     return (
         <>
             {!isSuccess
@@ -102,6 +104,9 @@ function MoviePage() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        <RelatedCards data={relatedData} isSuccess={isRelatedSuccess} />
                     </div>
                 </>
             }
