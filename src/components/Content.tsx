@@ -74,10 +74,11 @@ export function Content({ queryFn, queryArg, heading }: ContentProps) {
             <div className="flex justify-between">
                 <h1 className="text-3xl text-shadow-bl dark:text-shadow-wh font-bold">{heading}</h1>
             </div>
-            <Collapsible defaultOpen className="group/collapsible">
+            <Collapsible defaultOpen={false} className="group/collapsible">
                 <CollapsibleTrigger>
-                    <div className="flex">
-                        Filter:
+                    <div
+                        className="flex items-center rounded-md gap-5 p-3 my-1 transition-all duration-150 ease-in-out hover:bg-black hover:bg-opacity-25">
+                        <span className="font-bold">Select Rating Range</span>
                         <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
                     </div>
                 </CollapsibleTrigger>

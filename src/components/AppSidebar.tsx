@@ -97,7 +97,7 @@ export function AppSidebar() {
             <SidebarHeader>
                 <SidebarTrigger />
             </SidebarHeader>
-            <SidebarContent>
+            <SidebarContent >
                 <Collapsible defaultOpen className="group/collapsible">
                     <SidebarGroup>
                         <SidebarGroupLabel asChild>

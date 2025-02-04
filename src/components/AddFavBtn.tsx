@@ -34,7 +34,7 @@ export function AddFavBtn({ id, type }: { id: number, type?: string }) {
                 {isGameInFavs
                     ? <Undo2
                         size={30}
-                        className="cursor-pointer"
+                        className="cursor-pointer hover:animate-shake"
                         onPointerUp={() => dispatchRemoving()}
                     />
                     : <Heart

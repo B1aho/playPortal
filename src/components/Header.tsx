@@ -11,7 +11,7 @@ export function Header() {
     const isAuthenticated = useAppSelector(selectIsAuthenticated);
     const navigate = useNavigate();
     return (
-        <header className="bg-opacity-35 bg-slate-950 sticky top-0 z-10 py-3">
+        <header className="bg-neutral-500 bg-opacity-45 dark:bg-opacity-35 dark:bg-slate-950 sticky top-0 z-10 py-3">
             <div className="flex">
                 <Button variant="link" className="cursor-pointer" onPointerUp={() => navigate('/main')}>
                     <Film />

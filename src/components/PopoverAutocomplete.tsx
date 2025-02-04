@@ -63,7 +63,7 @@ export function AutoComplete<T extends string>({
                             // onBlur={onInputBlur}
                             className="rounded-md shadow-inner bg-transparent py-4 h-11 text-sm outline-1 placeholder:text-muted-foreground"
                         >
-                            <Input className="dark:text-white border-none" placeholder={placeholder} />
+                            <Input className="dark:text-white text-white border-none" placeholder={placeholder} />
                         </CommandPrimitive.Input>
                     </PopoverAnchor>
                     {children}
