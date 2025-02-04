@@ -3,10 +3,9 @@ import { MovieSearchCard } from "./MovieSearchCard";
 
 interface RelatedCardsProps {
     data: Movie[] | undefined;
-    isSuccess: boolean;
 }
 
-export function RelatedCards({ data, isSuccess }: RelatedCardsProps) {
+export function RelatedCards({ data }: RelatedCardsProps) {
     return (
         <div className="flex gap-4">
             {data && data.map(movie => {

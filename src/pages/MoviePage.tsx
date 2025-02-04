@@ -2,7 +2,7 @@ import { CategoryLinks } from "@/components/CategoryLinks";
 import { MediaCarousel } from "@/components/MediaCarousel";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
-import { Gem } from "lucide-react";
+import { Clapperboard, Gem } from "lucide-react";
 import { useLocation, useParams } from "react-router-dom";
 import { ScrollDesc } from "@/components/ScrollDesc";
 import Ratings from "@/components/ui/rating";
@@ -11,6 +11,9 @@ import Lottie from "lottie-react";
 import hand from "@/lottie/hand.json";
 import { MovieBackdrop } from "@/components/MovieBackdrop";
 import { RelatedCards } from "@/components/RelatedCards";
+import { AnimatedCircularProgressBar } from "@/components/ui/circularProgressBar";
+import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
+import { HoverCardContent } from "@radix-ui/react-hover-card";
 
 // Компонент рендериена вынести отдельно
 // Большая кнопка добавить в избранно с анимацией и похожа кнопка - добавить в коллекцию
@@ -21,7 +24,7 @@ function MoviePage() {
     const { pathname } = useLocation();
     const type = pathname.includes('tv') ? 'tv' : 'movie'
     const { data, isSuccess } = type === 'tv' ? useGetShowInfoQuery(slug) : useGetMovieInfoQuery(slug);
-    const { data: relatedData, isSuccess: isRelatedSuccess } = type === 'tv' ? useGetShowRelatedQuery(slug) : useGetMovieRelatedQuery(slug);
+    const { data: relatedData } = type === 'tv' ? useGetShowRelatedQuery(slug) : useGetMovieRelatedQuery(slug);
     return (
         <>
             {!isSuccess
@@ -31,7 +34,7 @@ function MoviePage() {
                 :
                 <>
                     <div className="absolute w-full top-0 left-0 -z-10 opacity-40">
-                        <MovieBackdrop type={type} tmdbMovieId={data.ids.tmdb} quality="original" />
+                        <MovieBackdrop isBackground={true} type={type} tmdbMovieId={data.ids.tmdb} quality="original" />
                     </div>
                     <div className="flex">
                         <div className="media-details flex-[2]">
@@ -41,15 +44,9 @@ function MoviePage() {
                                 <MediaCarousel type={type} trailer={data.trailer} tmdb={data.ids.tmdb} />
                             </div>
                             <div>
-                                <div className="flex justify-between items-center px-10">
-                                    <h2 className="text-2xl font-bold">RATING:</h2>
-                                    <div className="flex flex-col items-center">
-                                        <Ratings size={35} value={data.rating} variant="green" />
-                                        <h2 className="text-3xl font-bold text-green-600">/{data.rating.toFixed(2)}</h2>
-                                    </div>
-                                </div>
+
                             </div>
-                            <div className="w-full flex items-center justify-center mt-3">
+                            <div className="w-full flex items-center justify-center my-4">
                                 <ScrollDesc desc={data.overview} />
                             </div>
                         </div>
@@ -90,6 +87,15 @@ function MoviePage() {
                                     <h2>Age rating:</h2>
                                     <div className="text-red-700 font-bold ">{data.certification}</div>
                                 </div>
+                                <div className="flex items-center justify-between">
+                                    <div><h2 className="text-3xl font-bold">Rating</h2></div>
+                                    <HoverCard >
+                                        <HoverCardTrigger>
+                                            <AnimatedCircularProgressBar className="select-none cursor-default" gaugePrimaryColor="green" gaugeSecondaryColor="gray" max={10} min={0} value={data.rating} />
+                                        </HoverCardTrigger>
+                                        <HoverCardContent className="z-10 text-lg font-semibold">Trakt users rating</HoverCardContent>
+                                    </HoverCard>
+                                </div>
                             </div>
                             <div>
                                 <h2>Genres:</h2>
@@ -106,7 +112,7 @@ function MoviePage() {
                         </div>
                     </div>
                     <div>
-                        <RelatedCards data={relatedData} isSuccess={isRelatedSuccess} />
+                        <RelatedCards data={relatedData} />
                     </div>
                 </>
             }

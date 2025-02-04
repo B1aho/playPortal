@@ -8,9 +8,10 @@ interface MovieBackdropProps {
     tmdbMovieId: number;
     quality?: ImageQaulity;
     type?: string;
+    isBackground?: boolean;
 }
 
-export const MovieBackdrop = ({ tmdbMovieId, quality = "w780", type = "movie" }: MovieBackdropProps) => {
+export const MovieBackdrop = ({ tmdbMovieId, isBackground = false, quality = "w780", type = "movie" }: MovieBackdropProps) => {
     const { data: tmdbData, error, isLoading } = useGetTmdbMovieImagesQuery({ type, tmdbMovieId });
     if (error) return (
         <div className='w-full h-36'>
@@ -46,7 +47,7 @@ export const MovieBackdrop = ({ tmdbMovieId, quality = "w780", type = "movie" }:
                 <img
                     src={backdropUrl}
                     alt="Movie Backdrop"
-                    className='w-full h-auto rounded-t-2xl'
+                    className={'w-full h-auto rounded-t-2xl' + (isBackground && ' [mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0))]')}
                 />
             )}
         </>
