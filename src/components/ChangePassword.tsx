@@ -79,15 +79,15 @@ export function ChangePassword() {
                 ?
                 <form onSubmit={handleOldPasswordCheck}>
                     <PasswordInput value={oldPassword} labelText="Enter your old password" onPasswordChange={setOldPassword} />
-                    <Button type="submit">
+                    <Button type="submit" className="w-full">
                         <KeyRound />
-                        Enter old password
+                        Enter password
                     </Button>
                 </form>
                 : <form ref={formRef} onSubmit={handleSubmit}>
                     <PasswordInput value={password} labelText="New password" onPasswordChange={setPassword} />
                     <PasswordInput value={confirmPassword} labelText="Confirm new password:" onPasswordChange={setConfirmPassword} />
-                    <Button onPointerUp={handleSubmit} type="submit">
+                    <Button onPointerUp={handleSubmit} type="submit" className="w-full">
                         <SquareCheckBig />
                         Confirm changes
                     </Button>

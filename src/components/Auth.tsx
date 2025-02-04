@@ -45,7 +45,7 @@ export function Auth(
             <Button className="" onPointerDown={onRedirect} variant={"link"}>
                 {redirectText}
             </Button>
-            {error && <div className="text-red-500">{error}</div>}
+            {error && <div className="text-red-500 text-center">{error}</div>}
         </div>
     );
 }

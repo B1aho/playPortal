@@ -34,7 +34,7 @@ export function ChangeUsername() {
         <>
             <form ref={formRef} onSubmit={handleSubmit}>
                 <LoginInput onLoginChange={setLogin} value={login} />
-                <Button onPointerUp={handleSubmit} type="submit">
+                <Button onPointerUp={handleSubmit} type="submit" className="bg-green-400 hover:bg-green-800 w-full">
                     <SquareCheckBig />
                     Confirm changes
                 </Button>

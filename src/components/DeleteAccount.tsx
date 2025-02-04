@@ -47,7 +47,7 @@ export function DeleteAccount() {
         <>
             <form onSubmit={handleOldPasswordCheck}>
                 <PasswordInput value={oldPassword} labelText="Enter your old password" onPasswordChange={setOldPassword} />
-                <Button variant="destructive" type="submit">
+                <Button variant="destructive" type="submit" className="w-full">
                     <KeyRound />
                     Delete my account!
                 </Button>
