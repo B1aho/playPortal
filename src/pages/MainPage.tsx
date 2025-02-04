@@ -16,7 +16,6 @@ export function MainPage() {
         throw new Error("useSearchType must be used within a SearchTypeProvider");
     }
     const { searchType } = context;
-    console.log("SEARCH TYPE IN MAIN:" + searchType);
 
     let queryFn = null;
     let queryArg = null;
@@ -25,7 +24,7 @@ export function MainPage() {
     // Если есть жанр или страна или еще что-то, 
     if (genre) {
         queryFn = useGetMediaQuery;
-        heading = 'With genre';
+        heading = `Movies in ${genre} genre`;
         queryArg = {
             query: query,
             searchType: searchType,
@@ -33,7 +32,7 @@ export function MainPage() {
         }
     } else if (query && query !== '') {
         queryFn = useSearchMoviesQuery;
-        heading = `Search for ${query}`;
+        heading = `Search for [${query}]`;
         queryArg = {
             query: query,
             searchType: searchType,

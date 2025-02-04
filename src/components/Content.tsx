@@ -5,6 +5,8 @@ import { FilterBar } from "./FilterBar";
 import { useCallback, useEffect, useState } from "react";
 import { LoadMore } from "./LoadMore";
 import { Movie, QueryHook } from "@/services/traktApiTypes";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
+import { ChevronDown } from "lucide-react";
 
 interface ContentProps {
     queryFn: QueryHook;
@@ -13,6 +15,8 @@ interface ContentProps {
         searchType?: string,
         page?: number | string;
         genre?: string;
+        tmdbRatingMin?: number;
+        tmdbRatingMax?: number;
     }
     heading: string;
 }
@@ -21,8 +25,12 @@ interface ContentProps {
 // где count === 0 или data.undefined - показывать картинку или анимацию с lottify
 export function Content({ queryFn, queryArg, heading }: ContentProps) {
     const [page, setPage] = useState(1);
+    const [tmdbRatingMin, setTmdbRatingMin] = useState(0.0);
+    const [tmdbRatingMax, setTmdbRatingMax] = useState(10.0);
     const args = { ...queryArg }
     args.page = page;
+    args.tmdbRatingMin = tmdbRatingMin * 10;
+    args.tmdbRatingMax = tmdbRatingMax * 10;
     console.log(args)
     const { data, error, isLoading, isSuccess } = queryFn(args);
     const [traktResponse, setTraktResponse] = useState(data)
@@ -39,7 +47,7 @@ export function Content({ queryFn, queryArg, heading }: ContentProps) {
     useEffect(() => {
         setPage(1);
         setTraktResponse(undefined);
-    }, [queryArg.query, queryArg.searchType, queryArg.genre])
+    }, [queryArg.query, queryArg.searchType, queryArg.genre, tmdbRatingMin, tmdbRatingMax])
 
     const incrementPage = useCallback(() => {
         setPage(prevPage => prevPage + 1);
@@ -66,7 +74,17 @@ export function Content({ queryFn, queryArg, heading }: ContentProps) {
             <div className="flex justify-between">
                 <h1 className="text-2xl font-bold">{heading}</h1>
             </div>
-            <FilterBar />
+            <Collapsible defaultOpen className="group/collapsible">
+                <CollapsibleTrigger>
+                    <div className="flex">
+                        Filter:
+                        <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                    </div>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                    <FilterBar tmdbMin={tmdbRatingMin} tmdbMax={tmdbRatingMax} setMin={setTmdbRatingMin} setMax={setTmdbRatingMax} />
+                </CollapsibleContent>
+            </Collapsible>
             <ContentView error={error} isSuccess={isSuccess} isLoading={isLoading} data={traktResponse} />
             <LoadMore isLoading={isLoading} onIntersection={incrementPage} className={isLoading ? 'hidden' : ''} />
         </>

@@ -20,9 +20,9 @@ export const traktApi = createApi({
   }),
   endpoints: (builder) => ({
     getPopularMovies: builder.query({
-      query: ({ page }: { page: number }) => ({
+      query: ({ page, tmdbRatingMin, tmdbRatingMax }: { page: number, tmdbRatingMin: number, tmdbRatingMax: number }) => ({
         url: 'movies/popular',
-        params: { page: page.toString() },
+        params: { page: page.toString(), ratings: tmdbRatingMin.toString() + '-' + tmdbRatingMax.toString() },
       }),
       transformResponse: (movies: Movie[]): Movie[] => {
         return addTypeToTheMovies(movies);
@@ -57,9 +57,10 @@ export const traktApi = createApi({
       },
     }),
     searchMovies: builder.query({
-      query: ({ query, searchType, page }) => {
+      query: ({ query, searchType, page, tmdbRatingMin, tmdbRatingMax }) => {
         const params = new URLSearchParams({
           query: query,
+          ratings: tmdbRatingMin.toString() + '-' + tmdbRatingMax.toString(),
           page: page.toString(),
         });
         if (!query)
@@ -89,10 +90,11 @@ export const traktApi = createApi({
       },
     }),
     getMedia: builder.query({
-      query: ({ page, query, genre, searchType }) => {
+      query: ({ page, query, genre, searchType, tmdbRatingMin, tmdbRatingMax }) => {
         const params = new URLSearchParams({
           page: page.toString(),
           query: query || '',
+          ratings: tmdbRatingMin.toString() + '-' + tmdbRatingMax.toString(),
         });
 
         if (genre) {
