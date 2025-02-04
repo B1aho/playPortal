@@ -97,7 +97,7 @@ function MoviePage() {
                                             <AnimatedCircularProgressBar
                                                 className="select-none cursor-default"
                                                 gaugePrimaryColor="yellow"
-                                                gaugeSecondaryColor="gray"
+                                                gaugeSecondaryColor="brown"
                                                 max={10}
                                                 min={0}
                                                 value={data.rating}

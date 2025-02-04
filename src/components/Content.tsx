@@ -72,7 +72,7 @@ export function Content({ queryFn, queryArg, heading }: ContentProps) {
     return (
         <>
             <div className="flex justify-between">
-                <h1 className="text-2xl font-bold">{heading}</h1>
+                <h1 className="text-3xl text-shadow-bl dark:text-shadow-wh font-bold">{heading}</h1>
             </div>
             <Collapsible defaultOpen className="group/collapsible">
                 <CollapsibleTrigger>

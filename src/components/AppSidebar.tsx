@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
+import { ThemeSwitch } from "./ThemeSwitch";
 
 export function AppSidebar() {
     const genres = [
@@ -125,6 +126,11 @@ export function AppSidebar() {
                                             </SidebarMenuButton>
                                         </SidebarMenuItem>
                                     ))}
+                                    <SidebarMenuItem key={'123435-12'}>
+                                        <SidebarMenuButton asChild>
+                                            <ThemeSwitch />
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
                                 </SidebarMenu>
                             </SidebarGroupContent>
                         </CollapsibleContent>

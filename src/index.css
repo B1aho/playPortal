@@ -157,10 +157,14 @@ background:  rgba(224, 194, 0, 0.721);
 }
 @layer utilities {
 .text-shadow-wh {
-  text-shadow: 0 0 5px #ffffff;
+  text-shadow: 0 0 4px #ffffff;
 }
 
 .text-shadow-bl {
-  text-shadow: 0 0 5px #000000;
+  text-shadow: 0 0 4px #000000;
 }
+}
+
+.main-bg {
+  background: linear-gradient(180deg, rgba(2,0,36,0.9025735294117647) 0%, rgba(27,40,130,0.9726015406162465) 73%, rgba(0,20,166,0.9866071428571429) 100%);
 }

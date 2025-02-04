@@ -51,8 +51,11 @@ export function MainPage() {
     }, [location.search]);
 
     return (
-        <div className="p-3">
-            <Content queryFn={queryFn} queryArg={queryArg} heading={heading} />
-        </div>
+        <>
+
+            <div className="p-3">
+                <Content queryFn={queryFn} queryArg={queryArg} heading={heading} />
+            </div>
+        </>
     );
 }
