@@ -126,11 +126,6 @@ export function AppSidebar() {
                                             </SidebarMenuButton>
                                         </SidebarMenuItem>
                                     ))}
-                                    <SidebarMenuItem key={'123435-12'}>
-                                        <SidebarMenuButton asChild>
-                                            <ThemeSwitch />
-                                        </SidebarMenuButton>
-                                    </SidebarMenuItem>
                                 </SidebarMenu>
                             </SidebarGroupContent>
                         </CollapsibleContent>
@@ -157,6 +152,14 @@ export function AppSidebar() {
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
                             ))}
+                            <SidebarMenuItem key={'123435-12'}>
+                                <SidebarMenuButton asChild className="relative">
+                                    <div className="relative right-1">
+                                        <ThemeSwitch />
+                                        <span className="cursor-default">Switch theme</span>
+                                    </div>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>

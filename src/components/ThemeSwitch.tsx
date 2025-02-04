@@ -18,12 +18,12 @@ export function ThemeSwitch() {
             <Button
                 variant="ghost"
                 size="icon"
+                className="w-[24px] h-[24px] "
                 onClick={() => setDarkMode((prevMode) => !prevMode)}
             >
                 <Sun className="h-[1.5rem] w-[1.3rem] dark:hidden" />
                 <Moon className="hidden h-5 w-5 dark:block" />
             </Button>
-            <span>Switch theme</span>
         </>
     )
 }
