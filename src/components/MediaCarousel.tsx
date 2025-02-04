@@ -1,5 +1,6 @@
 import {
     Carousel,
+    CarouselApi,
     CarouselContent,
     CarouselItem,
     CarouselNext,
@@ -9,16 +10,23 @@ import { TrailerWithPreview } from "./TrailerWithPreview";
 import { useGetTmdbMovieImagesQuery } from "@/services/tmdbApi";
 import Lottie from "lottie-react";
 import imageLoader from "@/lottie/image.json";
+import { useEffect, useState } from "react";
 
 
 interface MediaProps {
     tmdb: number | undefined;
-    trailer?: string;
-    type?: string
+    trailer: string | null;
+    type?: string;
 }
 
 export function MediaCarousel({ tmdb, trailer, type = 'movie' }: MediaProps) {
     const { data: tmdbData } = useGetTmdbMovieImagesQuery({ type, tmdbMovieId: tmdb });
+    const [api, setApi] = useState<CarouselApi>()
+
+    useEffect(() => {
+        if (api)
+            api.scrollTo(0, true)
+    }, [tmdbData])
 
     const content = [];
 
@@ -47,7 +55,7 @@ export function MediaCarousel({ tmdb, trailer, type = 'movie' }: MediaProps) {
     }
 
     return (
-        <Carousel opts={{ loop: true, dragFree: false }} className="relative w-full max-w-[80%] rounded-xl ">
+        <Carousel setApi={setApi} opts={{ loop: true, dragFree: false }} className="relative w-full max-w-[80%] rounded-xl ">
             <CarouselContent className="rounded-xl">
                 {!tmdbData ? (
                     <div className='w-full flex justify-center items-center'>

@@ -14,7 +14,7 @@ const LibraryPage = lazy(() => import('./pages/LibraryPage'));
 
 function App() {
   return (
-    <div className='p-3 w-full'>
+    <div className='w-full'>
       <Suspense fallback={<div>...Loading</div>}>
         <Routes>
           <Route path="/" element={<Layout />}>

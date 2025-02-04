@@ -5,8 +5,8 @@ interface ScrollDescProps {
 }
 
 export function ScrollDesc({ desc }: ScrollDescProps) {
-    return <ScrollArea className="rounded-md border p-4 h-52 w-5/6">
-        <h2 className="font-bold text-lg">Description</h2>
+    return <ScrollArea className="rounded-md dark:bg-black dark:bg-opacity-35 border p-4 h-48 w-[82%]">
+        <h2 className="font-bold text-lg underline">Description</h2>
         {desc}
         <ScrollBar />
     </ScrollArea>

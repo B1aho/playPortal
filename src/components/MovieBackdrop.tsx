@@ -47,7 +47,7 @@ export const MovieBackdrop = ({ tmdbMovieId, isBackground = false, quality = "w7
                 <img
                     src={backdropUrl}
                     alt="Movie Backdrop"
-                    className={'w-full h-auto rounded-t-2xl' + (isBackground && ' [mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0))]')}
+                    className={'w-full h-auto ' + (!isBackground ? 'rounded-t-2xl' : 'mask')}
                 />
             )}
         </>

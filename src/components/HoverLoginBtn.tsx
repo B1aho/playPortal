@@ -1,4 +1,4 @@
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@radix-ui/react-hover-card";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Logout } from "./LogoutBtn";

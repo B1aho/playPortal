@@ -1,19 +1,16 @@
 import { CategoryLinks } from "@/components/CategoryLinks";
 import { MediaCarousel } from "@/components/MediaCarousel";
-import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
-import { Clapperboard, Gem } from "lucide-react";
 import { useLocation, useParams } from "react-router-dom";
 import { ScrollDesc } from "@/components/ScrollDesc";
-import Ratings from "@/components/ui/rating";
 import { useGetMovieInfoQuery, useGetMovieRelatedQuery, useGetShowInfoQuery, useGetShowRelatedQuery } from "@/services/traktApi";
 import Lottie from "lottie-react";
 import hand from "@/lottie/hand.json";
 import { MovieBackdrop } from "@/components/MovieBackdrop";
 import { RelatedCards } from "@/components/RelatedCards";
 import { AnimatedCircularProgressBar } from "@/components/ui/circularProgressBar";
-import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
-import { HoverCardContent } from "@radix-ui/react-hover-card";
+import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
+import { Globe } from "lucide-react";
 
 // Компонент рендериена вынести отдельно
 // Большая кнопка добавить в избранно с анимацией и похожа кнопка - добавить в коллекцию
@@ -36,76 +33,89 @@ function MoviePage() {
                     <div className="absolute w-full top-0 left-0 -z-10 opacity-40">
                         <MovieBackdrop isBackground={true} type={type} tmdbMovieId={data.ids.tmdb} quality="original" />
                     </div>
-                    <div className="flex">
-                        <div className="media-details flex-[2]">
-                            <h1 className="text-3xl font-bold text-center">{data.title}</h1>
-                            <h2 className="text-xl font-medium text-gray-800 text-center">{data.tagline}</h2>
+                    <div className="flex p-3 mb-5">
+                        <div className="media-details select-none flex-[2]">
+                            <h1 className="text-3xl text-shadow-bl dark:text-shadow-wh font-bold text-center">
+                                {data.title}
+                            </h1>
+                            <h2 className="text-lg font-medium text-gray-800 dark:text-white text-center mb-2">
+                                {data.tagline}
+                            </h2>
                             <div className="flex justify-center align-middle relative ">
                                 <MediaCarousel type={type} trailer={data.trailer} tmdb={data.ids.tmdb} />
                             </div>
                             <div>
 
                             </div>
-                            <div className="w-full flex items-center justify-center my-4">
+                            <div className="w-full flex items-center justify-around mt-4">
                                 <ScrollDesc desc={data.overview} />
                             </div>
                         </div>
-                        <div className="main-details flex-1">
-                            <div className="flex justify-between">
-                                <div>{data.year}</div>
-                                <div>{data.country && data.country.toUpperCase()}</div>
-                            </div>
-                            <div className="flex justify-between align-middle">
-                                <Button size='icon' className="bg-white"><Gem color="green" /></Button>
-                            </div>
-                            <div className="flex justify-between">
+                        <div className="main-details text-lg font-semibold select-none flex-1 px-4 py-6 bg-black bg-opacity-40 rounded-md">
+                            <div className="flex justify-between custom-hover-animation">
                                 <h2>Releas date:</h2>
                                 <div className="flex">
-                                    <div>{type === 'tv' ? format(data.first_aired, 'PP') : format(data.released, 'PP')}</div>
+                                    <div>{'first_aired' in data ? format((data.first_aired || 0), 'PP') : format(data.released, 'PP')}</div>
                                 </div>
                             </div>
-                            <div className="flex justify-between">
+                            <div className="flex mt-3 justify-between custom-hover-animation">
                                 <h2>Original language:</h2>
                                 <div className="flex">
                                     {data.language}
                                 </div>
                             </div>
-                            <div className="mt-3 flex justify-between">
+                            <div className="mt-3 flex justify-between custom-hover-animation">
                                 <h2>Duration:</h2>
                                 <div className="flex flex-wrap">
                                     {data.runtime + ' min'}
                                 </div>
                             </div>
                             <div>
-                                <div className="mt-3 flex justify-between items-center">
+                                <div className="mt-3 flex justify-between items-center custom-hover-animation">
                                     <h2>Country:</h2>
                                     <div className="flex align-middle">
                                         {data.country && data.country.toUpperCase()}
                                     </div>
                                 </div>
-                                <div className="mt-3 flex justify-between">
+                                <div className="mt-3 flex justify-between custom-hover-animation">
                                     <h2>Age rating:</h2>
-                                    <div className="text-red-700 font-bold ">{data.certification}</div>
+                                    <div className="text-red-700 border-1 outline-red-700 rounded-md font-bold ">{data.certification}</div>
+                                </div>
+                                <div className="flex mt-3 justify-between items-center custom-hover-animation">
+                                    {data.homepage && <>
+                                        <div>Web page:</div>
+                                        <a about="Show's web page" target="_blank" href={data.homepage} rel="noopener noreferrer">
+                                            <Globe />
+                                        </a>
+                                    </>
+                                    }
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <div><h2 className="text-3xl font-bold">Rating</h2></div>
                                     <HoverCard >
-                                        <HoverCardTrigger>
-                                            <AnimatedCircularProgressBar className="select-none cursor-default" gaugePrimaryColor="green" gaugeSecondaryColor="gray" max={10} min={0} value={data.rating} />
+                                        <HoverCardTrigger >
+                                            <AnimatedCircularProgressBar
+                                                className="select-none cursor-default"
+                                                gaugePrimaryColor="yellow"
+                                                gaugeSecondaryColor="gray"
+                                                max={10}
+                                                min={0}
+                                                value={data.rating}
+                                            />
                                         </HoverCardTrigger>
-                                        <HoverCardContent className="z-10 text-lg font-semibold">Trakt users rating</HoverCardContent>
+                                        <HoverCardContent className="text-lg font-semibold">Trakt users rating</HoverCardContent>
                                     </HoverCard>
                                 </div>
                             </div>
-                            <div>
-                                <h2>Genres:</h2>
-                                <div className="flex flex-wrap">
+                            <div className="flex justify-between items-center mb-3">
+                                <h2 className="flex-[2]">Genres:</h2>
+                                <div className="flex flex-1 flex-wrap mt-3">
                                     <CategoryLinks redirect="genre" categories={data.genres} />
                                 </div>
                             </div>
                             <div>
                                 <h2>Avaliable translations:</h2>
-                                <div className="flex flex-wrap">
+                                <div className="flex flex-wrap cursor-default">
                                     <CategoryLinks categories={data.available_translations} />
                                 </div>
                             </div>

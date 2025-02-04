@@ -15,17 +15,14 @@ export interface SearchResponse {
     show?: Movie;
 }
 
-export interface MovieDetail {
+export interface CommonDetail {
     title: string;
     year: number;
     ids: IDS;
     tagline: string;
     overview: string;
-    released: Date;
     runtime: number;
     country: string;
-    trailer: string;
-    homepage: null;
     status: string;
     rating: number;
     votes: number;
@@ -36,6 +33,27 @@ export interface MovieDetail {
     available_translations: string[];
     genres: string[];
     certification: string;
+}
+
+export interface MovieDetail extends CommonDetail {
+    released: Date;
+    trailer: string;
+    homepage: null;
+}
+
+export interface ShowDetail extends CommonDetail {
+    first_aired: Date;
+    airs: Airs;
+    network: string;
+    aired_episodes: number;
+    trailer: null;
+    homepage: string;
+}
+
+export interface Airs {
+    day: string;
+    time: string;
+    timezone: string;
 }
 
 export interface IDS {

@@ -81,7 +81,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply dark:bg-black dark:bg-opacity-85 text-foreground;
   }
 }
 
@@ -116,4 +116,51 @@ label.invalid-label:after {
 
 .red-svg {
   filter: brightness(0) saturate(100%) invert(57%) sepia(36%) saturate(4097%) hue-rotate(325deg) brightness(97%) contrast(107%);
+}
+
+.mask {
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0));
+  opacity: 0.8;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(224, 194, 0, 0.721); 
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+background:  rgba(224, 194, 0, 0.721); 
+}
+
+/* src/styles/globals.css */
+.custom-hover-animation {
+  @apply transition-all ease-in-out duration-300 hover:-translate-y-1 hover:scale-105 hover:opacity-100 cursor-default select-none;
+}
+
+/* src/styles/globals.css */
+.related-hover-animation {
+  @apply transition-all ease-in-out duration-300  hover:scale-110 hover:opacity-100 cursor-pointer select-none ;
+}
+@layer utilities {
+.text-shadow-wh {
+  text-shadow: 0 0 5px #ffffff;
+}
+
+.text-shadow-bl {
+  text-shadow: 0 0 5px #000000;
+}
 }
