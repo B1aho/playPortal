@@ -81,7 +81,7 @@
     @apply border-border;
   }
   body {
-    @apply dark:bg-black dark:bg-opacity-85 text-foreground;
+    @apply bg-gray-100 dark:bg-blue-950 dark:bg-opacity-100 text-foreground;
   }
 }
 

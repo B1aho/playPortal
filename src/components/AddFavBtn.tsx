@@ -5,7 +5,6 @@ import {
 } from "@/components/ui/hover-card";
 
 import { Heart, Undo2 } from "lucide-react";
-import { Button } from "./ui/button";
 import { selectIsAuthenticated } from "@/features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { addFavorite, isMovieInFavorites, removeFromFavs } from "@/features/library/librarySlice";
@@ -31,11 +30,19 @@ export function AddFavBtn({ id, type }: { id: number, type?: string }) {
     return (
         <HoverCard>
             <HoverCardTrigger>
-                <Button
-                    onPointerDown={isGameInFavs ? dispatchRemoving : dispatchAdding}
-                    disabled={isAuthenticated ? false : true}>
-                    {isGameInFavs ? <Undo2 /> : <Heart />}
-                </Button>
+
+                {isGameInFavs
+                    ? <Undo2
+                        size={30}
+                        className="cursor-pointer"
+                        onPointerUp={() => dispatchRemoving()}
+                    />
+                    : <Heart
+                        size={30}
+                        className="text-red-700 hover:animate-heart-beat cursor-pointer"
+                        onPointerUp={() => dispatchAdding()}
+                    />
+                }
             </HoverCardTrigger>
             <HoverCardContent>
                 <span>{hoverContent}</span>

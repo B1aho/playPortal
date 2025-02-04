@@ -121,7 +121,7 @@ function MoviePage() {
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div className="mb-5">
                         <RelatedCards data={relatedData} />
                     </div>
                 </>

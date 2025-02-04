@@ -154,7 +154,7 @@ export function AppSidebar() {
                             ))}
                             <SidebarMenuItem key={'123435-12'}>
                                 <SidebarMenuButton asChild className="relative">
-                                    <div className="relative right-1">
+                                    <div className="relative ">
                                         <ThemeSwitch />
                                         <span className="cursor-default">Switch theme</span>
                                     </div>

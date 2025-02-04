@@ -1,4 +1,5 @@
 import { MovieCard } from "./MovieCard";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { SerializedError } from "@reduxjs/toolkit";
 import { ContentSkeleton } from "./ContentSkeleton";
@@ -29,7 +30,12 @@ export function ContentView({ data, isLoading, isSuccess, error }: ContentProps)
             })
         )
     }
-    return <div className="grid grid-cards gap-3">
-        {content}
-    </div>;
+    return (
+        <ResponsiveMasonry
+            columnsCountBreakPoints={{ 0: 1, 600: 2, 1000: 3 }}
+        >
+            <Masonry>{content}</Masonry>
+        </ResponsiveMasonry>
+
+    );
 }

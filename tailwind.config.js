@@ -8,6 +8,15 @@ module.exports = {
   ],
   theme: {
   	extend: {
+		keyframes: {
+			'heart-beat': {
+			  '0%, 100%': { transform: 'scale(1)' },
+			  '50%': { transform: 'scale(1.2)' },
+			},
+		  },
+		  animation: {
+			'heart-beat': 'heart-beat 0.5s ease-in-out infinite',
+		  },
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
