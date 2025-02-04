@@ -81,7 +81,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-gray-100 dark:bg-blue-950 dark:bg-opacity-100 text-foreground;
+    @apply bg-neutral-200 dark:bg-blue-950 dark:bg-opacity-100 text-foreground;
   }
 }
 
@@ -105,8 +105,9 @@
 }
 
 label.invalid-label:after {
-    content: " (" attr(data-help) ")";
-    font-size: small;
+    content: " " attr(data-help) "";
+    font-size: smaller;
+    color: rgba(255, 41, 41, 0.74);
     animation: invalid-help 20s;
 }
 

@@ -19,8 +19,9 @@ export function Password({ value, onChange, className }: PasswordProps) {
             <Input
                 value={value}
                 id="password"
+                pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$"
                 type={showPassword ? "text" : "password"}
-                className={cn("hide-password-toggle pr-10", className)}
+                className={cn("hide-password-toggle pr-10 mb-1", className)}
                 onChange={onChange}
             />
             <Button

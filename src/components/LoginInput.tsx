@@ -11,18 +11,18 @@ export function LoginInput({ onLoginChange, value }: LoginInputProps) {
     const [isLoginValid, setIsLoginValid] = useState(true);
     const handleLoginChange = (e: ChangeEvent<HTMLInputElement>) => {
         onLoginChange(e.target.value)
-        if (e.target.value.length > 2 && !e.target.checkValidity())
+        if (e.target.value.length > 5 && !e.target.checkValidity())
             setIsLoginValid(false)
         else
             setIsLoginValid(true)
     }
 
     return (
-        <div className="flex flex-col-reverse">
-            <Input type="text" pattern="^\w{5,10}" required id="login" value={value} onChange={handleLoginChange} />
+        <div className="flex gap-1 flex-col-reverse">
+            <Input className="mb-3 " type="text" pattern="^\w{6,20}" required id="login" value={value} onChange={handleLoginChange} />
             <Label
-                className={!isLoginValid ? "invalid-label" : undefined}
-                data-help="Your username must be between 5 and 10 characters long, and can include Latin letters, numbers, and underscores"
+                className={'text-base ' + (!isLoginValid ? "invalid-label" : undefined)}
+                data-help="6–20 characters (Latin letters, numbers, underscores only)"
                 htmlFor="login"
             >
                 Login:

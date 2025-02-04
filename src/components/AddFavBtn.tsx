@@ -35,12 +35,12 @@ export function AddFavBtn({ id, type }: { id: number, type?: string }) {
                     ? <Undo2
                         size={30}
                         className="cursor-pointer hover:animate-shake"
-                        onPointerUp={() => dispatchRemoving()}
+                        onPointerUp={() => isAuthenticated && dispatchRemoving()}
                     />
                     : <Heart
                         size={30}
-                        className="text-red-700 hover:animate-heart-beat cursor-pointer"
-                        onPointerUp={() => dispatchAdding()}
+                        className={"hover:animate-heart-beat cursor-pointer" + (isAuthenticated ? 'text-red-700' : 'text-gray-500')}
+                        onPointerUp={() => isAuthenticated && dispatchAdding()}
                     />
                 }
             </HoverCardTrigger>

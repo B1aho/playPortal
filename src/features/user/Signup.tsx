@@ -44,19 +44,21 @@ export function SignupPage() {
 
     return (
         <>
-            <Auth
-                login={login}
-                onLoginChange={setLogin}
-                password={password}
-                onPasswordChange={setPassword}
-                confirmPassword={confirmPassword}
-                onConfirmPasswordChange={setConfirmPassword}
-                onRedirect={handleRedirect}
-                onSubmit={handleSubmit}
-                redirectText="If you have an account, tap and log in!"
-                submitText="SIGN UP"
-                error={error}
-            />
+            <div className="w-full h-full flex justify-center items-center">
+                <Auth
+                    login={login}
+                    onLoginChange={setLogin}
+                    password={password}
+                    onPasswordChange={setPassword}
+                    confirmPassword={confirmPassword}
+                    onConfirmPasswordChange={setConfirmPassword}
+                    onRedirect={handleRedirect}
+                    onSubmit={handleSubmit}
+                    redirectText="If you have an account, tap and log in!"
+                    submitText="SIGN UP"
+                    error={error}
+                />
+            </div>
         </>
     );
 }

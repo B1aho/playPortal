@@ -33,16 +33,16 @@ export function Auth(
     }: AuthProps) {
     const needConfirmPassword = (confirmPassword || confirmPassword === "") && onConfirmPasswordChange;
     return (
-        <div className="max-w-md">
-            <form onSubmit={onSubmit}>
+        <div className="w-96 flex flex-col">
+            <form onSubmit={onSubmit} className="w-full flex flex-col">
                 <LoginInput onLoginChange={onLoginChange} value={login} />
                 <PasswordInput onPasswordChange={onPasswordChange} value={password} />
                 {needConfirmPassword &&
                     <PasswordInput labelText="Confirm password: " onPasswordChange={onConfirmPasswordChange} value={confirmPassword} />
                 }
-                <Button type="submit">{submitText}</Button>
+                <Button className="align-middle" type="submit">{submitText}</Button>
             </form>
-            <Button onPointerDown={onRedirect} variant={"link"}>
+            <Button className="" onPointerDown={onRedirect} variant={"link"}>
                 {redirectText}
             </Button>
             {error && <div className="text-red-500">{error}</div>}

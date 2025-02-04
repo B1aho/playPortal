@@ -35,16 +35,18 @@ export function LoginPage() {
     }, [login, password, dispatch])
 
     return (
-        <Auth
-            login={login}
-            onLoginChange={setLogin}
-            password={password}
-            onPasswordChange={setPassword}
-            onRedirect={handleRedirect}
-            onSubmit={handleSubmit}
-            redirectText="If you haven't account yet, tap and sign up!"
-            submitText="LOG IN"
-            error={error}
-        />
+        <div className="w-full h-full flex justify-center items-center">
+            <Auth
+                login={login}
+                onLoginChange={setLogin}
+                password={password}
+                onPasswordChange={setPassword}
+                onRedirect={handleRedirect}
+                onSubmit={handleSubmit}
+                redirectText="If you haven't account yet, tap and sign up!"
+                submitText="LOG IN"
+                error={error}
+            />
+        </div>
     );
 }
