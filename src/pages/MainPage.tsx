@@ -38,6 +38,7 @@ export function MainPage() {
             query: query,
             searchType: searchType,
         }
+        console.log(searchType);
     } else {
         queryFn = useGetPopularMoviesQuery;
         heading = `Most popular movies`;

@@ -13,7 +13,7 @@ export function CategoryLinks({ categories, redirect }: CategoryProps) {
                 return <span
                     key={idx}
                     className="font-normal opacity-70 mr-1.5 cursor-pointer transition ease-in-out duration-300 hover:underline hover:-translate-y-1 hover:scale-110 hover:opacity-100"
-                // onPointerDown={() => navigate(`/games/${redirect}/${redirect === "platform" ? cat.id : cat.slug}`)}
+                    onPointerUp={() => navigate(`/movies/${redirect}/${cat}`)}
                 >
                     {cat}{idx !== categories.length - 1 ? ',' : null}
                 </span>

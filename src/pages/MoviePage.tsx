@@ -92,7 +92,7 @@ function MoviePage() {
                             <div>
                                 <h2>Genres:</h2>
                                 <div className="flex flex-wrap">
-                                    <CategoryLinks categories={data.genres} />
+                                    <CategoryLinks redirect="genre" categories={data.genres} />
                                 </div>
                             </div>
                             <div>

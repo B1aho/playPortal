@@ -1,5 +1,5 @@
 import { useCallback, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { SelectSearch } from "./SearchSelect";
 
 import { AutoComplete } from "./PopoverAutocomplete";
@@ -10,6 +10,8 @@ import { SearchTypeContext } from "@/app/searchTypeContext";
 export function SearchInput() {
     const [searchVal, setSearchVal] = useState("");
     const navigate = useNavigate();
+    const { genre } = useParams();
+    const isInGenre = !!genre;
 
     const context = useContext(SearchTypeContext);
     if (!context) {
@@ -18,21 +20,16 @@ export function SearchInput() {
     const { searchType, setSearchType } = context;
     const [debounceQuery, setDebounceQuery] = useState({ query: "", option: searchType });
 
-
     useDebounce({ searchValue: searchVal, setDebouncQuery: setDebounceQuery })
-
-    const clearInput = useCallback(() => {
-        setSearchVal("");
-    }, [])
 
     const redirect = useCallback(() => {
         const encodedQuery = encodeURIComponent(searchVal.trim());
-        // Относительный путь если есть жанр, там где сейчас находимся - в других кейсах асболютныый путь
-        navigate(`?query=${encodedQuery}`, { state: searchType });
-        // navigate(`/search?query=${encodedQuery}`, { state: searchType });
+        isInGenre
+            ? navigate(`?query=${encodedQuery}`, { state: searchType })
+            : navigate(`/search?query=${encodedQuery}`, { state: searchType });
     }, [searchType, searchVal, navigate])
 
-    const { data, isLoading } = useSearchMoviesAutocompleteQuery({ ...debounceQuery, option: searchType }, { skip: !debounceQuery.query });
+    const { data, isLoading } = useSearchMoviesAutocompleteQuery({ ...debounceQuery, option: searchType, genre: genre }, { skip: !debounceQuery.query });
 
     return (
         <div className=" flex w-full">
@@ -43,6 +40,7 @@ export function SearchInput() {
                 searchValue={searchVal}
                 isLoading={isLoading}
                 items={data}
+                placeholder={isInGenre ? 'Search in current genre..' : 'Tap and search...'}
             >
                 <SelectSearch value={searchType} setSearchType={setSearchType} />
             </AutoComplete>

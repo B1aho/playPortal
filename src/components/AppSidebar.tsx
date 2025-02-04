@@ -18,63 +18,64 @@ import {
     Settings,
 } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 
 export function AppSidebar() {
     const genres = [
         {
             title: 'Action',
             to: '/movies/genre/action',
-            icon: '💥',
+            icon: '🤯',
         },
         {
             title: 'Adventure',
             to: '/movies/genre/adventure',
-            icon: '🏴‍☠️',
+            icon: '⚔️',
         },
         {
             title: 'Comedy',
             to: '/movies/genre/comedy',
-            icon: '😂',
+            icon: '🤡',
         },
         {
             title: 'Crime',
             to: '/movies/genre/crime',
-            icon: '',
+            icon: '🔪',
         },
         {
             title: 'Thriller',
             to: '/movies/genre/thriller',
-            icon: '⚽',
+            icon: '🕵',
+        },
+        {
+            title: 'Western',
+            to: '/movies/genre/western',
+            icon: '🤠',
         },
         {
             title: 'Documentary',
             to: '/movies/genre/documentary',
-            icon: '',
+            icon: '🛸',
         },
         {
             title: 'Drama',
             to: '/movies/genre/drama',
-            icon: '',
+            icon: '🎭',
         },
         {
             title: 'Horror',
             to: '/movies/genre/horror',
-            icon: '',
+            icon: '💀',
         },
         {
             title: 'Indie',
             to: '/movies/genre/indie',
-            icon: '',
-        },
-        {
-            title: 'Sports',
-            to: '/movies/genre/sports',
-            icon: '⚽',
+            icon: '🎬',
         },
         {
             title: 'Science Fiction',
             to: '/movies/genre/science-fiction',
-            icon: '',
+            icon: '🧬',
         },
     ];
 
@@ -111,7 +112,14 @@ export function AppSidebar() {
                                         <SidebarMenuItem key={item.title}>
                                             <SidebarMenuButton asChild>
                                                 <Link to={item.to}>
-                                                    <span>{item.icon}</span>
+                                                    <HoverCard>
+                                                        <HoverCardTrigger>
+                                                            <span>{item.icon}</span>
+                                                        </HoverCardTrigger>
+                                                        <HoverCardContent>
+                                                            {item.title}
+                                                        </HoverCardContent>
+                                                    </HoverCard>
                                                     <span>{item.title}</span>
                                                 </Link>
                                             </SidebarMenuButton>
@@ -130,7 +138,14 @@ export function AppSidebar() {
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild>
                                         <Link to={item.to}>
-                                            <item.icon />
+                                            <HoverCard>
+                                                <HoverCardTrigger asChild>
+                                                    <item.icon />
+                                                </HoverCardTrigger>
+                                                <HoverCardContent>
+                                                    {item.title}
+                                                </HoverCardContent>
+                                            </HoverCard>
                                             <span>{item.title}</span>
                                         </Link>
                                     </SidebarMenuButton>

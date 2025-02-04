@@ -57,22 +57,22 @@ export const traktApi = createApi({
       },
     }),
     searchMovies: builder.query({
-      query: ({ query, option, page }) => {
+      query: ({ query, searchType, page }) => {
         const params = new URLSearchParams({
           query: query,
           page: page.toString(),
         });
         if (!query)
           params.set('query', " ");
-        console.log(`search/${option}?${params.toString()}&fields=title,overview`)
-        return `search/${option}?${params.toString()}&fields=title,overview`
+        console.log(`search/${searchType}?${params.toString()}&fields=title,overview`)
+        return `search/${searchType}?${params.toString()}&fields=title,overview`
       },
       transformResponse: (response: SearchResponse[]): (Movie | null)[] => {
         return getMoviesArray(response);
       },
     }),
     searchMoviesAutocomplete: builder.query({
-      query: ({ query, option }) => {
+      query: ({ query, option, genre }) => {
         const params = new URLSearchParams({
           query: query,
           page: '1',
@@ -80,7 +80,8 @@ export const traktApi = createApi({
         });
         if (!query)
           params.set('query', " ");
-        console.log(`search/${option}?${params.toString()}&fields=title`)
+        if (genre)
+          params.append('genres', genre);
         return `search/${option}?${params.toString()}&fields=title`
       },
       transformResponse: (response: SearchResponse[]): (Movie | null)[] => {
