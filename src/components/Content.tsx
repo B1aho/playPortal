@@ -11,7 +11,7 @@ import { ChevronDown } from "lucide-react";
 interface ContentProps {
     queryFn: QueryHook;
     queryArg: {
-        query?: string,
+        query: string | null,
         searchType?: string,
         page?: number | string;
         genre?: string;

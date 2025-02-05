@@ -4,14 +4,12 @@ import { checkOldPassword, clearError, selectConfirmPassword, selectErrorName, s
 import { Button } from "./ui/button";
 import { KeyRound } from "lucide-react";
 import { PasswordInput } from "./PasswordInput";
-import { useToast } from "@/hooks/use-toast";
 import { PopupConfirm } from "./PopupConfirm";
 
 // Разделить на два компонента 
 export function DeleteAccount() {
     const [oldPassword, setOldPassword] = useState('');
     const isConfirmOldPassword = useAppSelector(selectConfirmPassword);
-    const { toast } = useToast();
     const error = useAppSelector(selectErrorName);
     const dispatch = useAppDispatch();
 

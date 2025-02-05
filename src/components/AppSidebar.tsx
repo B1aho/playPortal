@@ -21,7 +21,6 @@ import {
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 import { ThemeSwitch } from "./ThemeSwitch";
-import github from "@/assets/github.svg";
 
 export function AppSidebar() {
     const genres = [

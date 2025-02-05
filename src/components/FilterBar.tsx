@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Slider } from "./ui/slider";
 import { Button } from "./ui/button";
-import { Check, Eraser, RotateCcw } from "lucide-react";
+import { Check, RotateCcw } from "lucide-react";
 
 interface FilterProps {
     tmdbMin: number;

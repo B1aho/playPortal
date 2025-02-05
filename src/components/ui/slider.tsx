@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as SliderPrimitive from '@radix-ui/react-slider';
 
 import { cn } from '@/lib/utils';
@@ -20,7 +20,7 @@ const Slider = React.forwardRef(({ className, min, max, step, formatLabel, value
   const initialValue = Array.isArray(value) ? value : [min, max];
   const [localValues, setLocalValues] = useState(initialValue);
 
-  const handleValueChange = (newValues) => {
+  const handleValueChange = (newValues: any) => {
     setLocalValues(newValues);
     if (onValueChange) {
       onValueChange(newValues);

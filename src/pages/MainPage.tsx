@@ -39,7 +39,9 @@ export function MainPage() {
     } else {
         queryFn = useGetPopularMoviesQuery;
         heading = `Most popular movies`;
-        queryArg = {};
+        queryArg = {
+            query: null,
+        };
     }
 
     /**

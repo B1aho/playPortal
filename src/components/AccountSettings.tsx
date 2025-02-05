@@ -1,6 +1,5 @@
 import { useAppSelector } from "@/app/hooks";
 import { selectUsername } from "@/features/user/userSlice";
-import { UserRoundPen } from "lucide-react";
 import {
     Tabs,
     TabsContent,

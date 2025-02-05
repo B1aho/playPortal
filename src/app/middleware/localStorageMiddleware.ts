@@ -1,10 +1,10 @@
 import { Middleware } from "@reduxjs/toolkit";
-import { afterPasswordChanged, clearError, logout, setError, setIsPasswordWasChanged, setOldPasswordCheckRes, UserActions } from "@/features/user/userSlice";
+import { afterPasswordChanged, clearError, logout, setError, setIsPasswordWasChanged, setOldPasswordCheckRes } from "@/features/user/userSlice";
 import { changePasswordInLocalStorage, changeUsernameInLocalStorage, checkLocalStoragePassword, clearCurrUsername, deleteAccountFromLocalStorage, getStoredFavs, getStoredUser, saveCurrUsername, saveUserToLocalStorage } from "./utility";
-import { loadFavorites, clearLibrary, LibActions } from '@/features/library/librarySlice';
+import { loadFavorites, clearLibrary } from '@/features/library/librarySlice';
 const FAVS = import.meta.env.VITE_FAVS_KEY;
 
-export const localStorageMiddleware: Middleware = store => next => (action: UserActions | LibActions) => {
+export const localStorageMiddleware: Middleware = store => next => (action: unknown) => {
   // Проверка logIn
   if (action.type === 'user/logIn') {
     const { username, password } = action.payload;

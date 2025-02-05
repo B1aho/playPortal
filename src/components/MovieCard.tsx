@@ -2,8 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { AddFavBtn } from "./AddFavBtn";
 import { Movie } from "@/services/traktApiTypes";
 import { MovieBackdrop } from "./MovieBackdrop";
-import { Button } from "./ui/button";
-import { MonitorX } from "lucide-react";
 import { Separator } from "./ui/separator";
 
 interface MovieCardProps {
