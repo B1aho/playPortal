@@ -70,8 +70,8 @@ export function AppSidebar() {
             icon: '💀',
         },
         {
-            title: 'Indie',
-            to: '/movies/genre/indie',
+            title: 'Short',
+            to: '/movies/genre/short',
             icon: '🎬',
         },
         {
