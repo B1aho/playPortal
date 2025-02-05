@@ -5,7 +5,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { ScrollDesc } from "@/components/ScrollDesc";
 import { useGetMovieInfoQuery, useGetMovieRelatedQuery, useGetShowInfoQuery, useGetShowRelatedQuery } from "@/services/traktApi";
 import Lottie from "lottie-react";
-import hand from "@/lottie/hand.json";
+import send from "@/lottie/send.json";
 import { MovieBackdrop } from "@/components/MovieBackdrop";
 import { RelatedCards } from "@/components/RelatedCards";
 import { AnimatedCircularProgressBar } from "@/components/ui/circularProgressBar";
@@ -22,7 +22,7 @@ function MoviePage() {
         <>
             {!isSuccess
                 ? <div className="flex justify-center items-center relative">
-                    <Lottie animationData={hand} className="w-3/4 relative -top-10" />
+                    <Lottie animationData={send} className="w-3/4 relative -top-10" />
                 </div>
                 :
                 <>

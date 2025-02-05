@@ -7,7 +7,7 @@ import Layout from './pages/Layout';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { lazy, Suspense } from 'react';
 import { SettingPage } from './pages/SettingPage';
-import send from '@/lottie/send.json';
+import load from '@/lottie/image.json';
 import Lottie from 'lottie-react';
 const MoviePage = lazy(() => import('./pages/MoviePage'));
 const LibraryPage = lazy(() => import('./pages/LibraryPage'));
@@ -16,7 +16,7 @@ const LibraryPage = lazy(() => import('./pages/LibraryPage'));
 function App() {
   return (
     <div className='w-full'>
-      <Suspense fallback={<Lottie animationData={send} />}>
+      <Suspense fallback={<div className='w-full h-full flex justify-center items-center'><Lottie className='w-1/2' animationData={load} /></div>}>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="login" element={<LoginPage />} />
