@@ -1,3 +1,4 @@
+import { Loader } from "lucide-react";
 import { useEffect, useRef } from "react";
 
 interface LoadMoreProps {
@@ -20,7 +21,7 @@ export function LoadMore({ isLoading, onIntersection, className }: LoadMoreProps
                     onIntersection();
                 }
             });
-        }, { threshold: 0.5 });
+        }, { threshold: 0 });
 
         if (observerRef.current) {
             observer.current.observe(observerRef.current);
@@ -36,6 +37,8 @@ export function LoadMore({ isLoading, onIntersection, className }: LoadMoreProps
 
 
     return (
-        <div ref={observerRef} className={'bg-blue-500 ' + className}>Load More</div>
+        <div ref={observerRef} className={'bg-transparent h-16 flex justify-center items-center ' + className}>
+            <Loader className={!isLoading ? 'opacity-0' : 'opacity-100 animate-spin'} size={35} />
+        </div>
     )
 }

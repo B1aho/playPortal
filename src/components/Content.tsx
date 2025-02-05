@@ -1,4 +1,4 @@
-//const MAX_PAGE_LIMIT = 100;
+// Добавит виртуализацию!
 
 import { ContentView } from "./ContentView";
 import { FilterBar } from "./FilterBar";
@@ -21,8 +21,6 @@ interface ContentProps {
     heading: string;
 }
 
-// Обработать отсутствие данных - если человек ввел в url не существуюший tag, genre, или поиск = 0. Короче все кейсы
-// где count === 0 или data.undefined - показывать картинку или анимацию с lottify
 export function Content({ queryFn, queryArg, heading }: ContentProps) {
     const [page, setPage] = useState(1);
     const [tmdbRatingMin, setTmdbRatingMin] = useState(0.0);
@@ -88,7 +86,7 @@ export function Content({ queryFn, queryArg, heading }: ContentProps) {
                     </CollapsibleContent>
                 </Collapsible>
                 <ContentView error={error} isSuccess={isSuccess} isLoading={isLoading} data={traktResponse} />
-                <LoadMore isLoading={isLoading} onIntersection={incrementPage} className={isLoading ? 'hidden' : ''} />
+                <LoadMore isLoading={isLoading} onIntersection={incrementPage} />
             </div>
         </>
     )

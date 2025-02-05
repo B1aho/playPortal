@@ -39,7 +39,7 @@ export function AddFavBtn({ id, type }: { id: number, type?: string }) {
                     />
                     : <Heart
                         size={30}
-                        className={"hover:animate-heart-beat cursor-pointer" + (isAuthenticated ? 'text-red-700' : 'text-gray-500')}
+                        className={"hover:animate-heart-beat cursor-pointer " + (isAuthenticated ? 'text-red-700' : 'text-gray-500')}
                         onPointerUp={() => isAuthenticated && dispatchAdding()}
                     />
                 }

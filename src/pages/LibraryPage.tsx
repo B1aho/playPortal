@@ -5,6 +5,8 @@ import { selectFavs } from "@/features/library/librarySlice";
 import { useLazyGetMovieInfoShortQuery, useLazyGetShowInfoShortQuery } from "@/services/traktApi";
 import { Movie } from "@/services/traktApiTypes";
 import { useEffect, useReducer, useState } from "react";
+import send from '@/lottie/send.json';
+import Lottie from "lottie-react";
 
 // draggable добавить
 interface State {
@@ -117,9 +119,11 @@ function LibraryPage() {
 
     return (
         <>
-            <ContentView data={movies} />
-            {isLoading && <div>Loading...</div>}
-            <LoadMore isLoading={isLoading} onIntersection={() => (favsId.length === 0 || loadedCount >= favsId.length) ? null : setNext(prev => prev + 1)} className={isLoading ? 'hidden' : ''} />
+            <div className="p-4">
+                <ContentView data={movies} />
+                {isLoading && <Lottie className="w-1/2" animationData={send} />}
+                <LoadMore isLoading={isLoading} onIntersection={() => (favsId.length === 0 || loadedCount >= favsId.length) ? null : setNext(prev => prev + 1)} className={isLoading ? 'hidden' : ''} />
+            </div>
         </>
     )
 }

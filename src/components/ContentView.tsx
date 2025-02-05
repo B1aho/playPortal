@@ -2,8 +2,9 @@ import { MovieCard } from "./MovieCard";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { SerializedError } from "@reduxjs/toolkit";
-import { ContentSkeleton } from "./ContentSkeleton";
 import { Movie } from "@/services/traktApiTypes";
+import Lottie from "lottie-react";
+import loadingData from '@/lottie/send.json';
 
 interface ContentProps {
     data: (Movie | null)[] | undefined;
@@ -17,11 +18,12 @@ interface ContentProps {
 export function ContentView({ data, isLoading, isSuccess, error }: ContentProps) {
     let content = null;
     if (error) {
-        content = <div>Error occured! {JSON.stringify(error)}</div>;
+        console.error('Error ocurred: ', error);
     }
-    // Уйти от skeleton, оставить loader
     if (isLoading || (isSuccess && !data)) {
-        content = <ContentSkeleton />;
+        content = <div className="min-w-full min-h-full flex justify-center items-start">
+            <Lottie className="min-w-[400px]" animationData={loadingData} />
+        </div>;
     } else if (data) {
         console.log(data)
         content = (
