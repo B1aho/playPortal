@@ -147,12 +147,10 @@ label.invalid-label:after {
 background:  rgba(224, 194, 0, 0.721); 
 }
 
-/* src/styles/globals.css */
 .custom-hover-animation {
   @apply transition-all ease-in-out duration-300 hover:-translate-y-1 hover:scale-105 hover:opacity-100 cursor-default select-none;
 }
 
-/* src/styles/globals.css */
 .related-hover-animation {
   @apply transition-all ease-in-out duration-300  hover:scale-110 hover:opacity-100 cursor-pointer select-none ;
 }

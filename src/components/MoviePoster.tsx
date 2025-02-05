@@ -1,6 +1,7 @@
 import { useGetTmdbMovieImagesQuery } from '@/services/tmdbApi';
 import Lottie from "lottie-react";
 import imageLoader from "@/lottie/image.json";
+import noDataAnimation from "@/lottie/no-data.json";
 
 type ImageQaulity = "w92" | "w154" | "w185" | "w342" | "w500" | "w780" | "original";
 
@@ -13,11 +14,6 @@ interface MoviePosterProps {
 
 export const MoviePoster = ({ tmdbMovieId, quality = "w780", type = "movie", inSearch = true }: MoviePosterProps) => {
     const { data: tmdbData, error, isLoading } = useGetTmdbMovieImagesQuery({ type, tmdbMovieId });
-    if (error) return (
-        <div className='w-full h-36'>
-            <p>Error occured!</p>
-        </div>
-    );
 
     if (isLoading && !tmdbData) {
         return (
@@ -33,9 +29,9 @@ export const MoviePoster = ({ tmdbMovieId, quality = "w780", type = "movie", inS
             ? `https://image.tmdb.org/t/p/${quality}${tmdbData?.backdrops[0].file_path}`
             : null;
 
-    if (!posterUrl) {
-        return (<div className='w-full'>
-            Ниче не загрузилось
+    if (!posterUrl || error) {
+        return (<div className='w-[30%] flex justify-center items-center'>
+            <Lottie className=' h-auto object-cover rounded-t-2xl' animationData={noDataAnimation} loop={true} />
         </div>)
     }
 

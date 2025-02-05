@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import {
     Sidebar,
     SidebarContent,
+    SidebarFooter,
     SidebarGroup,
     SidebarGroupContent,
     SidebarGroupLabel,
@@ -20,6 +21,7 @@ import {
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 import { ThemeSwitch } from "./ThemeSwitch";
+import github from "@/assets/github.svg";
 
 export function AppSidebar() {
     const genres = [
@@ -163,6 +165,13 @@ export function AppSidebar() {
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>
+                <SidebarFooter>
+                    <SidebarMenuButton asChild>
+                        <a href="https://github.com/B1aho">
+                            © Viktor Kolesnik
+                        </a>
+                    </SidebarMenuButton>
+                </SidebarFooter>
             </SidebarContent>
         </Sidebar>
     )
