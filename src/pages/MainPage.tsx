@@ -5,7 +5,6 @@ import { useGetMediaQuery, useGetPopularMoviesQuery, useSearchMoviesQuery } from
 import { SearchTypeContext } from "@/app/searchTypeContext";
 
 export function MainPage() {
-    // Более четко здесь определяем какой тип запроса: поиск или что-то другое и передаем в content уже все готовое
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const query = queryParams.get('query');
@@ -21,7 +20,6 @@ export function MainPage() {
     let queryArg = null;
     let heading = 'Movies';
 
-    // Если есть жанр или страна или еще что-то, 
     if (genre) {
         queryFn = useGetMediaQuery;
         heading = `Movies in ${genre} genre`;

@@ -12,10 +12,6 @@ import { AnimatedCircularProgressBar } from "@/components/ui/circularProgressBar
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { Globe } from "lucide-react";
 
-// Компонент рендериена вынести отдельно
-// Большая кнопка добавить в избранно с анимацией и похожа кнопка - добавить в коллекцию
-// Еще запросить и отобразить ачивки
-
 function MoviePage() {
     const { slug } = useParams();
     const { pathname } = useLocation();
