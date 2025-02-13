@@ -16,13 +16,16 @@ import {
 import {
     BookUser,
     ChevronDown,
+    Copyright,
     Settings,
 } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
-import { ThemeSwitch } from "./ThemeSwitch";
+import { ThemeBtnContent } from "./ThemeBtnContent";
+import { useTheme } from "@/hooks/useTheme";
 
 export function AppSidebar() {
+    const toggleTheme = useTheme();
     const genres = [
         {
             title: 'Action',
@@ -153,12 +156,9 @@ export function AppSidebar() {
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
                             ))}
-                            <SidebarMenuItem key={'123435-12'}>
-                                <SidebarMenuButton asChild className="relative">
-                                    <div className="relative ">
-                                        <ThemeSwitch />
-                                        <span className="cursor-default">Switch theme</span>
-                                    </div>
+                            <SidebarMenuItem key='theme-switcher'>
+                                <SidebarMenuButton onClick={e => toggleTheme()}>
+                                    <ThemeBtnContent />
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                         </SidebarMenu>
@@ -167,7 +167,8 @@ export function AppSidebar() {
                 <SidebarFooter>
                     <SidebarMenuButton asChild>
                         <a href="https://github.com/B1aho">
-                            © Viktor Kolesnik
+                            <Copyright />
+                            <span>Viktor Kolesnik</span>
                         </a>
                     </SidebarMenuButton>
                 </SidebarFooter>
