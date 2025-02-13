@@ -19,13 +19,13 @@ export function LoginInput({ onLoginChange, value }: LoginInputProps) {
 
     return (
         <div className="flex gap-1 flex-col-reverse">
-            <Input className="mb-1 " type="text" pattern="^\w{6,20}" required id="login" value={value} onChange={handleLoginChange} />
+            <Input className="mb-3 " type="text" pattern="^\w{6,20}" required id="login" value={value} onChange={handleLoginChange} />
             <Label
                 className={'text-base ' + (!isLoginValid ? "invalid-label" : undefined)}
                 data-help="6–20 characters (Latin letters, numbers, underscores only)"
                 htmlFor="login"
             >
-                Login:
+                Login
             </Label>
         </div>
     )

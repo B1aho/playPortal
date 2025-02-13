@@ -18,7 +18,7 @@ export function PasswordInput({ onPasswordChange, value, labelText = "Password: 
     }
     return (
         <div className="flex flex-col-reverse">
-            <Password onChange={(e) => handlePassChange(e)} value={value} />
+            <Password className="mb-3" onChange={(e) => handlePassChange(e)} value={value} />
             <Label
                 data-help="At least 8 characters long and include at least one letter, one number and one special character (!@#$%^&*)"
                 htmlFor="password" className={"text-base " + (!isPasswordValid ? "invalid-label" : undefined)}>{labelText}</Label>
