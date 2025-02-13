@@ -5,8 +5,6 @@ import { selectFavs } from "@/features/library/librarySlice";
 import { useLazyGetMovieInfoShortQuery, useLazyGetShowInfoShortQuery } from "@/services/traktApi";
 import { Movie } from "@/services/traktApiTypes";
 import { useEffect, useReducer, useState } from "react";
-import send from '@/lottie/send.json';
-import Lottie from "lottie-react";
 import { selectIsAuthenticated } from "@/features/user/userSlice";
 import { AnimNotAuth } from "@/components/AnimNotAuth";
 
@@ -125,8 +123,7 @@ function LibraryPage() {
             {isAuthenticated
                 ?
                 <div className="p-4">
-                    <ContentView data={movies} />
-                    {isLoading && <Lottie className="w-1/2" animationData={send} />}
+                    <ContentView isLoading={isLoading} data={movies} />
                     <LoadMore isLoading={isLoading} onIntersection={() => (favsId.length === 0 || loadedCount >= favsId.length) ? null : setNext(prev => prev + 1)} className={isLoading ? 'hidden' : ''} />
                 </div>
                 : <AnimNotAuth />

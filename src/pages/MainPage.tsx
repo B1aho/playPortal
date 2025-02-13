@@ -52,7 +52,6 @@ export function MainPage() {
 
     return (
         <>
-
             <div className="p-3">
                 <Content queryFn={queryFn} queryArg={queryArg} heading={heading} />
             </div>

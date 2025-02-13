@@ -40,7 +40,6 @@ export function Content({ queryFn, queryArg, heading }: ContentProps) {
      * Without this, the page would continue to increment and add new results to the old ones instead of starting 
      * fresh with the new search query.
      * 
-     * В КАСТОМНЫЙ ХУК
      */
     useEffect(() => {
         setPage(1);

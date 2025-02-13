@@ -20,8 +20,9 @@ export function ContentView({ data, isLoading, isSuccess, error }: ContentProps)
     if (error) {
         console.error('Error ocurred: ', error);
     }
+    let loading = null;
     if (isLoading || (isSuccess && !data)) {
-        content = <div className="min-w-full min-h-full flex justify-center items-start">
+        loading = <div className="min-w-full min-h-full flex justify-center items-start">
             <Lottie className="min-w-[400px]" animationData={loadingData} />
         </div>;
     } else if (data) {
@@ -33,11 +34,13 @@ export function ContentView({ data, isLoading, isSuccess, error }: ContentProps)
         )
     }
     return (
-        <ResponsiveMasonry
-            columnsCountBreakPoints={{ 0: 1, 600: 2, 1000: 3 }}
-        >
-            <Masonry>{content}</Masonry>
-        </ResponsiveMasonry>
-
+        <>
+            {loading}
+            <ResponsiveMasonry
+                columnsCountBreakPoints={{ 0: 1, 600: 2, 1000: 3 }}
+            >
+                <Masonry>{content}</Masonry>
+            </ResponsiveMasonry>
+        </>
     );
 }

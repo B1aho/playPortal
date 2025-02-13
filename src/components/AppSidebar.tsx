@@ -157,7 +157,7 @@ export function AppSidebar() {
                                 </SidebarMenuItem>
                             ))}
                             <SidebarMenuItem key='theme-switcher'>
-                                <SidebarMenuButton onClick={e => toggleTheme()}>
+                                <SidebarMenuButton onClick={_ => toggleTheme()}>
                                     <ThemeBtnContent />
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
