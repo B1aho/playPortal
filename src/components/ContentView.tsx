@@ -38,6 +38,7 @@ export function ContentView({ data, isLoading, isSuccess, error }: ContentProps)
             {loading}
             <ResponsiveMasonry
                 columnsCountBreakPoints={{ 0: 1, 600: 2, 1000: 3 }}
+                gutterBreakPoints={{ 0: "10px", 600: "13px", 1000: "14px" }}
             >
                 <Masonry>{content}</Masonry>
             </ResponsiveMasonry>

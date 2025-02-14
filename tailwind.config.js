@@ -21,10 +21,15 @@ module.exports = {
 			  '0%, 100%': { transform: 'scale(1)' },
 			  '50%': { transform: 'scale(1.2)' },
 			},
+			float: {
+				'0%, 100%': { transform: 'scale(1)' },
+				'50%': { transform: 'scale(1.025)' },
+			},
 		  },
 		  animation: {
 			'heart-beat': 'heart-beat 0.5s ease-in-out infinite',
 			shake: 'shake 0.5s infinite ease-in-out',
+			float: 'float 2s infinite ease-in-out',
 		  },
   		borderRadius: {
   			lg: 'var(--radius)',
