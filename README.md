@@ -1,7 +1,7 @@
 # CinemaPick 🎬
 CinemaPick is a modern, responsive web application built with React that allows users to browse movies, TV shows seamlessly and add favs into the library.
 
-Check out the live version of CinemaPick (with VPN if you have Russian IP):
+Check out the live version of CinemaPick (VPN requirement with Russian IP):
 👉 https://cinemapick.netlify.app/main
 
 ## Technologies Used 🛠️
