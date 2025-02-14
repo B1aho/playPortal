@@ -9,7 +9,7 @@ interface RelatedCardsProps {
 export function RelatedCards({ data }: RelatedCardsProps) {
     const isMobile = useIsMobile();
     return (
-        <div className="flex flex-col items-center md:flex-row md:justify-evenly gap-4">
+        <div className="flex flex-col items-start md:flex-row md:justify-evenly gap-4">
             {data && data.map(movie => {
                 return <MovieSearchCard
                     classList="related-hover-animation"
