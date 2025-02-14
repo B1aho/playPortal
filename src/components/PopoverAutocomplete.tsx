@@ -13,6 +13,8 @@ import { Skeleton } from "./ui/skeleton";
 import { PopoverAnchor } from "@radix-ui/react-popover";
 import { Movie } from "@/services/traktApiTypes";
 import { MovieSearchCard } from "./MovieSearchCard";
+import { Search } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 type Props<T extends string> = {
     selectedValue?: T;
@@ -38,6 +40,7 @@ export function AutoComplete<T extends string>({
     placeholder = "Search...",
 }: Props<T>) {
     const [open, setOpen] = useState(false);
+    const isMobile = useIsMobile();
 
 
     const handleKeyUp: KeyboardEventHandler<HTMLInputElement> = useCallback((e) => {
@@ -47,12 +50,18 @@ export function AutoComplete<T extends string>({
         }
     }, [onRedirect])
 
+    const mobileSearch = useCallback(() => {
+        onRedirect();
+        setOpen(false);
+    }, [onRedirect])
+
     return (
         <div className="flex items-center w-full">
             <Popover open={open}
                 onOpenChange={setOpen}
             >
                 <Command shouldFilter={false} className="relative">
+                    {isMobile && <Search onPointerUp={mobileSearch} className="absolute top-[14px] left-1" size={18} />}
                     <PopoverAnchor asChild>
                         <CommandPrimitive.Input
                             asChild
@@ -62,7 +71,7 @@ export function AutoComplete<T extends string>({
                             onFocus={() => setOpen(true)}
                             className="rounded-md shadow-inner bg-white bg-opacity-70 py-4 h-11 text-sm outline-1 placeholder:text-black dark:placeholder:text-muted-foreground"
                         >
-                            <Input maxLength={65} className=" border-none" placeholder={placeholder} />
+                            <Input maxLength={65} className="pl-7 md:pl-3 border-none" placeholder={placeholder} />
                         </CommandPrimitive.Input>
                     </PopoverAnchor>
                     {children}
@@ -75,7 +84,7 @@ export function AutoComplete<T extends string>({
                                 e.preventDefault();
                             }
                         }}
-                        className="w-[--radix-popover-trigger-width] p-0"
+                        className="w-[70%] md:w-[--radix-popover-trigger-width] p-0 "
                     >
                         <CommandList>
                             {(isLoading) && (

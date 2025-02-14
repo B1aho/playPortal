@@ -17,13 +17,14 @@ export function MovieSearchCard({ data, onSelect, direction = 'row', headingSize
     if (data === null)
         return null;
     return (
-        <div className={cn("w-full flex items-center justify-center cursor-pointer " + (direction === 'col' ? 'max-w-40' : ""), classList)}
+        <div
+            style={direction === 'col' ? { flexDirection: 'column' } : { flexDirection: 'row' }}
+            className={cn("w-full flex flex-row md:flex-col items-center justify-center cursor-pointer " + (direction === 'col' ? 'max-w-40' : ""), classList)}
             onPointerUp={(e) => {
                 e.stopPropagation();
                 onSelect && onSelect();
                 navigate(`/${data.type}/${data.ids.slug}`)
             }}
-            style={direction === 'col' ? { flexDirection: 'column' } : { flexDirection: 'row' }}
         >
             <div className={"overflow-hidden " + (direction === 'row' && 'flex-1 w-1/2')}>
                 <MoviePoster inSearch={direction === 'row'} type={data.type} tmdbMovieId={data.ids.tmdb} />

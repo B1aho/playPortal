@@ -33,7 +33,7 @@ export function Auth(
     }: AuthProps) {
     const needConfirmPassword = (confirmPassword || confirmPassword === "") && onConfirmPasswordChange;
     return (
-        <div className="w-96 flex flex-col">
+        <div className=" md:w-96 flex flex-col">
             <form onSubmit={onSubmit} className="w-full flex flex-col">
                 <LoginInput onLoginChange={onLoginChange} value={login} />
                 <PasswordInput onPasswordChange={onPasswordChange} value={password} />

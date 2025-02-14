@@ -11,7 +11,9 @@ export function HoverSignupBtn({ isAuthenticated }: HoverSignupBtnProps) {
         <>
             <HoverCard>
                 <HoverCardTrigger>
-                    <Button disabled={isAuthenticated ? true : false} variant="link" onPointerUp={() => navigate('/signup')}>SIGN UP</Button>
+                    <Button disabled={isAuthenticated ? true : false} variant="link" onPointerUp={() => navigate('/signup')}>
+                        SIGN UP
+                    </Button>
                 </HoverCardTrigger>
                 <HoverCardContent>
                     <span className="text-lg font-medium">

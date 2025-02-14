@@ -10,9 +10,10 @@ interface MoviePosterProps {
     quality?: ImageQaulity;
     type?: string;
     inSearch?: boolean;
+    isBackgroung?: boolean;
 }
 
-export const MoviePoster = ({ tmdbMovieId, quality = "w780", type = "movie", inSearch = true }: MoviePosterProps) => {
+export const MoviePoster = ({ tmdbMovieId, quality = "w780", type = "movie", inSearch = true, isBackgroung = false }: MoviePosterProps) => {
     const { data: tmdbData, error, isLoading } = useGetTmdbMovieImagesQuery({ type, tmdbMovieId });
 
     if (isLoading && !tmdbData) {
@@ -30,7 +31,7 @@ export const MoviePoster = ({ tmdbMovieId, quality = "w780", type = "movie", inS
             : null;
 
     if (!posterUrl || error) {
-        return (<div className='w-[30%] flex justify-center items-center'>
+        return (<div className={'flex justify-center items-center' + isBackgroung ? ' w-full' : ' w-[30%]'} >
             <Lottie className=' h-auto object-cover rounded-t-2xl' animationData={noDataAnimation} loop={true} />
         </div>)
     }
@@ -42,7 +43,7 @@ export const MoviePoster = ({ tmdbMovieId, quality = "w780", type = "movie", inS
                 <img
                     src={posterUrl}
                     alt="Movie Poster"
-                    className={'h-auto rounded-md ' + (inSearch ? 'w-32' : 'w-40')}
+                    className={'h-auto rounded-md ' + (inSearch ? ' w-32' : isBackgroung ? ' w-full mask' : ' w-40')}
                 />
             )}
         </>

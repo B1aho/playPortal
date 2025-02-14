@@ -11,6 +11,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarTrigger,
+    useSidebar,
 } from "./ui/sidebar";
 
 import {
@@ -26,6 +27,15 @@ import { useTheme } from "@/hooks/useTheme";
 
 export function AppSidebar() {
     const toggleTheme = useTheme();
+    const {
+        state,
+        open,
+        setOpen,
+        openMobile,
+        setOpenMobile,
+        isMobile,
+        toggleSidebar,
+    } = useSidebar()
     const genres = [
         {
             title: 'Action',

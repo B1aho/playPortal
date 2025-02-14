@@ -13,6 +13,8 @@ import { AnimatedCircularProgressBar } from "@/components/ui/circularProgressBar
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { Globe } from "lucide-react";
 import { isRed } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { MoviePoster } from "@/components/MoviePoster";
 
 function MoviePage() {
     const { slug } = useParams();
@@ -20,6 +22,8 @@ function MoviePage() {
     const type = pathname.includes('tv') ? 'tv' : 'movie'
     const { data, isSuccess } = type === 'tv' ? useGetShowInfoQuery(slug) : useGetMovieInfoQuery(slug);
     const { data: relatedData } = type === 'tv' ? useGetShowRelatedQuery(slug) : useGetMovieRelatedQuery(slug);
+    const isMobile = useIsMobile();
+
     return (
         <>
             {!isSuccess
@@ -29,9 +33,12 @@ function MoviePage() {
                 :
                 <>
                     <div className="absolute w-full top-0 left-0 -z-10 opacity-40">
-                        <MovieBackdrop isBackground={true} type={type} tmdbMovieId={data.ids.tmdb} quality="original" />
+                        {isMobile
+                            ? <MoviePoster tmdbMovieId={data.ids.tmdb} quality="original" inSearch={false} isBackgroung={true} />
+                            : <MovieBackdrop isBackground={true} type={type} tmdbMovieId={data.ids.tmdb} quality="original" />
+                        }
                     </div>
-                    <div className="flex p-3 mb-5">
+                    <div className="flex flex-col md:flex-row p-3 mb-5">
                         <div className="media-details select-none flex-[2]">
                             <h1 className="text-3xl text-shadow-bl dark:text-shadow-wh font-bold text-center">
                                 {data.title}
