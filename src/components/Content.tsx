@@ -30,7 +30,7 @@ export function Content({ queryFn, queryArg, heading }: ContentProps) {
     args.tmdbRatingMin = tmdbRatingMin * 10;
     args.tmdbRatingMax = tmdbRatingMax * 10;
     console.log(args)
-    const { data, error, isLoading, isSuccess } = queryFn(args);
+    const { data, error, isLoading, isFetching, isSuccess } = queryFn(args);
     const [traktResponse, setTraktResponse] = useState(data)
 
     /**
@@ -85,7 +85,7 @@ export function Content({ queryFn, queryArg, heading }: ContentProps) {
                     </CollapsibleContent>
                 </Collapsible>
                 <ContentView error={error} isSuccess={isSuccess} isLoading={isLoading} data={traktResponse} />
-                <LoadMore isLoading={isLoading} onIntersection={incrementPage} />
+                <LoadMore isLoading={isFetching} onIntersection={incrementPage} />
             </div>
         </>
     )

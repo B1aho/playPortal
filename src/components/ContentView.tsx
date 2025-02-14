@@ -3,8 +3,10 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { SerializedError } from "@reduxjs/toolkit";
 import { Movie } from "@/services/traktApiTypes";
+import { isRed } from "@/lib/utils";
 import Lottie from "lottie-react";
 import loadingData from '@/lottie/send.json';
+import redLoadingData from '@/lottie/red-send.json';
 
 interface ContentProps {
     data: (Movie | null)[] | undefined;
@@ -23,7 +25,7 @@ export function ContentView({ data, isLoading, isSuccess, error }: ContentProps)
     let loading = null;
     if (isLoading || (isSuccess && !data)) {
         loading = <div className="min-w-full min-h-full flex justify-center items-start">
-            <Lottie className="min-w-[400px]" animationData={loadingData} />
+            <Lottie className="min-w-[400px]" animationData={isRed() ? redLoadingData : loadingData} />
         </div>;
     } else if (data) {
         console.log(data)

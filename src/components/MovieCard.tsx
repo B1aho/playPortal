@@ -19,7 +19,7 @@ export function MovieCard({ data }: MovieCardProps) {
             </div>
             <Separator className="bg-transparent" />
             <div className=" relative dark:bg-white dark:bg-opacity-15 rounded-b-2xl p-3">
-                <div onPointerUp={() => navigate(`/${data.type}/${data.ids.slug}`)} className="cursor-pointer flex justify-between items-center w-full">
+                <div onPointerUp={() => navigate(`/${data.type}/${data.ids.slug}`)} className="cursor-pointer flex justify-between items-center w-full mb-1">
                     <h2 className="text-2xl font-extrabold hover:scale-110 hover:translate-x-1 transition-transform">{data.title}</h2>
                     {data.year && <h2 className="theme-red:text-yellow-300 theme-red:bg-black theme-blue:bg-white theme-blue:text-black p-1 rounded-md text-white font-bold">{data.year}</h2>}
                 </div>

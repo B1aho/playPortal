@@ -30,17 +30,8 @@ export function FilterBar({ tmdbMin, tmdbMax, setMin, setMax }: FilterProps) {
         setMax(10);
     }
     return (
-        <div className=" w-full flex justify-center items-center p-3">
-            <div className="w-full flex justify-evenly">
-                <div className="flex w-1/3  flex-col">
-                    <div className="flex items-center justify-start gap-5">
-                        <Button className="bg-green-400 hover:bg-green-600 bg-opacity-45 duration-200 hover:scale-110 transition-all ease-in-out " onPointerUp={applyValues}>
-                            <Check />
-                            Apply
-                        </Button>
-                        <RotateCcw className="cursor-pointer duration-200 hover:scale-110 transition-all ease-in-out" color="green" size={30} onPointerUp={clearValue} />
-                    </div>
-                </div>
+        <div className=" w-full rounded-md flex justify-center items-center p-3 bg-black bg-opacity-30 mb-3">
+            <div className="w-full flex justify-start gap-10">
                 <div className="flex w-1/2 justify-center items-center">
                     <Slider
                         id="rating-slider"
@@ -52,6 +43,15 @@ export function FilterBar({ tmdbMin, tmdbMax, setMin, setMax }: FilterProps) {
                         onValueChange={handleRatingChange}
                         formatLabel={(value) => `${value}`}
                     />
+                </div>
+                <div className="flex w-1/3  flex-col">
+                    <div className="flex items-center justify-start gap-4">
+                        <Button className="bg-yellow-200 hover:bg-amber-400 text-white hover:text-black bg-opacity-45 duration-200 hover:scale-110 transition-all ease-in-out " onPointerUp={applyValues}>
+                            <Check />
+                            <span className=" font-semibold">Apply</span>
+                        </Button>
+                        <RotateCcw className="cursor-pointer text-amber-400 duration-200 hover:scale-110 transition-all ease-in-out" size={30} onPointerUp={clearValue} />
+                    </div>
                 </div>
             </div>
         </div>

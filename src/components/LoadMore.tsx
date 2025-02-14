@@ -38,7 +38,7 @@ export function LoadMore({ isLoading, onIntersection, className }: LoadMoreProps
 
     return (
         <div ref={observerRef} className={'bg-transparent h-16 flex justify-center items-center ' + className}>
-            <Loader className={!isLoading ? 'opacity-0' : 'opacity-0 animate-spin'} size={35} />
+            <Loader className={isLoading ? 'animate-spin' : 'opacity-0'} size={35} />
         </div>
     )
 }
