@@ -60,9 +60,9 @@ export function AutoComplete<T extends string>({
                             onValueChange={onSearchValueChange}
                             onKeyUp={handleKeyUp}
                             onFocus={() => setOpen(true)}
-                            className="rounded-md shadow-inner bg-transparent py-4 h-11 text-sm outline-1 placeholder:text-white dark:placeholder:text-muted-foreground"
+                            className="rounded-md shadow-inner bg-white bg-opacity-70 py-4 h-11 text-sm outline-1 placeholder:text-black dark:placeholder:text-muted-foreground"
                         >
-                            <Input maxLength={65} className="dark:text-white text-white border-none" placeholder={placeholder} />
+                            <Input maxLength={65} className=" border-none" placeholder={placeholder} />
                         </CommandPrimitive.Input>
                     </PopoverAnchor>
                     {children}

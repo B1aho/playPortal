@@ -17,7 +17,7 @@ export function MovieCard({ data }: MovieCardProps) {
             <div className="w-full min-h-52 bg-black bg-opacity-30 dark:bg-white dark:bg-opacity-15 rounded-t-2xl  overflow-hidden">
                 <MovieBackdrop type={data.type} tmdbMovieId={data.ids.tmdb} />
             </div>
-            <Separator className="dark:bg-black" />
+            <Separator className="theme-blue:bg-blue-950 theme-red:bg-red-500" />
             <div className=" relative bg-black bg-opacity-30 dark:bg-white dark:bg-opacity-15 rounded-b-2xl p-3">
                 <div onPointerUp={() => navigate(`/${data.type}/${data.ids.slug}`)} className="cursor-pointer flex justify-between items-center w-full">
                     <h2 className="text-2xl font-extrabold">{data.title}</h2>

@@ -31,7 +31,7 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
     --grid-cards: repeat(auto-fill, minmax(300px, 1fr));
-    --sidebar-background: 0 0% 45.1% / 0.45;
+    --sidebar-background: 226 57% 21% / 0.45;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
@@ -40,8 +40,11 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
   .dark {
     --background: 0 0% 3.9%;
+    --background-blue: linear-gradient(to right, #27184e, #0f045d);
+    --red-gradient: linear-gradient( 180deg,  rgb(103, 11, 11) 11.2%, rgb(53, 5, 5) 100.6% );
     --foreground: 0 0% 98%;
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -76,14 +79,26 @@
   }
 }
 
+@layer utilities {
+  .bg-red {
+    background: var(--red-gradient);
+    background-color: rgb(87, 0, 0)
+  }
+  .bg-blue {
+    background: var(--background-blue);
+    background-color: rgb(0, 0, 65)
+  }
+}
+
 @layer base {
   * {
     @apply border-border;
   }
   body {
-    @apply bg-neutral-200 dark:bg-blue-950 dark:bg-opacity-100 text-foreground;
+    @apply theme-red:bg-red theme-blue:bg-blue bg-opacity-100 text-foreground;
   }
 }
+
 
 #root {
   

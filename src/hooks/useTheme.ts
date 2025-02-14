@@ -8,9 +8,11 @@ export function useTheme() {
 
     useEffect(() => {
         if (darkMode) {
-            document.documentElement.classList.add('dark');
+            document.documentElement.classList.add('dark-blue');
+            document.documentElement.classList.remove('dark-red');
         } else {
-            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.remove('dark-blue');
+            document.documentElement.classList.add('dark-red');
         }
     }, [darkMode]);
 

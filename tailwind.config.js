@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
   darkMode: ['class'],
   content: ['./index.html', './src/**/*.{ts,tsx,js,jsx}'],
@@ -83,5 +85,10 @@ module.exports = {
   		}
   	}
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'),
+	plugin(function({addVariant}) {
+		addVariant('theme-red', '.dark-red &');
+		addVariant('theme-blue', '.dark-blue &');
+	  })
+  ],
 };

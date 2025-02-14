@@ -34,12 +34,12 @@ export function Password({ value, onChange, className }: PasswordProps) {
             >
                 {showPassword && !disabled ? (
                     <EyeIcon
-                        className="text-white h-4 w-4"
+                        className="h-4 w-4"
                         aria-hidden="true"
                     />
                 ) : (
                     <EyeOffIcon
-                        className="text-white h-4 w-4"
+                        className="h-4 w-4"
                         aria-hidden="true"
                     />
                 )}
