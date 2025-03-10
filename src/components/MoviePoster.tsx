@@ -15,7 +15,8 @@ interface MoviePosterProps {
 
 export const MoviePoster = ({ tmdbMovieId, quality = "w780", type = "movie", inSearch = true, isBackgroung = false }: MoviePosterProps) => {
     const { data: tmdbData, error, isLoading } = useGetTmdbMovieImagesQuery({ type, tmdbMovieId });
-
+    console.log('In search = ', inSearch)
+    console.log('is back = ', isBackgroung)
     if (isLoading && !tmdbData) {
         return (
             <div className='w-full flex justify-center items-center'>
@@ -31,9 +32,11 @@ export const MoviePoster = ({ tmdbMovieId, quality = "w780", type = "movie", inS
             : null;
 
     if (!posterUrl || error) {
-        return (<div className={'flex justify-center items-center' + isBackgroung ? ' w-full' : ' w-[30%]'} >
-            <Lottie className=' h-auto object-cover rounded-t-2xl' animationData={noDataAnimation} loop={true} />
-        </div>)
+        return (
+            <div className={'flex justify-center h-48 items-center' + (isBackgroung ? ' w-full' : ' w-[40%]')} >
+                <Lottie className=' h-auto object-cover rounded-t-2xl' animationData={noDataAnimation} loop={true} />
+            </div>
+        )
     }
 
 

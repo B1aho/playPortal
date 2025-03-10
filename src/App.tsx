@@ -1,6 +1,6 @@
 import './index.css';
 import { LoginPage } from './features/user/Login';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { SignupPage } from './features/user/Signup';
 import { MainPage } from './pages/MainPage';
 import Layout from './pages/Layout';
@@ -19,6 +19,7 @@ function App() {
       <Suspense fallback={<div className='w-full h-full flex justify-center items-center'><Lottie className='w-1/2' animationData={load} /></div>}>
         <Routes>
           <Route path="/" element={<Layout />}>
+            <Route index element={<Navigate to="/main" replace />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="signup" element={<SignupPage />} />
             <Route path="main" element={<MainPage />} />
