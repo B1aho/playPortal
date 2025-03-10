@@ -14,6 +14,9 @@ Integrated two APIs (Trakt and TMDB) seamlessly to provide a rich user experienc
 - Others:
 LottieFiles for animations.
 
+## Preview
+![demo](./public/preview.gif)
+
 ## Features ✨
 1. Movie and TV Show Browsing
 Browse a vast collection of movies and TV shows.
